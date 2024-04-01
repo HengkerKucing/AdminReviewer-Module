@@ -65,7 +65,7 @@ class UserController extends Controller
                 [
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => Hash::make('password'),
+                    'password' => Hash::make($request->password),
                     'email_verified_at' => !blank($request->verified) ? now() : null
                 ]
             );
@@ -127,14 +127,18 @@ class UserController extends Controller
 
         try {
             $user = User::findorfail($id);
-            $user->update(
-                [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make('password'),
-                    'email_verified_at' => !blank($request->verified) ? now() : null
-                ]
-            );
+
+            $update_data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'email_verified_at' => !blank($request->verified) ? now() : null
+            ];
+            if(empty($request->password)){
+                unset($update_data['password']);
+            }
+            $user->update($update_data);
+
             $user->syncRoles(!blank($request->role) ? $request->role : array());
             toastr()->success('Pengguna berhasil diperbarui');
             return redirect()->route('manage-user.index');
