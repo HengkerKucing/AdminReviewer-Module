@@ -10,20 +10,10 @@ class Skema extends Model
     use HasFactory;
     public $timestamps = false;
 
-    public function submenus()
+    protected $table = "trx_skema";
+
+    public function id()
     {
-        return $this->hasMany(Menu::class, 'parent_id', 'id');
-    }
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'role_has_menus', 'menu_id', 'role_id');
-    }
-    public function permissions()
-    {
-        return $this->hasMany(Permission::class, 'menu_id', 'id');
-    }
-    public function parent()
-    {
-        return $this->belongsTo(Menu::class, 'parent_id', 'id');
+        return $this->belongsTo(Menu::class, 'trx_skema_id');
     }
 }

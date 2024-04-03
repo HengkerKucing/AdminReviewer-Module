@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @push('css')
+<!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 @endpush
 @section('content')
     <div class="content-header">
@@ -30,11 +34,13 @@
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
+                                @foreach ($skema as $item)
                                         <tr>
-                                            <td>1</td>
-                                            <td>Penelitian Terapan Pratama</td>
-                                            <td>PTP</td>
-                                            <td>2023</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->trx_skema_nama }}</td>
+                                            <td>{{ $item->trx_skema_kode }}</td>
+                                            <td>{{ $item->periode_tahun }}</td>
+
                                             <td>
                                                 <button type="button" class="btn btn-block btn-sm btn-outline-info"
                                                     data-toggle="dropdown"><i class="fas fa-cog"></i>
@@ -46,6 +52,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
