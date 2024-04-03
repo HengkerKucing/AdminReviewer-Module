@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use App\Models\Profil;
+use App\Models\User;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class RefSkemaController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('permission:read_role')->only('index', 'show');
-        // $this->middleware('permission:create_role')->only('create', 'store');
-        // $this->middleware('permission:update_role')->only('edit', 'update');
-        // $this->middleware('permission:delete_role')->only('destroy');
+        // $this->middleware('permission:read_profil')->only('index', 'show');
+        // $this->middleware('permission:create_profil')->only('create', 'store');
+        // $this->middleware('permission:update_profil')->only('edit', 'update');
+        // $this->middleware('permission:delete_profil')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -23,8 +24,8 @@ class RefSkemaController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', compact('roles'));
+        //
+        return view('ref_skema.index');
     }
 
     /**
@@ -34,8 +35,7 @@ class RefSkemaController extends Controller
      */
     public function create()
     {
-        $menus = Menu::where('parent_id', 0)->get();
-        return view('roles.create', compact('menus'));
+        //
     }
 
     /**
@@ -46,30 +46,16 @@ class RefSkemaController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $role = Role::create(['name' => strtolower($request->name)]);
-            foreach ($request->menu_id as $value) {
-                DB::table('role_has_menus')->insert([
-                    'menu_id' => $value,
-                    'role_id' => $role->id,
-                ]);
-            }
-            $role->syncPermissions($request->permission_id);
-            toastr()->success('Role berhasil disimpan');
-            return redirect()->route('manage-role.index');
-        } catch (\Throwable $th) {
-            toastr()->warning('Terdapat masalah diserver');
-            return redirect()->route('manage-role.index');
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Profil $profil)
     {
         //
     }
@@ -77,74 +63,47 @@ class RefSkemaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Profil $profil)
     {
-        $menus = Menu::where('parent_id', 0)->get();
-        $role = Role::findorfail($id);
-        $getmenus = DB::table('role_has_menus')->where('role_id', $id)->get();
-
-        $permissions = DB::table('permissions')
-            ->join('role_has_permissions as a', 'a.permission_id', 'permissions.id')
-            ->where('a.role_id', $role->id)
-            ->get();
-        return view('roles.edit', compact('role', 'menus', 'getmenus', 'permissions'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+        //
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'password' => ['required'],
+            'confirm_password' => ['same:password'],
+        ]);
         try {
-            DB::table('role_has_menus')->where('role_id', $id)->delete();
-            $role = Role::findorfail($id);
-            foreach ($request->menu_id as $value) {
-                DB::table('role_has_menus')->insert([
-                    'menu_id' => $value,
-                    'role_id' => $role->id,
-                ]);
-            }
-
-            $role = Role::findorfail($id);
-            $role->update(
-                [
-                    'name' => $request->name,
-                ]
-            );
-
-            $role->syncPermissions($request->permission_id);
-            toastr()->success('Role berhasil disimpan');
-            return redirect()->route('manage-role.index');
+            User::find(auth()->user()->id)->update(['password' => Hash::make($request->password)]);
+            toastr()->success('Password berhasil diubah');
+            return redirect()->to('home');
         } catch (\Throwable $th) {
-            toastr()->warning('Terdapat masalah diserver');
-            return redirect()->route('manage-role.index');
+            toastr()->warning('Masalah pada server');
+            return redirect()->to('home');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Profil $profil)
     {
-        // Menu::findorfail($id)->delete();
-        try {
-            DB::table('role_has_menus')->where('role_id', $id)->delete();
-            Role::findorfail($id)->delete();
-            toastr()->success('Role berhasil dihapus');
-            return redirect()->route('manage-role.index');
-        } catch (\Throwable $th) {
-            toastr()->warning('Terdapat masalah diserver');
-            return redirect()->route('manage-role.index');
-        }
+        //
     }
 }
