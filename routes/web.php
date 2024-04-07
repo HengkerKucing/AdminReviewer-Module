@@ -36,6 +36,7 @@ Route::resource('manage-user', UserController::class);
 Route::resource('manage-role', RoleController::class);
 Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
+Route::resource('ref-skema-file', RefSkemaController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 

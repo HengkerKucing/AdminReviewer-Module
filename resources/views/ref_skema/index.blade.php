@@ -25,12 +25,12 @@
                 <div class="col-md-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                        <table id="datatable-main" class="table table-bordered table-striped">
+                        <table id="datatable-main" class="table table-bordered table-striped ">
                                 <thead>
                                     <th>No</th>
                                     <th>Nama Skema</th>
                                     <th>Kode Skema</th>
-                                    <th>Periode (Tahun)</th>
+                                    <th>Periode</th>
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
@@ -42,7 +42,22 @@
                                             <td>{{ $item->periode_tahun }}</td>
 
                                             <td>
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info"
+                                                <div class="flex items-col">
+                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2";
+                                                    onclick="window.location.href = 'ref-skema-file'"><i class="far fa-file"></i>
+                                                </button>
+
+                                                <div class="flex items-col">
+                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
+                                                    onclick="window.location.href = '#'"><i class="fas fa-money-bill-wave-alt"></i>
+                                                </button>
+
+                                                <div class="flex items-col">
+                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
+                                                    onclick="window.location.href = '#'"><i class="fas fa-cog"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
                                                     data-toggle="dropdown"><i class="fas fa-cog"></i>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
@@ -50,7 +65,20 @@
                                                         href="#">Edit</a>
                                                     <a class="dropdown-item" href="#">Hapus</a>
                                                 </div>
+                                                </div>
                                             </td>
+                                            <style>
+                                            .flex {
+                                                display: flex;
+                                            }
+
+                                            .flex-col {
+                                                flex-direction: column;
+                                            }
+                                            .mb-2 {
+                                                margin-right: 5px;
+                                            }
+                                            </style>
                                         </tr>
                                 @endforeach
                                 </tbody>
