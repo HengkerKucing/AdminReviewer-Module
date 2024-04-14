@@ -43,9 +43,9 @@
 
                                             <td>
                                                 <div class="flex items-col">
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2";
-                                                    onclick="window.location.href = 'ref-skema-file'"><i class="far fa-file"></i>
-                                                </button>
+                                                <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mr-2";
+                                                    onclick="window.location.href = 'ref-skema-file/'"><i class="far fa-file"></i>
+</a>
 
                                                 <div class="flex items-col">
                                                 <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"

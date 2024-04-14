@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefSkemaController;
+use App\Http\Controllers\RefSkemaFileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,7 @@ Route::resource('manage-user', UserController::class);
 Route::resource('manage-role', RoleController::class);
 Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
-Route::resource('ref-skema-file', RefSkemaController::class);
+Route::resource('ref-skema-file', RefSkemaFileController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 
