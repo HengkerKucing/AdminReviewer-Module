@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefSkemaController;
 use App\Http\Controllers\RefSkemaFileController;
 use App\Http\Controllers\UsulanController;
+use App\Http\Controllers\RefPendanaanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,7 @@ Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
 Route::resource('ref-skema-file', RefSkemaFileController::class);
 Route::resource('usulan', UsulanController::class);
+Route::resource('ref-pendanaan', RefPendanaanController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 

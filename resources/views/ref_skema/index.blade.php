@@ -42,43 +42,30 @@
                                             <td>{{ $item->periode_tahun }}</td>
 
                                             <td>
-                                                <div class="flex items-col">
-                                                <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mr-2";
-                                                    onclick="window.location.href = 'ref-skema-file/'"><i class="far fa-file"></i>
-</a>
+                                                <div class="flex items-center">
 
-                                                <div class="flex items-col">
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
-                                                    onclick="window.location.href = '#'"><i class="fas fa-money-bill-wave-alt"></i>
-                                                </button>
+                                                <!-- ////////////////////////////////////////// -->
+                                                    <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                        <i class="far fa-file"></i>
+                                                    </a>
 
-                                                <div class="flex items-col">
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
-                                                    onclick="window.location.href = '#'"><i class="fas fa-cog"></i>
-                                                </button>
+                                                    <a href="/ref-pendanaan/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'">
+                                                        <i class="fas fa-money-bill-wave-alt"></i>
+                                                    </a>
 
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
-                                                    data-toggle="dropdown"><i class="fas fa-cog"></i>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <a class="dropdown-item"
-                                                        href="#">Edit</a>
-                                                    <a class="dropdown-item" href="#">Hapus</a>
-                                                </div>
+                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = '#'">
+                                                        <i class="fas fa-cog"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" data-toggle="dropdown">
+                                                        <i class="fas fa-cog"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <a class="dropdown-item" href="#">Edit</a>
+                                                        <a class="dropdown-item" href="#">Hapus</a>
+                                                    </div>
                                                 </div>
                                             </td>
-                                            <style>
-                                            .flex {
-                                                display: flex;
-                                            }
-
-                                            .flex-col {
-                                                flex-direction: column;
-                                            }
-                                            .mb-2 {
-                                                margin-right: 5px;
-                                            }
-                                            </style>
                                         </tr>
                                 @endforeach
                                 </tbody>
@@ -88,6 +75,22 @@
                 </div>
             </div>
         </div>
+        <!-- Start Styling -->
+        <style>
+    .flex {
+        display: flex;
+    }
+
+    .items-col {
+        flex-direction: column;
+    }
+
+    .mb-2 {
+        margin-right: 5px;
+        /* width: auto; */
+    }
+    </style>
+        <!-- End Styling -->
     </div>
     </div>
 @endsection

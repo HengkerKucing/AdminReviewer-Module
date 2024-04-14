@@ -28,15 +28,17 @@
                         <table id="datatable-main" class="table table-bordered table-striped ">
                                 <thead>
                                     <th>No</th>
-                                    <th>Jenis File</th>
-                                    <th>Ekstensi</th>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
+                                    <th>Persentase</th>
                                 </thead>
                                 <tbody>
-                                @foreach ($skemafile as $item)
+                                @foreach ($pendanaan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->file_caption}}</td>
-                                            <td>{{ $item->file_accepted_type}}</td>
+                                            <td>{{ $item->pendanaan_nama}}</td>
+                                            <td>{{ $item->pendanaan_keterangan}}</td>
+                                            <td>{{ $item->pendanaan_persentase}}</td>
                                         </tr>
                                 @endforeach
                                 </tbody>
