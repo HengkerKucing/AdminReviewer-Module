@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Usulan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsulanController extends Controller
 {

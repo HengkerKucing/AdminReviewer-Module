@@ -40,7 +40,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->usulan_judul }}</td>
-                                            <td>{{ $item->trx_skema_nama }}</td>
+                                            <td>{{ $item->trx_skema->trx_skema_nama }}</td>
                                             <td>{{ $item->anggota }}</td>
                                             <td>{{ $item->usulan_pendanaan }}</td>
                                             <td>{{ $item->status_nama }}</td>
@@ -48,7 +48,7 @@
                                             <td>
                                                 <div class="flex items-col">
                                                 <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2";
-                                                    onclick="window.location.href = 'ref-skema-file'"><i class="far fa-file"></i>
+                                                    onclick="window.location.href = 'ref-skema-file'"><i class="fas fa-eye"></i>
                                                 </button>
                                                 </div>
                                             </td>
