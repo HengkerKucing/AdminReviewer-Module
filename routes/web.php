@@ -10,6 +10,7 @@ use App\Http\Controllers\RefSkemaController;
 use App\Http\Controllers\RefSkemaFileController;
 use App\Http\Controllers\UsulanController;
 use App\Http\Controllers\RefPendanaanController;
+use App\Http\Controllers\RefSkemaSettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,7 @@ Route::resource('ref-skema', RefSkemaController::class);
 Route::resource('ref-skema-file', RefSkemaFileController::class);
 Route::resource('usulan', UsulanController::class);
 Route::resource('ref-pendanaan', RefPendanaanController::class);
+Route::resource('ref-skema-setting', RefSkemaSettingController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 

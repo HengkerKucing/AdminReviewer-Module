@@ -53,9 +53,9 @@
                                                         <i class="fas fa-money-bill-wave-alt"></i>
                                                     </a>
 
-                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = '#'">
+                                                    <a href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'">
                                                         <i class="fas fa-cog"></i>
-                                                    </button>
+                                                    </a>
 
                                                     <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" data-toggle="dropdown">
                                                         <i class="fas fa-cog"></i>
