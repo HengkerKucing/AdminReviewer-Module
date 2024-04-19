@@ -21,12 +21,12 @@ class RefSkemaFileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
-    {
-        $skemafile =  SkemaFile::all();
+    // public function index()
+    // {
+    //     $skemafile =  SkemaFile::all();
       
-        return view('ref_skema_file.index')->with('skemafile', $skemafile);
-    }
+    //     return view('ref_skema_file.index')->with('skemafile', $skemafile);
+    // }
     public function show($id)
     {
         $skemafile =  SkemaFile::where('trx_skema_id', $id)->get();
