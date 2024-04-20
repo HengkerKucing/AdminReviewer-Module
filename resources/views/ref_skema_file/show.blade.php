@@ -10,7 +10,10 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">Referensi Skema</h4>
+                    <h4 class="m-0">Referensi Skema File</h4>
+                    @foreach ($skema as $item)
+                    <h5 class="m-0">{{ $item->trx_skema_nama}}</h5>
+                    @endforeach
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

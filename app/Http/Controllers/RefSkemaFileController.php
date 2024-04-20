@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\SkemaFile;
+use App\Models\Skema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,20 +21,26 @@ class RefSkemaFileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    // public function index()
-    // {
-    //     $skemafile =  SkemaFile::all();
-      
-    //     return view('ref_skema_file.index')->with('skemafile', $skemafile);
-    // }
     public function show($id)
     {
         $skemafile =  SkemaFile::where('trx_skema_id', $id)->get();
+        $skema =  Skema::where('trx_skema_id', $id)->get();
 
         return view('ref_skema_file.show', [
-            'skemafile' => $skemafile
+            'skemafile' => $skemafile,
+            'skema' => $skema
         ]);
+
     }
+
+    // public function title($id)
+    // {
+    //     $skema =  Skema::where('trx_skema_id', $id)->get();
+
+    //     return view('ref_skema_file.show', [
+    //         'skema' => $skema
+    //     ]);
+
+    // }
 
 }
