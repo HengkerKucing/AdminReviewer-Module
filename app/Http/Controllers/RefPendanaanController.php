@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pendanaan;
+use App\Models\Skema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,9 +31,11 @@ class RefPendanaanController extends Controller
     public function show($id)
     {
         $pendanaan =  Pendanaan::where('trx_skema_id', $id)->get();
+        $skema =  Skema::where('trx_skema_id', $id)->get();
 
         return view('ref_pendanaan.show', [
-            'pendanaan' => $pendanaan
+            'pendanaan' => $pendanaan,
+            'skema' => $skema
         ]);
     }
 
