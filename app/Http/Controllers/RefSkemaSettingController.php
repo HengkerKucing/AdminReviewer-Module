@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\SkemaSetting;
+use App\Models\Skema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,9 +31,11 @@ class RefSkemaSettingController extends Controller
     public function show($id)
     {
         $skemasetting =  SkemaSetting::where('trx_skema_id', $id)->get();
+        $skema =  Skema::where('trx_skema_id', $id)->get();
 
         return view('ref_skema_setting.show', [
-            'skemasetting' => $skemasetting
+            'skemasetting' => $skemasetting,
+            'skema' => $skema
         ]);
     }
 
