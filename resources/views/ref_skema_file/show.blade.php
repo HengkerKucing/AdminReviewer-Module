@@ -33,6 +33,7 @@
                                     <th>No</th>
                                     <th>Jenis File</th>
                                     <th>Ekstensi</th>
+                                    <th>Aksi</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($skemafile as $item)
@@ -40,6 +41,15 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->file_caption}}</td>
                                             <td>{{ $item->file_accepted_type}}</td>
+                                            <td>
+                                                <div class="flex items-center">
+
+                                                <!-- ////////////////////////////////////////// -->
+                                                    <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                 @endforeach
                                 </tbody>
@@ -49,6 +59,22 @@
                 </div>
             </div>
         </div>
+        <!-- Start Styling -->
+        <style>
+    .flex {
+        display: flex;
+    }
+
+    .items-col {
+        flex-direction: column;
+    }
+
+    .mb-2 {
+        margin-right: 5px;
+        /* width: auto; */
+    }
+    </style>
+        <!-- End Styling -->
     </div>
     </div>
 @endsection

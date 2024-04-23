@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\aldigacorcontrollers;
 use App\Http\Controllers\DBBackupController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
