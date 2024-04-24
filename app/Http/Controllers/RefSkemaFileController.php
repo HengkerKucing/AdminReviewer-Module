@@ -12,7 +12,7 @@ class RefSkemaFileController extends Controller
     {
         // $this->middleware('permission:read_profil')->only('index', 'show');
         // $this->middleware('permission:create_profil')->only('create', 'store');
-        // $this->middleware('permission:update_profil')->only('edit', 'update');
+        $this->middleware('permission:update_profil')->only('edit', 'update');
         // $this->middleware('permission:delete_profil')->only('destroy');
     }
 
@@ -43,6 +43,7 @@ class RefSkemaFileController extends Controller
 
     // }
 
+    
     
 
 }

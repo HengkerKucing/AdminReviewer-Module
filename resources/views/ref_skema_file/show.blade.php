@@ -45,7 +45,7 @@
                                                 <div class="flex items-center">
 
                                                 <!-- ////////////////////////////////////////// -->
-                                                    <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </div>

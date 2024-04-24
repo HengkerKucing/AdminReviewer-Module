@@ -42,6 +42,15 @@
                                             <td>{{ $item->pendanaan_nama}}</td>
                                             <td>{{ $item->pendanaan_keterangan}}</td>
                                             <td>{{ $item->pendanaan_persentase}}</td>
+                                            <td>
+                                                <div class="flex items-center">
+
+                                                <!-- ////////////////////////////////////////// -->
+                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                 @endforeach
                                 </tbody>
