@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
-use App\Models\Skema;
 
+use App\Models\Skema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,17 @@ class Pendanaan extends Model
 {
 
     protected $table = "trx_skema_pendanaan";
+
+    /**
+     * fillable
+     * 
+     * @var array
+     */
+    protected $fillable = [
+        'pendanaan_nama',
+        'pendanaan_keterangan',
+        'pendanaan_persentase',
+    ];
 
     public function id()
     {
