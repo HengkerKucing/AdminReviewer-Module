@@ -45,15 +45,15 @@
                                                 <div class="flex items-center">
 
                                                 <!-- ////////////////////////////////////////// -->
-                                                    <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                    <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" title="Skema File" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
                                                         <i class="far fa-file"></i>
                                                     </a>
 
-                                                    <a href="/ref-pendanaan/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'">
+                                                    <a href="/ref-pendanaan/{{$item->trx_skema_id}}" type="button" title="Pendanaan" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'">
                                                         <i class="fas fa-money-bill-wave-alt"></i>
                                                     </a>
 
-                                                    <a href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'">
+                                                    <a href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" title="Skema Setting" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'">
                                                         <i class="fas fa-cog"></i>
                                                     </a>
 
