@@ -51,6 +51,10 @@
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                                 </form>
+                                                <!-- ////////////////////////////////////////// -->
+                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
