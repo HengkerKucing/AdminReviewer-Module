@@ -34,6 +34,7 @@
                                     <th>Nama</th>
                                     <th>Keterangan</th>
                                     <th>Persentase</th>
+                                    <th>Aksi</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($pendanaan as $item)
@@ -42,6 +43,16 @@
                                             <td>{{ $item->pendanaan_nama}}</td>
                                             <td>{{ $item->pendanaan_keterangan}}</td>
                                             <td>{{ $item->pendanaan_persentase}}</td>
+                                            <td>
+                                                <div class="flex items-center">
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('ref-pendanaan.destroy', $item->pendanaan_id) }}" method="POST">
+                                                    <a href="{{ route('ref-pendanaan.edit', $item->pendanaan_id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                                </form>
+                                                </div>
+                                            </td>
                                         </tr>
                                 @endforeach
                                 </tbody>

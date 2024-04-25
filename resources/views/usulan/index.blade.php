@@ -14,6 +14,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
+                        // Kasih filter
                     </ol>
                 </div>
             </div>
@@ -40,10 +41,22 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->usulan_judul }}</td>
-                                            <td>{{ $item->trx_skema->trx_skema_nama }}</td>
-                                            <td>{{ $item->anggota }}</td>
+                                            <td>{{ $item->skema->trx_skema_nama }}</td>
+                                            <td>
+                                                @foreach ($item->anggotas()->get() as $anggota)
+                                                    <div class="card shadow-sm mb-2">
+                                                        <div class="card-body">
+                                                            {{ $anggota->dosen_id }}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </td>
                                             <td>{{ $item->usulan_pendanaan }}</td>
-                                            <td>{{ $item->status_nama }}</td>
+                                            <td>
+                                                @foreach ($item->statuses() as $status)
+                                                    {{ $status->status_id }}
+                                                @endforeach
+                                            </td>
 
                                             <td>
                                                 <div class="flex items-col">
