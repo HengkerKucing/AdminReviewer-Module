@@ -28,6 +28,14 @@
                 <div class="col-md-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
+                            <h5 class="m-0"></h5>
+                            <div class="card-tools">
+                                <a href="{{ route('ref-skema-setting.create') }}" class="btn btn-sm btn-success"><i
+                                    class="fas fa-plus-circle"></i> Tambah Setting
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
                         <table id="datatable-main" class="table table-bordered table-striped ">
                                 <thead>
                                     <th>No</th>

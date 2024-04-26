@@ -28,8 +28,8 @@
                             <h5 class="m-0"></h5>
                             <div class="card-tools">
                                 <a href="{{ route('manage-role.create') }}" class="btn btn-sm btn-success"><i
-                                        class="fas fa-plus-circle"></i> Tambah Role
-                                    </a>
+                                    class="fas fa-plus-circle"></i> Tambah Role
+                                </a>
                             </div>
                         </div>
                         <div class="card-body">
