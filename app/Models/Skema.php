@@ -11,9 +11,25 @@ class Skema extends Model
 
     public $timestamps = false;
     protected $table = "trx_skema";
-
-    // Tentukan bahwa kolom 'trx_skema_id' adalah kunci utama
     protected $primaryKey = 'trx_skema_id';
+
+    /**
+     * fillable
+     * 
+     * @var array
+     */
+    protected $fillable = [
+        'trx_skema_id',
+        'trx_skema_nama',
+        'trx_skema_kode',
+        'jenis_skema_id',
+        'periode_tahun',
+        'proposal_max_upload',
+        'revisi_proposal_max_upload',
+        'laporan_kemajuan__max_upload',
+        'laporan_akhir__max_upload',
+        'is_active',
+    ];
 
     // Definisikan relasi bahwa satu Skema memiliki banyak SkemaFile
     public function skemaFiles()
