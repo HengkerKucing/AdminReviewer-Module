@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
-use App\Models\Skema;
 
+use App\Models\Skema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,23 @@ class Pendanaan extends Model
 {
 
     protected $table = "trx_skema_pendanaan";
+
+    protected $primaryKey = 'pendanaan_id';
+
+    /**
+     * fillable
+     * 
+     * @var array
+     */
+    protected $fillable = [
+        'pendanaan_id',
+        'trx_skema_id',
+        'pendanaan_key',
+        'pendanaan_nama',
+        'pendanaan_keterangan',
+        'pendanaan_persentase',
+        'is_active'
+    ];
 
     public function id()
     {

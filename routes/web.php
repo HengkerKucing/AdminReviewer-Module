@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\aldigacorcontrollers;
 use App\Http\Controllers\DBBackupController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
@@ -42,10 +41,9 @@ Route::resource('manage-role', RoleController::class);
 Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
 Route::resource('ref-skema-file', RefSkemaFileController::class);
-Route::get('ref-skema-file/{id}/update', [RefSkemaFileController::class, 'update']);
-Route::resource('usulan', UsulanController::class);
 Route::resource('ref-pendanaan', RefPendanaanController::class);
 Route::resource('ref-skema-setting', RefSkemaSettingController::class);
+Route::resource('usulan', UsulanController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 

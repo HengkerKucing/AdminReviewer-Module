@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-    <!-- DataTables -->
+<!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -10,7 +10,10 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">manajemen role</h4>
+                    <h4 class="m-0">Referensi Skema File</h4>
+                    @foreach ($skemaFile as $item)
+                    <h5 class="m-0">{{ $item->trx_skema_nama}}</h5>
+                    @endforeach
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,41 +30,34 @@
                         <div class="card-header">
                             <h5 class="m-0"></h5>
                             <div class="card-tools">
-                                <a href="{{ route('manage-role.create') }}" class="btn btn-sm btn-success"><i
-                                    class="fas fa-plus-circle"></i> Tambah Role
+                                <a href="{{ route('ref-skema-file.create') }}" class="btn btn-sm btn-success"><i
+                                    class="fas fa-plus-circle"></i> Tambah File
                                 </a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="datatable-main" class="table table-bordered table-striped">
+                        <table id="datatable-main" class="table table-bordered table-striped ">
                                 <thead>
                                     <th>No</th>
-                                    <th>Role Pengguna</th>
-                                    <th></th>
+                                    <th>Jenis File</th>
+                                    <th>Ekstensi</th>
+                                    <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($roles as $item)
+                                @foreach ($skemaFile as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->file_caption}}</td>
+                                            <td>{{ $item->file_accepted_type}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info"
-                                                    data-toggle="dropdown"><i class="fas fa-cog"></i>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('manage-role.edit', $item->id) }}">Edit</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <form method="POST"
-                                                        action="{{ route('manage-role.destroy', $item->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a class="dropdown-item confirm-button" href="#">Hapus</a>
-                                                    </form>
+                                                <div class="flex items-center">
+                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -69,5 +65,24 @@
                 </div>
             </div>
         </div>
+        <!-- Start Styling -->
+        <style>
+    .flex {
+        display: flex;
+    }
+
+    .items-col {
+        flex-direction: column;
+    }
+
+    .mb-2 {
+        margin-right: 5px;
+        /* width: auto; */
+    }
+    </style>
+        <!-- End Styling -->
+    </div>
     </div>
 @endsection
+@push('js')
+@endpush
