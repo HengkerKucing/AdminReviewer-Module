@@ -121,7 +121,7 @@ class RoleController extends Controller
 
             $role->syncPermissions($request->permission_id);
             toastr()->success('Role berhasil disimpan');
-            return redirect()->route('manage-role.index');
+            return redirect()->route('manage-role.  index');
         } catch (\Throwable $th) {
             toastr()->warning('Terdapat masalah diserver');
             return redirect()->route('manage-role.index');

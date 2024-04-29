@@ -28,34 +28,19 @@
                 <div class="col-md-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                        <table id="datatable-main" class="table table-bordered table-striped ">
-                                <thead>
-                                    <th>No</th>
-                                    <th>aaa</th>
-                                    <th>Jenis File</th>
-                                    <th>aaa</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach ($skemafile as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->$skema_file_id}}</td>
-                                            <td>{{ $item->file_caption}}</td>
-                                            <td>{{ $item->file_accepted_type}}</td>
-                                            <td>
-                                                <div class="flex items-center">
+                        <!-- resources/views/ref-skema-file/update.blade.php -->
+                            <form action="{{ route('ref_skema_file.update', ['id' => $skemafile->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
 
-                                                <!-- ////////////////////////////////////////// -->
-                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                <label for="file_caption">File Caption:</label>
+                                <input type="text" name="file_caption" value="{{ $skemafile->file_caption }}" required>
+
+                                <label for="file_accepted_type">File Accepted Type:</label>
+                                <input type="text" name="file_accepted_type" value="{{ $skemafile->file_accepted_type }}" required>
+
+                                <button type="submit">Update</button>
+                            </form>
                         </div>
                     </div>
                 </div>
