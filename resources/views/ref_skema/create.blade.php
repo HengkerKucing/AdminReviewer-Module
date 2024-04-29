@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">Tambah Menu</h4>
+                    <h4 class="m-0">Tambah Skema</h4>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -32,10 +32,9 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Nama Skema</label>
-                                    <input type="text" name="nama_skema"
-                                        class="form-control @error('nama_skema')is-invalid @enderror"
-                                        placeholder="Nama Skema">
-                                    @error('nama_skema')
+                                    <input type="text" name="trx_skema_nama"
+                                        class="form-control @error('trx_skema_nama')is-invalid @enderror" placeholder="Nama Skema">
+                                    @error('trx_skema_nama')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
                                         </div>
@@ -43,11 +42,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Kode Skema</label>
-                                    <input type="text" name="url" class="form-control" placeholder="Kode Skema">
+                                    <input type="text" name="trx_skema_kode"
+                                        class="form-control @error('trx_skema_kode')is-invalid @enderror "
+                                        placeholder="Kode Skema">
+                                    @error('trx_skema_kode')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Periode</label>
-                                    <input type="text" name="icon" class="form-control" placeholder="Periode">
+                                    <label>Periode Tahun</label>
+                                    <input type="text" name="periode_tahun"
+                                        class="form-control @error('periode_tahun')is-invalid @enderror "
+                                        placeholder="Periode Tahun">
+                                    @error('periode_tahun')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -62,4 +75,12 @@
     </div>
 @endsection
 @push('js')
+    <script src="{{ asset('') }}plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script>
+        $(function() {
+            $("input[data-bootstrap-switch]").each(function() {
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            })
+        })
+    </script>
 @endpush

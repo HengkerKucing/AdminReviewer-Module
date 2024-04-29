@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Skema extends Model
 {
@@ -16,7 +16,7 @@ class Skema extends Model
     /**
      * fillable
      * 
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'trx_skema_id',

@@ -3,160 +3,97 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skema;
+use App\Models\SkemaFile;
+use App\Models\SkemaSetting;
+use App\Models\Pendanaan;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RefSkemaController extends Controller
 {
-    function __construct()
+    public function index()
     {
-        // $this->middleware('permission:read_profil')->only('index', 'show');
-        // $this->middleware('permission:create_profil')->only('create', 'store');
-        // $this->middleware('permission:update_profil')->only('edit', 'update');
-        // $this->middleware('permission:delete_profil')->only('destroy');
+        $skemas = Skema::all();
+        return view('ref_skema.index', compact('skemas'));
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function index()
-    // {
-    //     $skema = Skema::all();
-    //     return view('ref_skema.index')->with('skema', $skema);
-    //     // return view('ref_skema.index');
-    // }
-
-    /**
-     * index
-     *
-     * @return View
-     */
-    public function index(): View
+    public function create()
     {
-        $skema = Skema::all();
-        return view('ref_skema.index', compact('skema'));
+        $skemas = Skema::all();
+        return view('ref_skema.create', compact('skemas'));
     }
 
-    /**
-     * create
-     *
-     * @return View
-     */
-    public function create(): View
+    public function store(Request $request)
     {
-        return view('ref_skema.create');
-    }
-
-    /**
-     * store database
-     *
-     * @param  mixed $request
-     * @return RedirectResponse
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //validate form
-        $this->validate($request, [
-            'trx_skema_nama'    =>  'required|',
-            'trx_skema_kode'    =>  'required|',
-            'jenis_skema_id'    =>  'required|',
-            'periode_tahun' =>  'required|',
-            'proposal_max_upload'   =>  'required|',
-            'revisi_proposal_max_upload'    =>  'required|',
-            'laporan_kemajuan__max_upload'  =>  'required|',
-            'laporan_akhir__max_upload' =>  'required|',
-            'is_active' =>  'required|',
+        $validator = Validator::make($request->all(), [
+            'trx_skema_nama' => 'required|string',
+            'trx_skema_kode' => 'required',
+            'periode_tahun' => 'required',
         ]);
 
-        //create skema
-        Skema::create([
-            'trx_skema_nama'     => $request->trx_skema_nama,
-            'trx_skema_kode'     => $request->trx_skema_kode,
-            'jenis_skema_id'     => $request->jenis_skema_id,
-            'periode_tahun'   => $request->periode_tahun,
-            'proposal_max_upload'     => $request->proposal_max_upload,
-            'revisi_proposal_max_upload'     => $request->revisi_proposal_max_upload,
-            'laporan_kemajuan__max_upload'     => $request->laporan_kemajuan__max_upload,
-            'laporan_akhir__max_upload'     => $request->laporan_akhir__max_upload,
-            'is_active'     => $request->is_active,
-        ]);
-        //redirect to index
-        return redirect()->route('ref_skema.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        if ($validator->fails()) {
+            toastr()->error('Skema gagal ditambah: ' . $validator->errors()->first());
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            $data = Skema::create($request->all());
+            toastr()->success('Skema berhasil ditambahkan');
+            return redirect()->route('ref-skema.index');
+        } catch (\Throwable $th) {
+            toastr()->warning('Terdapat masalah saat menambahkan skema: ' . $th->getMessage());
+            return redirect()->route('ref-skema.index');
+        }
     }
 
-    /**
-     * edit
-     *
-     * @param  mixed $trx_skema_id
-     * @return View
-     */
-    public function edit(string $trx_skema_id): View
+    public function edit($id)
     {
-        //get skema by ID
-        $skema = Skema::findOrFail($trx_skema_id);
-
-        //render view with skema
+        $skema = Skema::findorfail($id);
         return view('ref_skema.edit', compact('skema'));
     }
-    
-    /**
-     * update
-     *
-     * @param  mixed $request
-     * @param  mixed $trx_skema_id
-     * @return RedirectResponse
-     */
-    public function update(Request $request): RedirectResponse
+
+    public function update(Request $request, $id)
     {
-        //validate form
-        $this->validate($request, [
-            'trx_skema_nama'    =>  'required|',
-            'trx_skema_kode'    =>  'required|',
-            'jenis_skema_id'    =>  'required|',
-            'periode_tahun' =>  'required|',
-            'proposal_max_upload'   =>  'required|',
-            'revisi_proposal_max_upload'    =>  'required|',
-            'laporan_kemajuan__max_upload'  =>  'required|',
-            'laporan_akhir__max_upload' =>  'required|',
+        $validator = Validator::make($request->all(), [
+            'trx_skema_nama' => 'required|string',
+            'trx_skema_kode' => 'required',
+            'periode_tahun' => 'required',
         ]);
 
-        //get ID
-        $skema = Skema::findOrFail($request->trx_skema_id);
+        if ($validator->fails()) {
+            toastr()->error('Skema gagal diperbarui </br> Periksa kembali data anda');
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        //update skema
-        $skema->update([
-            'trx_skema_nama'     => $request->trx_skema_nama,
-            'trx_skema_kode'     => $request->trx_skema_kode,
-            'jenis_skema_id'     => $request->jenis_skema_id,
-            'periode_tahun'   => $request->periode_tahun,
-            'proposal_max_upload'     => $request->proposal_max_upload,
-            'revisi_proposal_max_upload'     => $request->revisi_proposal_max_upload,
-            'laporan_kemajuan__max_upload'     => $request->laporan_kemajuan__max_upload,
-            'laporan_akhir__max_upload'     => $request->laporan_akhir__max_upload,
-        ]);
-        //redirect to index
-        return redirect()->route('ref_skema.index')->with(['success' => 'Data Berhasil Diubah!']);
+        try {
+            $skema = Skema::findOrFail($id);
+            $skema->update($request->all());
+            toastr()->success('Skema berhasil diperbarui');
+            return redirect()->route('ref-skema.index');
+        } catch (\Throwable $th) {
+            toastr()->warning('Terdapat masalah saat memperbarui skema: ' . $th->getMessage());
+            return redirect()->route('ref-skema.index');
+        }
     }
 
-    /**
-     * destroy
-     *
-     * @param  mixed $skema
-     * @return void
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy($id)
     {
-        //get skema by ID
-        $skema = Skema::findOrFail($request->trx_skema_id);
-
-        //delete skema
-        $skema->delete();
-
-        //redirect to index
-        return redirect()->route('ref_skema.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        try {
+            // $skemaFile = SkemaFile::findOrFail($id);
+            // $skemaSetting = SkemaSetting::findOrFail($id);
+            // $pendanaan = Pendanaan::findOrFail($id);
+            $skema = Skema::findOrFail($id);
+            $skema->delete();
+            toastr()->success('Skema berhasil dihapus');
+            return redirect()->route('ref-skema.index');
+        } catch (\Throwable $th) {
+            toastr()->warning('Terdapat masalah saat menghapus skema: ' . $th->getMessage());
+            return redirect()->route('ref-skema.index');
+        }
     }
 }
