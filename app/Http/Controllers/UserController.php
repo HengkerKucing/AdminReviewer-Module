@@ -17,6 +17,7 @@ class UserController extends Controller
         $this->middleware('permission:update_user')->only('edit', 'update');
         $this->middleware('permission:delete_user')->only('destroy');
     }
+    
     /**
      * Display a listing of the resource.
      *

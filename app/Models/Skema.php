@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Skema extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
+    
     protected $table = "trx_skema";
     protected $primaryKey = 'trx_skema_id';
 
@@ -35,5 +34,13 @@ class Skema extends Model
     public function skemaFiles()
     {
         return $this->hasMany(SkemaFile::class, 'trx_skema_id');
+    }
+    public function skemaSettings()
+    {
+        return $this->hasMany(SkemaSetting::class, 'trx_skema_id');
+    }
+    public function Pendanaans()
+    {
+        return $this->hasMany(Pendanaan::class, 'trx_skema_id');
     }
 }
