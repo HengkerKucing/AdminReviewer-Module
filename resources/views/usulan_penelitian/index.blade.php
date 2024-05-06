@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">Daftar Usulan</h4>
+                    <h4 class="m-0">Usulan Penelitian</h4>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -34,17 +34,29 @@
                                     <th>Anggota</th>
                                     <th>Pendanaan</th>
                                     <th>Status</th>
-                                    <th>Detail</th>
+                                    <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                @foreach ($usulans as $item)
+                                @foreach ($usulan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->usulan_judul }}</td>
                                             <td>{{ $item->skema->trx_skema_nama }}</td>
+                                            <td>
+                                                @foreach ($item->anggotas()->get() as $anggota)
+                                                    <div class="card shadow-sm mb-2">
+                                                        <div class="card-body">
+                                                            {{ $anggota->dosen_id }}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </td>
                                             <td>{{ $item->usulan_pendanaan }}</td>
-                                            <td>{{ $item->usulan_pendanaan }}</td>
-                                            <td>{{ $item->status_id }}</td>
+                                            <td>
+                                                @foreach ($item->statuses() as $status)
+                                                    {{ $status->status_id }}
+                                                @endforeach
+                                            </td>
 
                                             <td>
                                                 <div class="flex items-col">

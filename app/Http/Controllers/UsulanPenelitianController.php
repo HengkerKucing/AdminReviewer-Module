@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usulan;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UsulanController extends Controller
+class UsulanPenelitianController extends Controller
 {
     function __construct()
     {
@@ -23,9 +22,10 @@ class UsulanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(): View
+    public function index()
     {
-        $usulans = Usulan::all();
-        return view('usulan.index', compact('usulans'));
+        $usulan = Usulan::all();
+        return view('usulan_penelitian.index')->with('usulan', $usulan);
+        // return view('usulan.index');
     }
 }
