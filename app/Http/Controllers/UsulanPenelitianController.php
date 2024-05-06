@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usulan;
+use App\Models\UsulanPenelitian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,8 +24,8 @@ class UsulanPenelitianController extends Controller
 
     public function index()
     {
-        $usulan = Usulan::all();
-        return view('usulan.index')->with('usulan', $usulan);
+        $usulanpenelitian = UsulanPenelitian::all();
+        return view('usulan_penelitian.index')->with('usulan', $usulanpenelitian);
         // return view('usulan.index');
     }
 }
