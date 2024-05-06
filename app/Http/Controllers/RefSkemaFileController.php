@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\SkemaFile;
 use App\Models\Skema;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,7 @@ class RefSkemaFileController extends Controller
     {
         // $this->middleware('permission:read_profil')->only('index', 'show');
         // $this->middleware('permission:create_profil')->only('create', 'store');
-        $this->middleware('permission:update_profil')->only('edit', 'update');
+        // $this->middleware('permission:update_profil')->only('edit', 'update');
         // $this->middleware('permission:delete_profil')->only('destroy');
     }
 
@@ -22,6 +23,9 @@ class RefSkemaFileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+   
+
     public function show($id)
     {
         $skemafile =  SkemaFile::where('trx_skema_id', $id)->get();
@@ -57,10 +61,10 @@ class RefSkemaFileController extends Controller
         try {
             $data = SkemaFile::create($request->all());
             toastr()->success('Skema berhasil ditambahkan');
-            return redirect()->route('ref-skema-file.index');
+            return redirect()->route('ref-skema-file.show');
         } catch (\Throwable $th) {
             toastr()->warning('Terdapat masalah saat menambahkan skema: ' . $th->getMessage());
-            return redirect()->route('ref-skema-file.index');
+            return redirect()->route('ref-skema-file.show');
         }
     }
 
@@ -85,13 +89,13 @@ class RefSkemaFileController extends Controller
         }
 
         try {
-            $skema = SkemaFile::findOrFail($id);
-            $skema->update($request->all());
+            $skemafile = SkemaFile::findOrFail($id);
+            $skemafile->update($request->all());
             toastr()->success('Skema berhasil diperbarui');
-            return redirect()->route('ref-skema-file.index');
+            return redirect()->route('ref-skema-file.show');
         } catch (\Throwable $th) {
             toastr()->warning('Terdapat masalah saat memperbarui skema: ' . $th->getMessage());
-            return redirect()->route('ref-skema-file.index');
+            return view('ref_skema_file.edit', compact('skemafile'));
         }
     }
 
