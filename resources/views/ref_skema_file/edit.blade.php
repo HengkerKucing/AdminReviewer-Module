@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">www</h4>
+                    <h4 class="m-0">wwwfrg</h4>
                     @foreach ($skema as $item)
                     <h5 class="m-0">{{ $item->trx_skema_nama}}</h5>
                     @endforeach

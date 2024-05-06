@@ -21,6 +21,19 @@ class SkemaFile extends Model
         return $this->belongsTo(Skema::class, 'trx_skema_id');
     }
 
+    protected $fillable = [
+        'skema_file_id',
+        'trx_skema_id',
+        'file_key',
+        'file_caption',
+        'file_accepted_type',
+        'file_template',
+        'is_required',
+        'is_report',
+        'is_active',
+        'created_at',
+    ];
+
     
 }
 
