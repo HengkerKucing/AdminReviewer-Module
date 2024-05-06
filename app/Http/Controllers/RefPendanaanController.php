@@ -37,14 +37,14 @@ class RefPendanaanController extends Controller
      *
      * @return View
      */
-    public function index($id): View
+    public function show($id)
     {
         //get 
         $pendanaan =  Pendanaan::where('trx_skema_id', $id)->get();
         $skema =  Skema::where('trx_skema_id', $id)->get();
 
         //render view 
-        return view('ref_pendanaan.index', [
+        return view('ref_pendanaan.show', [
             'pendanaan' => $pendanaan,
             'skema' => $skema
         ]);
@@ -113,7 +113,7 @@ class RefPendanaanController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('ref_pendanaan.index', ['pendanaan_id' => $id])->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('ref_pendanaan.show', ['id' => $id])->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -122,15 +122,15 @@ class RefPendanaanController extends Controller
      * @param  mixed $pendanaan
      * @return void
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($pendanaan_id): RedirectResponse
     {
         //get pendanaan by ID
-        $pendanaan = Pendanaan::findOrFail($id);
+        $pendanaan = Pendanaan::findOrFail($pendanaan_id);
 
         //delete pendanaan
         $pendanaan->delete();
 
         //redirect to index
-        return redirect()->route('ref_pendanaan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('ref_pendanaan.show')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

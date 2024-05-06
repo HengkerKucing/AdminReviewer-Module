@@ -37,26 +37,14 @@
                                     <th>Detail</th>
                                 </thead>
                                 <tbody>
-                                @foreach ($usulan as $item)
+                                @foreach ($usulans as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->usulan_judul }}</td>
                                             <td>{{ $item->skema->trx_skema_nama }}</td>
-                                            <td>
-                                                @foreach ($item->anggotas()->get() as $anggota)
-                                                    <div class="card shadow-sm mb-2">
-                                                        <div class="card-body">
-                                                            {{ $anggota->dosen_id }}
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </td>
                                             <td>{{ $item->usulan_pendanaan }}</td>
-                                            <td>
-                                                @foreach ($item->statuses() as $status)
-                                                    {{ $status->status_id }}
-                                                @endforeach
-                                            </td>
+                                            <td>{{ $item->usulan_pendanaan }}</td>
+                                            <td>{{ $item->status_id }}</td>
 
                                             <td>
                                                 <div class="flex items-col">

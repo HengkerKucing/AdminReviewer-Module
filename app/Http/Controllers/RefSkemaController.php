@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skema;
-use App\Models\SkemaFile;
-use App\Models\SkemaSetting;
-use App\Models\Pendanaan;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RefSkemaController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $skemas = Skema::all();
         return view('ref_skema.index', compact('skemas'));
@@ -84,9 +81,6 @@ class RefSkemaController extends Controller
     public function destroy($id)
     {
         try {
-            // $skemaFile = SkemaFile::findOrFail($id);
-            // $skemaSetting = SkemaSetting::findOrFail($id);
-            // $pendanaan = Pendanaan::findOrFail($id);
             $skema = Skema::findOrFail($id);
             $skema->delete();
             toastr()->success('Skema berhasil dihapus');
