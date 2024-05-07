@@ -42,6 +42,7 @@ Route::resource('manage-role', RoleController::class);
 Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
 Route::resource('ref-skema-file', RefSkemaFileController::class);
+Route::get('/ref-skema-file/{id}', 'SkemaFileController@show')->name('ref-skema-file.show');
 Route::resource('ref-pendanaan', RefPendanaanController::class);
 Route::resource('Usulan-Penelitian', UsulanPenelitianController::class);
 Route::resource('ref-skema-setting', RefSkemaSettingController::class);

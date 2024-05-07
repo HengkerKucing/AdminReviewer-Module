@@ -36,10 +36,13 @@ class RefSkemaFileController extends Controller
             'skema' => $skema
         ]);
 
+        session(['previous_id' => $id]);
+
     }
 
     public function create()
     {
+        $previousId = session('previous_id');
         $skemafile = SkemaFile::all();
         return view('ref_skema_file.create', compact('skemafile'));
     }

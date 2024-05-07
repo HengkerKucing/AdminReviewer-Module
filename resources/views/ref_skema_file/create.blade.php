@@ -23,8 +23,11 @@
                         <div class="card-header">
                             <h5 class="card-title m-0"></h5>
                             <div class="card-tools">
-                                <a href="{{ route('ref-skema-file.index') }}" class="btn btn-tool"><i
-                                        class="fas fa-arrow-alt-circle-left"></i></a>
+                            @if ($skemafile->isNotEmpty())
+                                <a href="/ref-skema-file/{{ $skemafile->first()->trx_skema_id }}" class="btn btn-tool">
+                                    <i class="fas fa-arrow-alt-circle-left"></i>
+                                </a>
+                            @endif
                             </div>
                         </div>
                         <form action="{{ route('ref-skema-file.store') }}" method="post">
