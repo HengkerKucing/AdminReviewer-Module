@@ -24,8 +24,13 @@ class UsulanPenelitianController extends Controller
 
     public function index()
     {
+<<<<<<< HEAD
         $usulanpenelitian = UsulanPenelitian::all();
         return view('usulan_penelitian.index')->with('usulan', $usulanpenelitian);
+=======
+        $usulan = Usulan::all();
+        return view('usulan_penelitian.index')->with('usulan', $usulan);
+>>>>>>> e8cff69340b21e015a73f5a4ad45033d37b73187
         // return view('usulan.index');
     }
 }

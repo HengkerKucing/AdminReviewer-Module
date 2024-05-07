@@ -1,11 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container d-flex flex-column gap-5">
         <div class="row pt-5 mb-3">
             <div class="m-0 p-0 row col d-flex align-items-center justify-content-between">
                 <h3>Daftar Usulan</h3>
                 <p class="mb-0">Home / Daftar Usulan</p>
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6 text-uppercase">
+                    <h4 class="m-0">Usulan Penelitian</h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        // Kasih filter
+                    </ol>
+                </div>
+>>>>>>> e8cff69340b21e015a73f5a4ad45033d37b73187
             </div>
         </div>
 
