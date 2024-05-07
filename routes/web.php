@@ -11,6 +11,7 @@ use App\Http\Controllers\RefSkemaFileController;
 use App\Http\Controllers\UsulanController;
 use App\Http\Controllers\RefPendanaanController;
 use App\Http\Controllers\RefSkemaSettingController;
+use App\Http\Controllers\ReviewUsulanController;
 use App\Http\Controllers\UsulanPenelitianController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ Route::resource('ref-pendanaan', RefPendanaanController::class);
 Route::resource('Usulan-Penelitian', UsulanPenelitianController::class);
 Route::resource('ref-skema-setting', RefSkemaSettingController::class);
 Route::resource('usulan', UsulanController::class);
+Route::resource('review-usulan', ReviewUsulanController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 
