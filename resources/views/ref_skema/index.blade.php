@@ -55,7 +55,7 @@
                                                 data-toggle="dropdown"><i 
                                                     class="fas fa-clipboard-list"></i></button>
                                                 <form class="dropdown-menu" role="menu" action="{{ route('ref-skema.destroy', $item->trx_skema_id) }}" method="POST">
-                                                    <a class="dropdown-item" href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" title="Skema File" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'"><i></i>Skema File</a>
+                                                    <a class="dropdown-item" href="/ref-skema/{{$item->trx_skema_id}}/skema-file" type="button" title="Skema File" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'"><i></i>Skema File</a>
                                                     <a class="dropdown-item" href="/ref-pendanaan/{{ $item->trx_skema_id }}" type="button" title="Pendanaan" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i></i>Skema Pendanaan</a>
                                                     <a class="dropdown-item" href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" title="Skema Setting" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i></i>Skema Setting</a>
                                                     <!-- @csrf
