@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
+
 @push('css')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
+
 
 @section('content')
     <div class="content-header">
@@ -22,6 +28,68 @@
             </div>
         </div>
     </div>
+    <section class="content">
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-info">
+<div class="inner">
+<h3>150</h3>
+<p>PTK</p>
+</div>
+<div class="icon">
+<i class="ion ion-bag"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+</div>
+
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-success">
+<div class="inner">
+<h3>53<sup style="font-size: 20px">%</sup></h3>
+<p>Bounce Rate</p>
+</div>
+<div class="icon">
+<i class="ion ion-stats-bars"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+</div>
+
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-warning">
+<div class="inner">
+<h3>44</h3>
+<p>User Registrations</p>
+</div>
+<div class="icon">
+<i class="ion ion-person-add"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+</div>
+
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-danger">
+<div class="inner">
+<h3>65</h3>
+<p>Unique Visitors</p>
+</div>
+<div class="icon">
+<i class="ion ion-pie-graph"></i>
+</div>
+<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+</div>
+
+</div>
+
     
     <section class="content">
         
@@ -134,8 +202,18 @@
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Judul</th>
+                                        <th>Skema</th>
+                                        <th>Anggota</th>
+                                        <th>Pendanaan</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($usulan as $item)
                                     @foreach ($usulan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -151,9 +229,11 @@
                                             <td>
                                                 <div class="flex items-col">
                                                     <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2" onclick="window.location.href = 'ref-skema-file'"><i class="fas fa-eye"></i></button>
+                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2" onclick="window.location.href = 'ref-skema-file'"><i class="fas fa-eye"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
+                                    @endforeach
                                     @endforeach
                                 </tbody>
                             </table>
@@ -163,8 +243,12 @@
             </div>
         </div>
     </section>
+    </section>
 @endsection
+
 
 @push('js')
     <!-- Add your JavaScript here -->
+    <!-- Add your JavaScript here -->
 @endpush
+

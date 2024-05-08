@@ -52,11 +52,62 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label>Jenis Skema</label>
+                                    <input type="text" name="jenis_skema_id"
+                                        class="form-control @error('jenis_skema_id')is-invalid @enderror "
+                                        placeholder="Jenis Skema">
+                                    @error('jenis_skema_id')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label>Periode Tahun</label>
                                     <input type="text" name="periode_tahun"
                                         class="form-control @error('periode_tahun')is-invalid @enderror "
                                         placeholder="Periode Tahun">
                                     @error('periode_tahun')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Maksimal Upload Proposal</label>
+                                    <input type="date" name="proposal_max_upload"
+                                        class="form-control @error('proposal_max_upload')is-invalid @enderror ">
+                                    @error('proposal_max_upload')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Maksimal Upload Revisi Proposal</label>
+                                    <input type="date" name="revisi_proposal_max_upload"
+                                        class="form-control @error('revisi_proposal_max_upload')is-invalid @enderror ">
+                                    @error('revisi_proposal_max_upload')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Maksimal Upload Laporan Kemajuan</label>
+                                    <input type="date" name="laporan_kemajuan_max_upload"
+                                        class="form-control @error('laporan_kemajuan_max_upload')is-invalid @enderror ">
+                                    @error('laporan_kemajuan_max_upload')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Maksimal Upload Laporan Akhir</label>
+                                    <input type="date" name="laporan_akhir_max_upload"
+                                        class="form-control @error('laporan_akhir_max_upload')is-invalid @enderror ">
+                                    @error('laporan_akhir_max_upload')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
                                         </div>
