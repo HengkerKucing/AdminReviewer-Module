@@ -49,10 +49,10 @@ class SkemaFileController extends Controller
         try {
             $file = $request->file('file_template');
             $save_data = $request->all();
-            $save_data['file_template']='.$file->getClientOriginalName()';
+            $nama_file = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
             $save_data['trx_skema_id'] = $trx_skema_id;
             $data = SkemaFileModel::create($save_data);
-            $file->move('file_template', $file->getClientOriginalName());
+            $file->storeAs('public', $nama_file);
             toastr()->success('Skema berhasil ditambahkan');
             return redirect()->route('skema-file.index', $trx_skema_id);
         } catch (\Throwable $th) {

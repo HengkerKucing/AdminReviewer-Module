@@ -31,7 +31,7 @@
 
                             </div>
                         </div>
-                        <form action="{{ route('skema-file.store', $trx_skema_id) }}" method="post">
+                        <form action="{{ route('skema-file.store', $trx_skema_id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
