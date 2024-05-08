@@ -15,14 +15,14 @@ class ReviewUsulan extends Model
 
     protected $primaryKey = 'kriteria_id';
 
-    protected $fillable = 
-    [
-        'kriteria_id',
-        'tahap_review_id',
-        'kriteria_nama',
-        'kriteria_keterangan',
-        'kriteria_bobot'
-    ];
+    protected $fillable =
+        [
+            'kriteria_id',
+            'tahap_review_id',
+            'kriteria_nama',
+            'kriteria_keterangan',
+            'kriteria_bobot'
+        ];
 
     // Menghubungkan dengan Skema
     // public function skema()

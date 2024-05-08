@@ -10,10 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">www</h4>
-                    @foreach ($skema as $item)
-                    <h5 class="m-0">{{ $item->trx_skema_nama}}</h5>
-                    @endforeach
+                    <h4 class="m-0">Plotting Reviewer</h4>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -31,30 +28,13 @@
                         <table id="datatable-main" class="table table-bordered table-striped ">
                                 <thead>
                                     <th>No</th>
-                                    <th>aaa</th>
-                                    <th>Jenis File</th>
-                                    <th>aaa</th>
+                                    <th>Judul</th>
+                                    <th>Skema</th>
+                                    <th>Anggota</th>
+                                    <th>Pendanaan</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                @foreach ($skemafile as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->$skema_file_id}}</td>
-                                            <td>{{ $item->file_caption}}</td>
-                                            <td>{{ $item->file_accepted_type}}</td>
-                                            <td>
-                                                <div class="flex items-center">
-
-                                                <!-- ////////////////////////////////////////// -->
-                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                @endforeach
-                                </tbody>
+                                </thead>                               
                             </table>
                         </div>
                     </div>

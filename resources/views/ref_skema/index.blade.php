@@ -50,9 +50,24 @@
                                     <td>{{ $item->periode_tahun }}</td>
                                     <td>
                                         <div class="flex items-center">
-                                            <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" title="Skema File" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'"><i class="far fa-file"></i></a>
+                                        <button type="button"
+                                                class="btn btn-block btn-sm btn-outline-info mb-2"
+                                                data-toggle="dropdown"><i 
+                                                    class="fas fa-clipboard-list"></i></button>
+                                                <form class="dropdown-menu" role="menu" action="{{ route('ref-skema.destroy', $item->trx_skema_id) }}" method="POST">
+                                                    <a class="dropdown-item" href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" title="Skema File" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'"><i></i>Skema File</a>
+                                                    <a class="dropdown-item" href="/ref-pendanaan/{{ $item->trx_skema_id }}" type="button" title="Pendanaan" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i></i>Skema Pendanaan</a>
+                                                    <a class="dropdown-item" href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" title="Skema Setting" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i></i>Skema Setting</a>
+                                                    <!-- @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda Yakin ?')">Hapus</button> -->
+                                                </form>
+
+                                            <!-- <a href="/ref-skema-file/{{$item->trx_skema_id}}" type="button" title="Skema File" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'"><i class="far fa-file"></i></a>
                                             <a href="/ref-pendanaan/{{ $item->trx_skema_id }}" type="button" title="Pendanaan" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i class="fas fa-money-bill-wave-alt"></i></a>
-                                            <a href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" title="Skema Setting" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i class="fas fa-cog"></i></a>
+                                            <a href="/ref-skema-setting/{{$item->trx_skema_id}}" type="button" title="Skema Setting" class="btn btn-block btn-sm btn-outline-info mb-2" onclick="window.location.href = 'ref-pendanaan/'"><i class="fas fa-cog"></i></a> -->
+                                        </div>
+                                        <div class="flex items-center">
                                             <button type="button"
                                                 class="btn btn-block btn-sm btn-outline-info mb-2"
                                                 data-toggle="dropdown"><i 
