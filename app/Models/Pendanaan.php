@@ -28,10 +28,10 @@ class Pendanaan extends Model
         'is_active'
     ];
 
-    public function id()
-    {
-        return $this->belongsTo(Menu::class, 'skema_file_id');
-    }
+    // public function id()
+    // {
+    //     return $this->belongsTo(Menu::class, 'skema_file_id');
+    // }
 
     public function skema_id()
     {

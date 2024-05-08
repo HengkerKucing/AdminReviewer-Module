@@ -1,71 +1,78 @@
 @extends('layouts.app')
-@push('css')
-<!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-@endpush
+
 @section('content')
-    <div class="container mt-5 mb-5">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 text-uppercase">
+                <h4 class="m-0">Edit Pendanaan</h4>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right"></ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h5 class="m-0"></h5>
+                        <div class="card-tools">
+                            <a href="{{ route('ref-pendanaan.index', 'id') }}" class="btn btn-tool"><i
+                                    class="fas fa-arrow-alt-circle-left"></i> </a>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <form action="{{ route('ref_pendanaan.update', $pendanaans->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('ref-pendanaan.update', ['trx_skema_id' => $id, 'ref_pendanaan' => $pendanaan_id]) }}" method="POST">
                             @csrf
                             @method('PUT')
-
                             <div class="form-group">
-                                <label class="font-weight-bold">Nama Pendanaan</label>
-                                <input type="text" class="form-control @error('pendanaan_nama') is-invalid @enderror" name="pendanaan_nama" value="{{ old('pendanaan_nama', $pendanaan->pendanaan_nama) }}" placeholder="Masukkan Nama Pendanaan">
-
-                                <!-- error message untuk pendanaan_nama -->
+                                <label for="pendanaan_nama">Nama</label>
+                                <input type="text" name="pendanaan_nama" id="pendanaan_nama"
+                                    class="form-control @error('pendanaan_nama') is-invalid @enderror"
+                                    value="{{ $pendanaan->pendanaan_nama }}">
                                 @error('pendanaan_nama')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="form-group">
-                                <label class="font-weight-bold">Keterangan Pendanaan</label>
-                                <input type="text" class="form-control @error('pendanaan_keterangan') is-invalid @enderror" name="pendanaan_keterangan" value="{{ old('pendanaan_keterangan', $pendanaan->pendanaan_keterangan) }}" placeholder="Masukkan Keterangan Pendanaan">
-
-                                <!-- error message untuk pendanaan_keterangan -->
+                                <label for="pendanaan_keterangan">Keterangan</label>
+                                <input type="text" name="pendanaan_keterangan" id="pendanaan_keterangan"
+                                    class="form-control @error('pendanaan_keterangan') is-invalid @enderror"
+                                    value="{{ $pendanaan->pendanaan_keterangan }}">
                                 @error('pendanaan_keterangan')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="form-group">
-                                <label class="font-weight-bold">Persentase Pendanaan</label>
-                                <input type="text" class="form-control @error('pendanaan_persentase') is-invalid @enderror" name="pendanaan_persentase" value="{{ old('pendanaan_persentase', $pendanaan->pendanaan_persentase) }}" placeholder="Masukkan Persentase Pendanaan">
-
-                                <!-- error message untuk pendanaan_persentase -->
+                                <label for="pendanaan_persentase">Persentase</label>
+                                <input type="text" name="pendanaan_persentase" id="pendanaan_persentase"
+                                    class="form-control @error('pendanaan_persentase') is-invalid @enderror"
+                                    value="{{ $pendanaan->pendanaan_persentase }}">
                                 @error('pendanaan_persentase')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-
-                        </form> 
+                            <!-- <div class="form-group">
+                                <label for="is_active">Aktif?</label>
+                                <select name="is_active" id="is_active"
+                                    class="form-control @error('is_active') is-invalid @enderror">
+                                    <option value="1" {{ $pendanaan->is_active ? 'selected' : '' }}>Ya</option>
+                                    <option value="0" {{ !$pendanaan->is_active ? 'selected' : '' }}>Tidak</option>
+                                </select>
+                                @error('is_active')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div> -->
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'content' );
-    </script>
+</div>
 @endsection
-@push('js')
-@endpush

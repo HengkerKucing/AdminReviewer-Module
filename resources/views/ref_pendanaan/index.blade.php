@@ -11,9 +11,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
                     <h4 class="m-0">Referensi Skema Pendanaan</h4>
-                    @foreach ($skema as $item)
-                    <h5 class="m-0">{{ $item->trx_skema_nama}}</h5>
-                    @endforeach
+                    <h6 class="m-0">{{ $skema->trx_skema_nama }}</h6>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -30,7 +28,7 @@
                         <div class="card-header">
                             <h5 class="m-0"></h5>
                             <div class="card-tools">
-                                <a href="{{ route('ref-pendanaan.create') }}" class="btn btn-sm btn-success"><i
+                                <a href="{{ route('ref-pendanaan.create', $id) }}" class="btn btn-sm btn-success"><i
                                     class="fas fa-plus-circle"></i> Tambah Pendanaan
                                 </a>
                             </div>
@@ -53,17 +51,20 @@
                                             <td>{{ $item->pendanaan_persentase}}</td>
                                             <td>
                                                 <div class="flex items-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('ref-pendanaan.destroy', $item->pendanaan_id) }}" method="POST">
-                                                    <a href="{{ route('ref-pendanaan.edit', $item->pendanaan_id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                                </form>
-                                                <!-- ////////////////////////////////////////// -->
-                                                    <a href="/ref-skema-file/{{$item->id}}/update" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 " onclick="window.location.href = 'ref-skema-file/'">
+                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" data-toggle="dropdown"><i 
+                                                            class="fas fa-cog"></i></button>
+                                                    <form class="dropdown-menu" role="menu" action="{{ route('ref-pendanaan.destroy', ['trx_skema_id' => $id, "ref_pendanaan" => $item->pendanaan_id]) }}" method="POST">
+                                                        <a class="dropdown-item" href="{{ route('ref-pendanaan.edit', ['trx_skema_id' => $id, "ref_pendanaan" => $item->pendanaan_id]) }}">Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda Yakin ?')">Hapus</button>
+                                                    </form>
+                                                </div>
+                                                <!-- <div class="flex items-center">
+                                                    <a href="{{ route('ref-pendanaan.update', ['trx_skema_id' => $id, "ref_pendanaan" => $item->pendanaan_id])}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 ">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                </div>
+                                                </div> -->
                                             </td>
                                         </tr>
                                 @endforeach

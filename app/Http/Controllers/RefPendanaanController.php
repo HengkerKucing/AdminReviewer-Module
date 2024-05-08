@@ -7,47 +7,22 @@ use App\Models\Skema;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Hash;
 
 class RefPendanaanController extends Controller
 {
-    function __construct()
-    {
-        // $this->middleware('permission:read_pendanaan')->only('index', 'show');
-        // $this->middleware('permission:create_pendanaan')->only('create', 'store');
-        // $this->middleware('permission:update_pendanaan')->only('edit', 'update');
-        // $this->middleware('permission:delete_pendanaan')->only('destroy');
-    }
-
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    // public function index()
-    // {
-    //     $skemafile =  SkemaFile::all();
-      
-    //     return view('ref_skema_file.index')->with('skemafile', $skemafile);
-    // }
-
     /**
      * index
      *
      * @return View
      */
-    public function show($id)
+    public function index($id)
     {
-        //get 
-        $pendanaan =  Pendanaan::where('trx_skema_id', $id)->get();
-        $skema =  Skema::where('trx_skema_id', $id)->get();
+        $pendanaan = Pendanaan::where('trx_skema_id', $id)->get();
+        $skema = Skema::where('trx_skema_id', $id)->first();
 
-        //render view 
-        return view('ref_pendanaan.show', [
-            'pendanaan' => $pendanaan,
-            'skema' => $skema
-        ]);
+        return view('ref_pendanaan.index', compact('pendanaan', 'id', 'skema'));
     }
 
     /**
@@ -55,27 +30,46 @@ class RefPendanaanController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create($id)
     {
-        return view('ref_pendanaan.create');
+        // array pendanaan_key
+        $pendanaan = Pendanaan::where($id);
+        return view('ref_pendanaan.create', compact('pendanaan', 'id'));
     }
 
     /**
      * store
      *
      * @param  mixed $request
+     * @param  mixed $id
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, $id)
     {
-        //create pendanaan
-        Pendanaan::create([
-            'pendanaan_nama'        => $request->pendanaan_nama,
-            'pendanaan_keterangan'  => $request->pendanaan_keterangan,
-            'pendanaan_persentase'  => $request->pendanaan_persentase
+        // $pendanaan = Pendanaan::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            // 'pendanaan_key' => 'required',
+            'pendanaan_nama' => 'required',
+            'pendanaan_keterangan' => 'required',
+            'pendanaan_persentase' => 'required',
+            // 'is_active' => 'required'
         ]);
-        //redirect to show
-        return redirect()->route('ref_pendanaan.show')->with(['success' => 'Data Berhasil Disimpan!']);
+
+        if ($validator->fails()) {
+            toastr()->error('Pendanaan gagal ditambah: ' . $validator->errors()->first());
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = Pendanaan::create($request->all());
+        try {
+            toastr()->success('Pendanaan berhasil ditambahkan');
+            return redirect()->route('ref-pendanaan.index', $id);
+        } catch (\Throwable $th) {
+            toastr()->warning('Terdapat masalah saat menambahkan pendanaan: ' . $th->getMessage());
+            return redirect()->route('ref-pendanaan.index', $id);
+        }
     }
 
     /**
@@ -84,13 +78,13 @@ class RefPendanaanController extends Controller
      * @param  mixed $id
      * @return View
      */
-    public function edit(string $id): View
+    public function edit($id, $pendanaan_id): View
     {
         //get pendanaan by ID
-        $pendanaan = Pendanaan::findOrFail($id);
+        $pendanaan = Pendanaan::where('trx_skema_id', $id)->get();
 
         //render view 
-        return view('ref_pendanaan.edit', compact('pendanaan'));
+        return view('ref_pendanaan.edit', compact('pendanaan', 'id', 'pendanaan_id'));
     }
 
     /**
@@ -100,21 +94,49 @@ class RefPendanaanController extends Controller
      * @param  mixed $id
      * @return RedirectResponse
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id, $pendanaan_id)
     {
-        //get pendanaan by ID
-        $pendanaan = Pendanaan::findOrFail($id);
-
-        //update pendanaan
-        $pendanaan->update([
-            'pendanaan_nama'        => $request->pendanaan_nama,
-            'pendanaan_keterangan'  => $request->pendanaan_keterangan,
-            'pendanaan_persentase'  => $request->pendanaan_persentase
+        // $skema = Skema::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            // 'pendanaan_key' => 'required',
+            'pendanaan_nama',
+            'pendanaan_keterangan',
+            'pendanaan_persentase',
+            // 'is_active' => 'required'
         ]);
 
-        //redirect to index
-        return redirect()->route('ref_pendanaan.show', ['id' => $id])->with(['success' => 'Data Berhasil Diubah!']);
+        if ($validator->fails()) {
+            toastr()->error('Pendanaan gagal diperbarui </br> Periksa kembali data anda');
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            $pendanaan = Pendanaan::all();
+            $pendanaan->update($request->all());
+            toastr()->success('Pendanaan berhasil diperbarui');
+            return redirect()->route('ref-pendanaan.index', $id, $pendanaan_id);
+        } catch (\Throwable $th) {
+            toastr()->warning('Terdapat masalah saat memperbarui skema: ' . $th->getMessage());
+            return redirect()->route('ref-pendanaan.index', $id, $pendanaan_id);
+        }
     }
+    // public function update(Request $request, $id): RedirectResponse
+    // {
+    //     //get pendanaan by ID
+    //     $pendanaan = Pendanaan::findOrFail($id);
+
+    //     //update pendanaan
+    //     $pendanaan->update([
+    //         'pendanaan_nama'        => $request->pendanaan_nama,
+    //         'pendanaan_keterangan'  => $request->pendanaan_keterangan,
+    //         'pendanaan_persentase'  => $request->pendanaan_persentase
+    //     ]);
+
+    //     //redirect to index
+    //     return redirect()->route('ref_pendanaan.show', ['id' => $id])->with(['success' => 'Data Berhasil Diubah!']);
+    // }
 
     /**
      * destroy
@@ -122,15 +144,27 @@ class RefPendanaanController extends Controller
      * @param  mixed $pendanaan
      * @return void
      */
-    public function destroy($pendanaan_id): RedirectResponse
+    public function destroy($id)
     {
-        //get pendanaan by ID
-        $pendanaan = Pendanaan::findOrFail($pendanaan_id);
-
-        //delete pendanaan
-        $pendanaan->delete();
-
-        //redirect to index
-        return redirect()->route('ref_pendanaan.show')->with(['success' => 'Data Berhasil Dihapus!']);
+        try {
+            $pendanaan = Pendanaan::findOrFail($id);
+            $pendanaan->update(['is_active'=>0]);
+            toastr()->success('Pendanaan berhasil dihapus');
+            return redirect()->route('ref-pendanaan.index', $id);
+        } catch (\Throwable $th) {
+            toastr()->warning('Terdapat masalah saat menghapus skema: ' . $th->getMessage());
+            return redirect()->route('ref-pendanaan.index', $id);
+        }
     }
+    // public function destroy($pendanaan_id): RedirectResponse
+    // {
+    //     //get pendanaan by ID
+    //     $pendanaan = Pendanaan::findOrFail($pendanaan_id);
+
+    //     //delete pendanaan
+    //     $pendanaan->delete();
+
+    //     //redirect to index
+    //     return redirect()->route('ref_pendanaan.show')->with(['success' => 'Data Berhasil Dihapus!']);
+    // }
 }
