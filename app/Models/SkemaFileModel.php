@@ -6,7 +6,7 @@ use App\Models\Skema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SkemaFile extends Model
+class SkemaFileModel extends Model
 {
     use HasFactory;
 

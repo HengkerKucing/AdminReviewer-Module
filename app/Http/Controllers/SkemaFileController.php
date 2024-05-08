@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\SkemaFile;
+use App\Models\SkemaFileModel;
 use App\Models\Skema;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class SkemaFileController extends Controller
 {
     public function index($id): View
     {
-        $skemafile =  SkemaFile::where('trx_skema_id', $id)->get();
+        $skemafile =  SkemaFileModel::where('trx_skema_id', $id)->get();
         $skema =  Skema::where('trx_skema_id', $id)->get();
 
         return view('skema_file.index', [
@@ -51,7 +51,7 @@ class SkemaFileController extends Controller
             $save_data = $request->all();
             $save_data['file_template']='.$file->getClientOriginalName()';
             $save_data['trx_skema_id'] = $trx_skema_id;
-            $data = SkemaFile::create($save_data);
+            $data = SkemaFileModel::create($save_data);
             $file->move('file_template', $file->getClientOriginalName());
             toastr()->success('Skema berhasil ditambahkan');
             return redirect()->route('skema-file.index', $trx_skema_id);
@@ -63,7 +63,7 @@ class SkemaFileController extends Controller
 
     public function edit($trx_skema_id, $id)
     {
-        $skemafile = SkemaFile::find($id);
+        $skemafile = SkemaFileModel::find($id);
 
         return view('skema_file.edit', compact('skemafile', 'trx_skema_id', 'id'));
     }
@@ -85,7 +85,7 @@ class SkemaFileController extends Controller
         }
 
         try {
-            $skemafile = SkemaFile::findOrFail($id);
+            $skemafile = SkemaFileModel::findOrFail($id);
             $skemafile->update($request->all());
             toastr()->success('Skema berhasil diperbarui');
             return redirect()->route('skema-file.index', $trx_skema_id);
