@@ -13,6 +13,7 @@ use App\Http\Controllers\RefSkemaFileController;
 use App\Http\Controllers\UsulanController;
 use App\Http\Controllers\RefPendanaanController;
 use App\Http\Controllers\RefSkemaSettingController;
+use App\Http\Controllers\ReviewUsulanController;
 use App\Http\Controllers\UsulanPenelitianController;
 use App\Models\ReviewUsulan;
 use Illuminate\Support\Facades\Auth;
@@ -45,12 +46,17 @@ Route::resource('manage-role', RoleController::class);
 Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
 Route::resource('ref-skema-file', RefSkemaFileController::class);
+Route::get('/ref-skema-file/{id}', 'SkemaFileController@show')->name('ref-skema-file.show');
 Route::resource('ref-pendanaan', RefPendanaanController::class);
 Route::resource('Usulan-Penelitian', UsulanPenelitianController::class);
 Route::resource('ref-skema-setting', RefSkemaSettingController::class);
 Route::resource('review-usulan', ReviewUsulanController::class);
 Route::resource('usulan', UsulanController::class);
+<<<<<<< HEAD
 Route::resource('plotting-reviewer', PlottingReviewerController::class);
+=======
+Route::resource('review-usulan', ReviewUsulanController::class);
+>>>>>>> 0bf0eea66f2f592e7490fd6dc56dba2fa9a5c2be
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 
