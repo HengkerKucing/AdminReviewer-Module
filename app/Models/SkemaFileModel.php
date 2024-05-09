@@ -6,12 +6,13 @@ use App\Models\Skema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SkemaFile extends Model
+class SkemaFileModel extends Model
 {
     use HasFactory;
 
     protected $table = "trx_skema_file";
     protected $primaryKey = 'skema_file_id';
+    protected $foregnkey = 'trx_skema_id';
 
     public function skema()
     {
@@ -31,14 +32,3 @@ class SkemaFile extends Model
         'created_at',
     ];
 }
-
-$skema_id = 1; // Ganti dengan ID skema yang diinginkan
-$skema = Skema::find($skema_id);
-if ($skema) {
-    $skemaFiles = $skema->skemaFiles;
-    // $skemaFiles berisi semua SkemaFile yang memiliki trx_skema_id yang sama dengan $skema_id
-} else {
-    // Handle jika skema dengan ID tertentu tidak ditemukan
-}
-
-

@@ -37,7 +37,7 @@
                                     <th>Detail</th>
                                 </thead>
                                 <tbody>
-                                @foreach ($usulans as $item)
+                                @foreach ($usulan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->usulan_judul }}</td>

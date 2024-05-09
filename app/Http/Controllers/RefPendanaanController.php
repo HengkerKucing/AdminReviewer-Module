@@ -33,8 +33,10 @@ class RefPendanaanController extends Controller
     public function create($id)
     {
         // array pendanaan_key
-        $pendanaan = Pendanaan::where($id);
-        return view('ref_pendanaan.create', compact('pendanaan', 'id'));
+        $skema = Skema::where('trx_skema_id', $id)->first();
+        $pendanaan = Pendanaan::where('trx_skema_id', $id)->get();
+
+        return view('ref_pendanaan.create', compact('pendanaan', 'id', 'skema'));
     }
 
     /**
@@ -46,13 +48,12 @@ class RefPendanaanController extends Controller
      */
     public function store(Request $request, $id)
     {
-        // $pendanaan = Pendanaan::findOrFail($id);
         $validator = Validator::make($request->all(), [
-            // 'pendanaan_key' => 'required',
+            'pendanaan_key' => 'required',
             'pendanaan_nama' => 'required',
             'pendanaan_keterangan' => 'required',
             'pendanaan_persentase' => 'required',
-            // 'is_active' => 'required'
+            'is_active'
         ]);
 
         if ($validator->fails()) {
@@ -64,6 +65,7 @@ class RefPendanaanController extends Controller
 
         $data = Pendanaan::create($request->all());
         try {
+            $pendanaan = Pendanaan::where('trx_skema_id', $id)->get();
             toastr()->success('Pendanaan berhasil ditambahkan');
             return redirect()->route('ref-pendanaan.index', $id);
         } catch (\Throwable $th) {

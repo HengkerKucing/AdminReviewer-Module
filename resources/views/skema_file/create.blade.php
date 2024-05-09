@@ -23,14 +23,15 @@
                         <div class="card-header">
                             <h5 class="card-title m-0"></h5>
                             <div class="card-tools">
-                            @if ($skemafile->isNotEmpty())
-                                <a href="/ref-skema-file/{{ $skemafile->first()->trx_skema_id }}" class="btn btn-tool">
-                                    <i class="fas fa-arrow-alt-circle-left"></i>
-                                </a>
-                            @endif
+                            @if (!empty($trx_skema_id))
+    <a href="{{ route('skema-file.index', ['trx_skema_id' => $trx_skema_id]) }}" class="btn btn-tool">
+        <i class="fas fa-arrow-alt-circle-left"></i>
+    </a>
+@endif
+
                             </div>
                         </div>
-                        <form action="{{ route('ref-skema-file.store') }}" method="post">
+                        <form action="{{ route('skema-file.store', $trx_skema_id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -43,6 +44,7 @@
                                         </div>
                                     @enderror
                                 </div>
+
                                 <div class="form-group">
                                     <label>Tipe File</label>
                                     <input type="text" name="file_accepted_type"
@@ -54,6 +56,31 @@
                                         </div>
                                     @enderror
                                 </div>
+
+                                <div class="form-group">
+                                    <label>File Key</label>
+                                    <input type="text" name="file_key"
+                                        class="form-control @error('file_key')is-invalid @enderror "
+                                        placeholder="Kode Skema">
+                                    @error('file_key')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Upload File</label>
+                                    <input type="file" name="file_template"
+                                        class="form-control @error('file_template')is-invalid @enderror "
+                                        placeholder="Kode Skema">
+                                    @error('file_template')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                                
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info btn-block btn-flat"><i class="fa fa-save"></i>

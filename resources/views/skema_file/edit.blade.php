@@ -21,12 +21,13 @@
                     <div class="card-header">
                         <h5 class="m-0"></h5>
                         <div class="card-tools">
-                            <a href="/ref-skema-file" class="btn btn-sm btn-secondary"><i
+                            <a href="{{ route('skema-file.index', $skemafile->trx_skema_id)}}" class="btn btn-sm btn-secondary"><i
                                     class="fas fa-arrow-left"></i> Kembali</a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('ref-skema-file.update', $skemafile->trx_skema_id) }}" method="POST">
+                        
+                        <form action="{{ route('skema-file.update', ["trx_skema_id"=>$trx_skema_id, "skema_file"=> $id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
@@ -44,6 +45,15 @@
                                     class="form-control @error('file_accepted_type') is-invalid @enderror"
                                     value="{{ $skemafile->file_accepted_type }}">
                                 @error('file_accepted_type')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="file_template">Upload File</label>
+                                <input type="file" name="file_template" id="file_template"
+                                    class="form-control @error('file_template') is-invalid @enderror"
+                                    value="{{ $skemafile->file_template }}">
+                                @error('file_template')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>

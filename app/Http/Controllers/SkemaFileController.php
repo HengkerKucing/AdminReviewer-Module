@@ -1,57 +1,42 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\SkemaFile;
+use App\Models\SkemaFileModel;
 use App\Models\Skema;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-class RefSkemaFileController extends Controller
+
+class SkemaFileController extends Controller
 {
-    function __construct()
+    public function index($id): View
     {
-        // $this->middleware('permission:read_profil')->only('index', 'show');
-        // $this->middleware('permission:create_profil')->only('create', 'store');
-        // $this->middleware('permission:update_profil')->only('edit', 'update');
-        // $this->middleware('permission:delete_profil')->only('destroy');
-    }
-
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-   
-
-    public function show($id)
-    {
-        $skemafile =  SkemaFile::where('trx_skema_id', $id)->get();
+        $skemafile =  SkemaFileModel::where('trx_skema_id', $id)->get();
         $skema =  Skema::where('trx_skema_id', $id)->get();
 
-        return view('ref_skema_file.show', [
+        return view('skema_file.index', [
             'skemafile' => $skemafile,
+            'trx_skema_id' => $id,
             'skema' => $skema
         ]);
-
-        session(['previous_id' => $id]);
-
     }
 
-    public function create()
-    {
-        $previousId = session('previous_id');
-        $skemafile = SkemaFile::all();
-        return view('ref_skema_file.create', compact('skemafile'));
-    }
+    public function create($trx_skema_id)
+{
+    return view('skema_file.create', compact('trx_skema_id'));
+}
 
-    public function store(Request $request)
+
+
+    public function store(Request $request, $trx_skema_id)
     {
         $validator = Validator::make($request->all(), [
             'file_caption' => 'required|string',
             'file_accepted_type' => 'required',
+            'file_template' => 'required'
+
         ]);
 
         if ($validator->fails()) {
@@ -62,26 +47,34 @@ class RefSkemaFileController extends Controller
         }
 
         try {
-            $data = SkemaFile::create($request->all());
+            $file = $request->file('file_template');
+            $save_data = $request->all();
+            $nama_file = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $save_data['trx_skema_id'] = $trx_skema_id;
+            $data = SkemaFileModel::create($save_data);
+            $file->storeAs('public', $nama_file);
             toastr()->success('Skema berhasil ditambahkan');
-            return redirect()->route('ref-skema-file.show');
+            return redirect()->route('skema-file.index', $trx_skema_id);
         } catch (\Throwable $th) {
             toastr()->warning('Terdapat masalah saat menambahkan skema: ' . $th->getMessage());
-            return redirect()->route('ref-skema-file.show');
+            return redirect()->route('skema-file.index', $trx_skema_id);
         }
     }
 
-    public function edit($id)
+    public function edit($trx_skema_id, $id)
     {
-        $skemafile = SkemaFile::findorfail($id);
-        return view('ref_skema_file.edit', compact('skemafile'));
+        $skemafile = SkemaFileModel::find($id);
+
+        return view('skema_file.edit', compact('skemafile', 'trx_skema_id', 'id'));
     }
 
-    public function update(Request $request, $id)
+
+    public function update(Request $request, $trx_skema_id, $id)
     {
         $validator = Validator::make($request->all(), [
             'file_caption' => 'required|string',
             'file_accepted_type' => 'required',
+            // 'file_template' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -92,13 +85,13 @@ class RefSkemaFileController extends Controller
         }
 
         try {
-            $skemafile = SkemaFile::findOrFail($id);
+            $skemafile = SkemaFileModel::findOrFail($id);
             $skemafile->update($request->all());
             toastr()->success('Skema berhasil diperbarui');
-            return redirect()->route('ref-skema-file.show');
+            return redirect()->route('skema-file.index', $trx_skema_id);
         } catch (\Throwable $th) {
             toastr()->warning('Terdapat masalah saat memperbarui skema: ' . $th->getMessage());
-            return view('ref_skema_file.edit', compact('skemafile'));
+            return view('skema_file.edit', compact('skemafile'));
         }
     }
 
@@ -114,8 +107,4 @@ class RefSkemaFileController extends Controller
     //         return redirect()->route('ref-skema.index');
     //     }
     // }
-
-    
-    
-
 }

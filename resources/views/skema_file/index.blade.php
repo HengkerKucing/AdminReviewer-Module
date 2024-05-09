@@ -30,9 +30,11 @@
                         <div class="card-header">
                             <h5 class="m-0"></h5>
                             <div class="card-tools">
-                                <a href="{{ route('ref-skema-file.create') }}" class="btn btn-sm btn-success"><i
-                                    class="fas fa-plus-circle"></i> Tambah File
-                                </a>
+
+                            <a href="{{ route('skema-file.create', $trx_skema_id) }}" class="btn btn-sm btn-success">
+    <i class="fas fa-plus-circle"></i> Tambah File
+</a>
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -51,12 +53,9 @@
                                             <td>{{ $item->file_accepted_type}}</td>
                                             <td>
                                                 <div class="flex items-center">
-
-                                                <!-- ////////////////////////////////////////// -->
-                                                <a href="{{ route('ref-skema-file.edit', $item->trx_skema_id) }}"button" class="btn btn-block btn-sm btn-outline-info mb-2">
+                                                <a href="{{ route('skema-file.edit', ["trx_skema_id"=>$trx_skema_id, "skema_file"=> $item -> skema_file_id]) }}" class="btn btn-block btn-sm btn-outline-info mb-2">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-
                                                 </div>
                                             </td>
                                         </tr>
