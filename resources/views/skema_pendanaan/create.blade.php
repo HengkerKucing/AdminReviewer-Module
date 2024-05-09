@@ -23,13 +23,24 @@
                         <div class="card-header">
                             <h5 class="card-title m-0"></h5>
                             <div class="card-tools">
-                                <a href="{{ route('ref-pendanaan.index', 'id') }}" class="btn btn-tool"><i
+                                <a href="{{ route('skema-pendanaan.index', $trx_skema_id) }}" class="btn btn-tool"><i
                                         class="fas fa-arrow-alt-circle-left"></i></a>
                             </div>
                         </div>
-                        <form action="{{ route('ref-pendanaan.store', $id) }}" method="post">
+                        <form action="{{ route('skema-pendanaan.store', $trx_skema_id) }}" method="post">
                             @csrf
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label>Key</label>
+                                    <input type="text" name="pendanaan_key"
+                                        class="form-control @error('pendanaan_key') is-invalid @enderror"
+                                        placeholder="Key Pendanaan">
+                                    @error('pendanaan_key')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input type="text" name="pendanaan_nama"

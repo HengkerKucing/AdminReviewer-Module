@@ -33,7 +33,7 @@ class Skema extends Model
     // Definisikan relasi bahwa satu Skema memiliki banyak SkemaFile
     public function skemaFiles()
     {
-        return $this->hasMany(SkemaFile::class, 'trx_skema_id');
+        return $this->hasMany(SkemaFileModel::class, 'trx_skema_id');
     }
     public function skemaSettings()
     {

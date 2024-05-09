@@ -21,14 +21,23 @@
                     <div class="card-header">
                         <h5 class="m-0"></h5>
                         <div class="card-tools">
-                            <a href="{{ route('ref-pendanaan.index', 'id') }}" class="btn btn-tool"><i
+                            <a href="{{ route('skema-pendanaan.index', $trx_skema_id) }}" class="btn btn-tool"><i
                                     class="fas fa-arrow-alt-circle-left"></i> </a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('ref-pendanaan.update', ['trx_skema_id' => $id, 'ref_pendanaan' => $pendanaan_id]) }}" method="POST">
+                        <form action="{{ route('skema-pendanaan.update', ['trx_skema_id' => $trx_skema_id, 'skema_pendanaan' => $pendanaan_id]) }}" method="POST">
                             @csrf
                             @method('PUT')
+                            <div class="form-group">
+                                <label for="pendanaan_key">Key</label>
+                                <input type="text" name="pendanaan_key" id="pendanaan_key"
+                                    class="form-control @error('pendanaan_key') is-invalid @enderror"
+                                    value="{{ $pendanaan->pendanaan_key }}">
+                                @error('pendanaan_key')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div class="form-group">
                                 <label for="pendanaan_nama">Nama</label>
                                 <input type="text" name="pendanaan_nama" id="pendanaan_nama"
@@ -56,7 +65,7 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="is_active">Aktif?</label>
                                 <select name="is_active" id="is_active"
                                     class="form-control @error('is_active') is-invalid @enderror">
@@ -66,7 +75,7 @@
                                 @error('is_active')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
-                            </div> -->
+                            </div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>
                     </div>

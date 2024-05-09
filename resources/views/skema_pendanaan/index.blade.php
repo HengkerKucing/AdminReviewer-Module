@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <h5 class="m-0"></h5>
                             <div class="card-tools">
-                                <a href="{{ route('ref-pendanaan.create', $id) }}" class="btn btn-sm btn-success"><i
+                                <a href="{{ route('skema-pendanaan.create', $trx_skema_id) }}" class="btn btn-sm btn-success"><i
                                     class="fas fa-plus-circle"></i> Tambah Pendanaan
                                 </a>
                             </div>
@@ -53,18 +53,13 @@
                                                 <div class="flex items-center">
                                                     <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" data-toggle="dropdown"><i 
                                                             class="fas fa-cog"></i></button>
-                                                    <form class="dropdown-menu" role="menu" action="{{ route('ref-pendanaan.destroy', ['trx_skema_id' => $id, "ref_pendanaan" => $item->pendanaan_id]) }}" method="POST">
-                                                        <a class="dropdown-item" href="{{ route('ref-pendanaan.edit', ['trx_skema_id' => $id, "ref_pendanaan" => $item->pendanaan_id]) }}">Edit</a>
+                                                    <form class="dropdown-menu" role="menu" action="{{ route('skema-pendanaan.destroy', ['trx_skema_id' => $trx_skema_id, 'skema_pendanaan' => $item->pendanaan_id]) }}" method="POST">
+                                                        <a class="dropdown-item" href="{{ route('skema-pendanaan.edit', ['trx_skema_id' => $trx_skema_id, 'skema_pendanaan' => $item->pendanaan_id]) }}">Edit</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda Yakin ?')">Hapus</button>
                                                     </form>
                                                 </div>
-                                                <!-- <div class="flex items-center">
-                                                    <a href="{{ route('ref-pendanaan.update', ['trx_skema_id' => $id, "ref_pendanaan" => $item->pendanaan_id])}}" type="button" class="btn btn-block btn-sm btn-outline-info mb-2 ">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </div> -->
                                             </td>
                                         </tr>
                                 @endforeach
