@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PlottingReviewer;
+
 class PlottingReviewerController extends Controller
 {
     /**
@@ -21,6 +23,7 @@ class PlottingReviewerController extends Controller
      */
     public function index()
     {
-        return view('plotting_reviewer.index');
+        $plotting_reviewer = PlottingReviewer::with('usulan', 'skema','tahapreview.status','UsulanAnggotaMhs.mahasiswa')->get();
+        return view('plotting_reviewer.index', compact("plotting_reviewer"));
     }
 }

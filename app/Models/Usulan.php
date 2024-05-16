@@ -12,18 +12,28 @@ class Usulan extends Model
     public $timestamps = false;
 
     protected $table = "trx_usulan";
-
+    protected $primaryKey = 'usulan_id';
+    protected $fillable = [
+        "usulan_id",
+        "usulan_judul",
+        "usulan_abstrak",
+        "usulan_pendanaan",
+        "trx_skema_id",
+        "is_active",
+        "if_submitted",
+        "created_at",
+        "created_by",
+        "updated_at",
+        "updated_by"
+    ];
     // Menghubungkan dengan Skema
     public function skema()
     {
         return $this->belongsTo(Skema::class, 'trx_skema_id');
     }
 
+
     // // Menghubungkan dengan Anggota Dosen
-    // public function anggotas()
-    // {
-    //     return $this->hasMany(AnggotaDosen::class, 'anggota_dosen_id');
-    // }
 
     // // Menghubungkan dengan Status
     // public function statuses()
