@@ -11,7 +11,7 @@ class ReviewUsulan extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $table = "ref_kriteria_penilaian";
+    protected $table = "ref_kriteria_penilaian"; // trx_usulan_reviewer > ref_kriteria_penilaian via ref_tahap_reviewer
 
     protected $primaryKey = 'kriteria_id';
 
@@ -46,7 +46,3 @@ class ReviewUsulan extends Model
     //     return $this->hasMany(Status::class, 'usulan_status_id');
     // }
 }
-
-// $review_usulan_id = 1; 
-// $review_usulan = ReviewUsulan::find($review_usulan_id)->reviewPerUsulan($review_usulan_id);
-// echo"$review_usulan";

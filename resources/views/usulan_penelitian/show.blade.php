@@ -28,59 +28,13 @@
                 <div class="col-md-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5>hohoho</h5>
+                            <h5>Data Penelitian</h5>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <th>No</th>
-                                    <th>Kriteria</th>
-                                    <th>Bobot</th>
-                                    <th>Nilai</th>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $criteria = [
-                                            'Rekam Jejak PTM',
-                                            'Mutu Penelitian',
-                                            'Kelayakan Penelitian',
-                                            'Kesesuaian keahlian pengusul dengan program',
-                                            'Pentingnya kerjasama penelitian'
-                                        ];
-                                    @endphp
-                                    @foreach ($reviewUsulan as $item)
-                                        @if (in_array($item->kriteria_nama, $criteria))
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->kriteria_nama }}</td>
-                                                <td>{{ $item->kriteria_bobot }}</td>
-                                                
-                                                <td>
-                                                    <select name="cars" class="nilai-select">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="3">Total Penilaian:</th>
-                                        <td id="total-nilai">0</td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <!-- Komentar -->
-                            <div class="mt-3 mb-3">
-                                <textarea class="form-control" rows="3" placeholder="Tambahkan komentar"></textarea>
+                            <div class="d-flex align-items-start">
+                                <h2 class="p-2">{{ $usulanPenelitian->trx_skema_nama }}</h2>
+                                <h2 class="p-2">hoho</h2>
                             </div>
-                            <!-- Ikon Simpan -->
-                            <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
