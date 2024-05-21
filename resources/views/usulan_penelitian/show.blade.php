@@ -31,11 +31,102 @@
                             <h5>Data Penelitian</h5>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <h2 class="p-2">{{ $usulanPenelitian->trx_skema_nama }}</h2>
-                                <h2 class="p-2">hoho</h2>
-                            </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Nama Skema:</div>
+                            <div class="col-md-9">{{ $skemaNama }}</div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Judul Usulan:</div>
+                            <div class="col-md-9">{{ $usulanJudul }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Abstrak Usulan:</div>
+                            <div class="col-md-9">{{ $usulanAbstrak }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5>Capaian</h5>
+                        </div>
+                        <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Luaran Wajib:</div>
+                            <div class="col-md-9">{{ $luaranWajib }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Luaran Tambahan:</div>
+                            <div class="col-md-9">{{ $luaranTambahan }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">IKU:</div>
+                            <div class="col-md-9">{{ $iku }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5>Anggota</h5>
+                        </div>
+                        <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Dosen:</div>
+                            <div class="col-md-9">{{ $luaranWajib }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Mahasiswa:</div>
+                            <div class="col-md-9">{{ $luaranTambahan }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5>Komponen Pendanaan</h5>
+                        </div>
+                        <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Bahan habis pakai dan peralatan:</div>
+                            <div class="col-md-9">{{ $luaranWajib }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Perjalanan:</div>
+                            <div class="col-md-9">{{ $luaranTambahan }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Lain-lain:</div>
+                            <div class="col-md-9">{{ $luaranTambahan }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3 font-weight-bold">Total Pendanaan:</div>
+                            <div class="col-md-9">{{ $luaranTambahan }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5>Berkas Usulan</h5>
+                        </div>
+                        <div class="card-body">
                     </div>
                 </div>
             </div>

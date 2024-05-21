@@ -61,4 +61,21 @@ class UsulanPenelitianController extends Controller
         // dd($usulanPenelitian);
         return view('usulan_penelitian.index', compact('usulanPenelitian', 'skemas', 'statuses'));
     }
+
+    public function show($usulan_id)
+    {
+        $usulanPenelitian = UsulanPenelitian::with('skema')->findOrFail($usulan_id);
+
+        // Mengambil data yang diperlukan untuk Data Penilaian
+        $skemaNama = $usulanPenelitian->skema->trx_skema_nama ?? 'N/A';
+        $usulanJudul = $usulanPenelitian->usulan_judul;
+        $usulanAbstrak = $usulanPenelitian->usulan_abstrak;
+
+        // Mengambil data yang diperlukan untuk Capaian
+        $luaranWajib = $usulanPenelitian->luaranWajib->luaran_wajib_nama;
+        $luaranTambahan = $usulanPenelitian->luaranTambahan->luaran_tambahan_nama;
+        $iku = $usulanPenelitian->iku->iku_nama;
+        
+        return view('usulan_penelitian.show', compact('skemaNama', 'usulanJudul', 'usulanAbstrak', 'luaranWajib', 'luaranTambahan', 'iku'));
+    }
 }

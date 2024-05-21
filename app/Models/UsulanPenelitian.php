@@ -10,7 +10,8 @@ class UsulanPenelitian extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $table = "trx_usulan";
+    protected $table = 'trx_usulan';
+    protected $primaryKey = 'usulan_id';
 
     // Menghubungkan dengan Skema
     public function skema()
@@ -33,5 +34,19 @@ class UsulanPenelitian extends Model
     public function tahapReview()
     {
         return $this->belongsTo(RefTahapReview::class,'usulan_id', 'tahap_review_id');
+    }
+
+    // Menghubungkan dengan Luaran (Wajib + Tambahan) + Iku
+    public function luaranWajib()
+    {
+        return $this->belongsTo(RefLuaranWajib::class, 'usulan_id', 'luaran_id');
+    }
+    public function luaranTambahan()
+    {
+        return $this->belongsTo(RefLuaranTambahan::class, 'usulan_id', 'luaran_tambahan_id');
+    }
+    public function iku()
+    {
+        return $this->belongsTo(Iku::class, 'usulan_id', 'iku_id');
     }
 }
