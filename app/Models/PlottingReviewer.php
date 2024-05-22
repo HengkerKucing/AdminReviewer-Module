@@ -28,6 +28,6 @@ class PlottingReviewer extends Model
 
     public function tahapreview()
     {
-        return $this->belongsTo(RefTahapReview::class,'tahap_review_id');
+        return $this->belongsTo (RefTahapReview::class,'tahap_review_id');
     }
 }
