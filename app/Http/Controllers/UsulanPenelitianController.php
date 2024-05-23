@@ -30,12 +30,14 @@ class UsulanPenelitianController extends Controller
         }
 
         // filter nama anggota dosen dan mahasiswa
-        if ($request->has('anggotaDosen.dosen' OR 'anggotaMahasiswa.mahasiswa') && !empty($request->input('anggota'))) {
+        if ($request->has('anggota') && !empty($request->input('anggota'))) {
             $anggota = $request->input('anggota');
-            $usulanPenelitian->whereHas('anggotaDosen.dosen', function ($query) use ($anggota) {
-                $query->where('dosen_nama', 'like', '%' . $anggota . '%');
-            })->orWhereHas('anggotaMahasiswa.mahasiswa', function ($query) use ($anggota) {
-                $query->where('mhs_nama', 'like', '%' . $anggota . '%');
+            $usulanPenelitian->where(function ($query) use ($anggota) {
+                $query->whereHas('anggotaDosen.dosen', function ($query) use ($anggota) {
+                    $query->where('dosen_nama', 'like', '%' . $anggota . '%');
+                })->orWhereHas('anggotaMahasiswa.mahasiswa', function ($query) use ($anggota) {
+                    $query->where('mhs_nama', 'like', '%' . $anggota . '%');
+                });
             });
         }
 
@@ -65,7 +67,15 @@ class UsulanPenelitianController extends Controller
     public function show($usulan_id)
     {
         // Mengambil data usulan penelitian beserta hubungan yang terkait
-        $usulanPenelitian = UsulanPenelitian::with(['skema', 'luaranWajib', 'luaranTambahan', 'iku'])->findOrFail($usulan_id);
+        $usulanPenelitian = UsulanPenelitian::with([
+            'skema', 
+            'luaranWajib', 
+            'luaranTambahan', 
+            'iku', 
+            'anggotaDosen.dosen', 
+            'anggotaMahasiswa.mahasiswa',
+            'anggotaDosenLuar.dosen',
+        ])->findOrFail($usulan_id);
     
         // Mengambil data yang diperlukan untuk Data Penilaian
         $skemaNama = $usulanPenelitian->skema->trx_skema_nama ?? 'N/A';
@@ -76,9 +86,29 @@ class UsulanPenelitianController extends Controller
         $luaranWajib = $usulanPenelitian->luaranWajib->pluck('luaran_wajib_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
         $luaranTambahan = $usulanPenelitian->luaranTambahan->pluck('luaran_tambahan_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
         $iku = $usulanPenelitian->iku->iku_nama;
+
+        // Mengambil data yang diperlukan untuk Anggota
+        $anggotaDosen = $usulanPenelitian->anggotaDosen->pluck('dosen.dosen_nama')->implode(', ');
+        $prodiDosen = $usulanPenelitian->anggotaDosen->pluck('dosen.prodi.prodi_nama')->implode(', ');
+        $anggotaDosenLuar = $usulanPenelitian->anggotaDosenLuar->pluck('dosen_nama')->implode(', ');
+        $anggotaMahasiswa = $usulanPenelitian->anggotaMahasiswa->pluck('mahasiswa.mhs_nama')->implode(', ');
+        $prodiMahasiswa = $usulanPenelitian->anggotaMahasiswa->pluck('mahasiswa.prodi.prodi_nama')->implode(', ');
     
         // Meneruskan data ke view
-        return view('usulan_penelitian.show', compact('skemaNama', 'usulanJudul', 'usulanAbstrak', 'luaranWajib', 'luaranTambahan', 'iku'));
+        return view('usulan_penelitian.show', compact(
+            'usulanPenelitian',
+            'skemaNama', 
+            'usulanJudul', 
+            'usulanAbstrak', 
+            'luaranWajib', 
+            'luaranTambahan',   
+            'iku', 
+            'anggotaDosen', 
+            'anggotaDosenLuar', 
+            'anggotaMahasiswa',
+            'prodiDosen',
+            'prodiMahasiswa'
+        ));
     }
     
 }

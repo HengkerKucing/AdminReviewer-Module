@@ -13,7 +13,6 @@ class ReviewUsulanController extends Controller
     {
         $usulan = Usulan::all();
         return view('review_usulan.index', compact('usulan'));
-        
     }
 
     public function show()

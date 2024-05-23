@@ -27,4 +27,9 @@ class Dosen extends Model
         'api_json_data',
         'is_active',
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(RefProdi::class, 'prodi_id');
+    }
 }

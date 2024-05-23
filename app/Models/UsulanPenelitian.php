@@ -24,7 +24,10 @@ class UsulanPenelitian extends Model
     {
         return $this->hasMany(UsulanAnggotaDosen::class, 'usulan_id');
     }
-
+    public function anggotaDosenLuar()
+    {
+        return $this->hasMany(UsulanAnggotaDosenLuar::class, 'usulan_id');
+    }
     public function anggotaMahasiswa()
     {
         return $this->hasMany(UsulanAnggotaMhs::class, 'usulan_id');
@@ -48,5 +51,15 @@ class UsulanPenelitian extends Model
     public function iku()
     {
         return $this->belongsTo(Iku::class, 'usulan_id', 'iku_id');
+    }
+
+    // Menghubungkan dengan Program Studi (Dosen + Mahasiswa)
+    public function prodiDosen()
+    {
+        return $this->belongsTo(RefProdi::class, 'usulan_id', 'dosen_id', 'prodi_id');
+    }
+    public function prodiMahasiswa()
+    {
+        return $this->belongsTo(RefProdi::class, 'usulan_id', 'mhs_id', 'prodi_id');
     }
 }
