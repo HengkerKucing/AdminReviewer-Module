@@ -41,6 +41,11 @@ class Usulan extends Model
     {
         return $this->hasOne(RefTahapReview::class,'tahap_review_id');
     }
+
+    public function plottingreviewer()
+    {
+        return $this->hasMany(PlottingReviewer::class,'usulan_id');
+    }
     // // Menghubungkan dengan Anggota Dosen
 
     // // Menghubungkan dengan Status
