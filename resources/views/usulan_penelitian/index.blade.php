@@ -53,12 +53,42 @@
 
         <div class="row">
             <div class="col-md-3">
-                <div class="card card-danger card-outline filter-container">
+                <div class="card card-primary card-outline filter-container">
                     <div class="card-header">
                         <h1 class="card-title font-weight-bold">Filter</h1>
                     </div>
                     <div class="card-body">
                         <form id="filter-form">
+                            <div class="form-group">
+                                <label>Judul:</label>
+                                <input name="judul" class="form-control form-control-sm" placeholder="Judul Usulan"
+                                value="{{ request('judul') }}" aria-controls="datatable-main">
+                            </div>
+                            <div class="form-group">
+                                <label for="filter-skema">Skema:</label>
+                                <select class="form-control" id="filter-skema" name="skema_nama">
+                                <option value="">-- Pilih Skema --</option>
+                                @foreach($skemas as $skema)
+                                    <option value="{{ $skema->trx_skema_nama }}" {{ request('skema_nama') == $skema->trx_skema_nama ? 'selected' : '' }}>
+                                        {{ $skema->trx_skema_nama }}
+                                    </option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Anggota:</label>
+                                <input type="search" name="anggota" class="form-control form-control-sm" placeholder="Ketua/Anggota Pengusul" aria-controls="datatable-main">
+                            </div>
+                            <div class="form-group">
+                                <label for="filter-status">Status:</label>
+                                <select class="form-control" id="filter-status" name="status_nama">
+                                    <option value="">-- Pilih Status --</option>
+                                    <!-- Loop melalui status dan tambahkan sebagai option -->
+                                    @foreach($statuses as $status)
+                                        <option value="{{ $status->status_nama }}">{{ $status->status_nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="filter-title">Tahun:</label>
                                 <select class="form-control" id="filter-title">
@@ -66,31 +96,7 @@
                                     <!-- isi dengan data judul -->
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="filter-skema">Skema:</label>
-                                <select class="form-control" id="filter-skema">
-                                    <option value="">-- Pilih Skema --</option>
-                                    <!-- isi dengan data judul -->
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="filter-status">Status:</label>
-                                <select class="form-control" id="filter-status">
-                                    <option value="">-- Pilih Status --</option>
-                                    <!-- isi dengan data tahun -->
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Judul:</label>
-                                <input type="search" class="form-control form-control-sm" placeholder=""
-                                    aria-controls="datatable-main">
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Anggota:</label>
-                                <input type="search" class="form-control form-control-sm" placeholder=""
-                                    aria-controls="datatable-main">
-                            </div>
-                            <button type="submit" class="btn btn-danger">Filter</button>
+                            <button type="submit" class="btn btn-primary">Filter</button>
                         </form>
                     </div>
                 </div>
@@ -98,7 +104,7 @@
             <div class="col-md-9">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">Usulan Penelitian</h3>
+                        <h3 class="card-title font-weight-bold">Usulan Penelitian</h3>
                     </div>
                     <div class="card-body">
                         <table id="datatable-main" class="table table-bordered table-striped">
@@ -114,23 +120,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($usulan as $item)
+                                @foreach ($usulanPenelitian as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->usulan_judul }}</td>
                                         <td>{{ $item->skema->trx_skema_nama }}</td>
-                                        <td>
-                                            <!-- Isi dengan data anggota -->
-                                        </td>
+                                        {{ $output = '' }}
+                                        @foreach ($item->anggotaDosen as $dsn)
+                                            @php
+                                                $output .= $dsn->dosen->dosen_nama . ', ';
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $output = rtrim($output, ', ')
+                                        @endphp
+                                        <td>{{ $output }}</td>
                                         <td>{{ $item->usulan_pendanaan }}</td>
-                                        <td>
-                                            <!-- Isi dengan status -->
-                                        </td>
+                                        <td>{{ $item->tahapReview->status->status_nama }}</td>
                                         <td>
                                             <div class="flex items-col">
-                                                <button type="button" class="btn btn-block btn-sm btn-outline-info mr-2"
-                                                    onclick="window.location.href = 'ref-skema-file'"><i
-                                                        class="fas fa-eye"></i></button>
+                                                <a href="{{ route('usulan-penelitian.show', $item->usulan_id) }}" class="btn btn-block btn-sm btn-outline-info mr-2">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -146,5 +157,14 @@
 @endsection
 
 @push('js')
-    <!-- Add your JavaScript here -->
+    <script>
+        document.getElementById('filter-form').addEventListener('submit', function(event) {
+            var inputs = this.querySelectorAll('input[name]');
+            inputs.forEach(function(input) {
+                if (!input.value) {
+                    input.name = ''; // Remove name attribute if the input is empty
+                }
+            });
+        });
+    </script>
 @endpush

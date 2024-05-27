@@ -38,7 +38,7 @@
                             <tr>
                                 @foreach ($plotting_reviewer as $plotting)
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$plotting->usulan->usulan_judul}}</td>
+                                    <td>{{$plotting->usulan_judul}}</td>
                                     <td>{{$plotting->skema->trx_skema_nama}}</td>
                                     {{$output = ''}}
                                     @foreach ($plotting->usulananggotamhs as $mhs)
@@ -52,9 +52,15 @@
                                     <td>
                                         {{$output}}
                                     </td>
-                                    <td>{{$plotting->usulan->usulan_pendanaan}}</td>
+                                    <td>{{$plotting->usulan_pendanaan}}</td>
                                     <td>{{$plotting->tahapreview->status->status_color}}</td>
-                                    <td></td>
+                                    <td>
+                                        <div class="flex items-col">
+                                        <a href="{{ route('plotting-reviewer.show', $plotting->usulan_id) }}" class="btn btn-block btn-sm btn-outline-info mr-2">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        </div>
+                                    </td>
                                     <style>
                                         .flex {
                                             display: flex;

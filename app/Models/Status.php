@@ -12,6 +12,6 @@ class Status extends Model
     protected $primaryKey = 'status_id';
     protected $fillable = [
         'status_nama',
-        "status_color",
+        'status_color',
     ];
 }

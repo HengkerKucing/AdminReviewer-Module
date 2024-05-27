@@ -32,7 +32,15 @@ class Usulan extends Model
         return $this->belongsTo(Skema::class, 'trx_skema_id');
     }
 
+    public function usulananggotamhs()
+    {
+        return $this->hasMany(UsulanAnggotaMhs::class, 'usulan_id', 'usulan_id');
+    }
 
+    public function tahapreview()
+    {
+        return $this->hasOne(RefTahapReview::class,'tahap_review_id');
+    }
     // // Menghubungkan dengan Anggota Dosen
 
     // // Menghubungkan dengan Status

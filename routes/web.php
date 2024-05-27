@@ -52,6 +52,7 @@ Route::resource('usulan', UsulanController::class);
 Route::resource('usulan-penelitian', UsulanPenelitianController::class);
 Route::resource('plotting-reviewer', PlottingReviewerController::class);
 Route::resource('review-usulan', ReviewUsulanController::class);
+Route::resource('plotting-reviewer', PlottingReviewerController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 

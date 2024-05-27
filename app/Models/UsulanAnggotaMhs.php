@@ -18,6 +18,6 @@ class UsulanAnggotaMhs extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class,'mhs_id','mhs_id');
+        return $this->hasOne(Mahasiswa::class,'mhs_id','mhs_id');
     }
 }
