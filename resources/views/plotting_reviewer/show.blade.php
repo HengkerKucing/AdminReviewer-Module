@@ -124,18 +124,80 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <!-- Tambahkan script JavaScript jika diperlukan -->
     <script>
-        $(document).ready(function () {
-            $('#datatable-main').DataTable({
-                "paging": false, // Nonaktifkan paging
-                "pageLength": 5, // Batasi jumlah baris yang ditampilkan menjadi 5
-                "pagingType": "numbers", // Menggunakan angka halaman
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": false, // Hapus "Showing 1 to 15 of X entries"
-                "autoWidth": false,
-                "responsive": true
-            });
+$(document).ready(function () {
+    $('#datatable-main').DataTable({
+        "paging": false, // Nonaktifkan paging
+        "pageLength": 5, // Batasi jumlah baris yang ditampilkan menjadi 5
+        "pagingType": "numbers", // Menggunakan angka halaman
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": false, // Hapus "Showing 1 to 15 of X entries"
+        "autoWidth": false,
+        "responsive": true
+    });
+
+    function validateReviewers(changedElement) {
+        let valid = true;
+        $('.reviewer1').each(function(index) {
+            let reviewer1 = $(this).val();
+            let reviewer2 = $('#reviewer2-stage' + index).val();
+            
+            if (reviewer1 && reviewer2 && reviewer1 === reviewer2) {
+                alert('Reviewer 1 dan Reviewer 2 tidak boleh sama pada tahap yang sama.');
+                if (changedElement.hasClass('reviewer1')) {
+                    $(this).val(''); // Reset reviewer_1
+                    to default
+                } else {
+                    $('#reviewer2-stage' + index).val(''); // Reset reviewer_2 to default
+                }
+                valid = false;
+                return false; // Break the loop
+            }
         });
-    </script>
+        return valid;
+    }
+
+    function formatFormData() {
+        let reviewer1Data = [];
+        let reviewer2Data = [];
+
+        $('.reviewer1').each(function(index) {
+            let stage = $(this).attr('name').match(/\[([^\]]+)\]/)[1];
+            let value = $(this).val();
+            if (value) {
+                let obj = {};
+                obj[stage] = value;
+                reviewer1Data.push(obj);
+            }
+        });
+
+        $('.reviewer2').each(function(index) {
+            let stage = $(this).attr('name').match(/\[([^\]]+)\]/)[1];
+            let value = $(this).val();
+            if (value) {
+                let obj = {};
+                obj[stage] = value;
+                reviewer2Data.push(obj);
+            }
+        });
+
+        return { reviewer_1: reviewer1Data, reviewer_2: reviewer2Data };
+    }
+
+    $('.reviewer1, .reviewer2').change(function() {
+        validateReviewers($(this));
+    });
+
+    $('form').submit(function(e) {
+        if (!validateReviewers($(''))) {
+            e.preventDefault();
+        } else {
+            let formData = formatFormData();
+            $('input[name="reviewer_1"]').val(JSON.stringify(formData.reviewer_1));
+            $('input[name="reviewer_2"]').val(JSON.stringify(formData.reviewer_2));
+        }
+    });
+});
+</script>
 @endpush

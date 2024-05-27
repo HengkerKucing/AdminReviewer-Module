@@ -61,7 +61,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Data for Dosen -->
+                                        @foreach ($usulanPenelitian->anggotaDosen as $anggota)
+                                            <tr>
+                                                <td>{{ $anggota->dosen->dosen_nama }}</td>
+                                                <td>{{ $anggota->dosen->prodi->prodi_nama }}</td>
+                                            </tr>
+                                        @endforeach
+                                        @foreach ($usulanPenelitian->anggotaMahasiswa as $anggota)
+                                            <tr>
+                                                <td>{{ $anggota->mahasiswa->mhs_nama }}</td>
+                                                <td>{{ $anggota->mahasiswa->prodi->prodi_nama }}</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

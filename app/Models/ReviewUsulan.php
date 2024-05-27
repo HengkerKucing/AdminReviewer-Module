@@ -33,7 +33,6 @@ class ReviewUsulan extends Model
     // public function review() 
     // {
     //     return $this->belongsTo(ReviewUsulan::class, 'tahap_review_id');
-    // }
 
 
     // public function reviewPerUsulan($review_usulan_id) {

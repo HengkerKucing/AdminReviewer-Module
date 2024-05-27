@@ -17,4 +17,9 @@ class Mahasiswa extends Model
         "prodi_id",
         "json_data"
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(RefProdi::class, 'prodi_id');
+    }
 }
