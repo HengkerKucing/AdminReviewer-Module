@@ -65,7 +65,7 @@
                                         <tr>
                                             <td>Reviewer 1</td>
                                             <td>
-                                            <select id="reviewer1-stage{{$index}}" class="form-select reviewer1" name="reviewer_1[{{$index}}][{{$stage}}]">
+                                            <select id="reviewer1-stage{{$index}}" class="form-control select-input placeholder-active active focused reviewer1" name="reviewer_1[{{$index}}][{{$stage}}]" >
                                                 <option disabled selected value>-- Pilih Dosen --</option>
                                                 @foreach ($dosen as $dsn)
                                                     <option value="{{ $dsn->dosen_id }}" 
@@ -81,7 +81,7 @@
                                         <tr>
                                             <td>Reviewer 2</td>
                                             <td>
-                                                <select id="reviewer2-stage{{$index}}" class="form-select reviewer2" name="reviewer_2[{{$index}}][{{$stage}}]" aria-label="Default select example">
+                                                <select id="reviewer2-stage{{$index}}" class="form-control select-input placeholder-active active focused reviewer2" name="reviewer_2[{{$index}}][{{$stage}}]" aria-label="Default select example">
                                                 <option disabled selected value>-- Pilih Dosen --</option>
                                                 @foreach ($dosen as $dsn)
                                                     <option value="{{ $dsn->dosen_id }}" 
@@ -136,28 +136,29 @@
     <script>
 $(document).ready(function () {
     $('#datatable-main').DataTable({
-        "paging": false, // Nonaktifkan paging
-        "pageLength": 5, // Batasi jumlah baris yang ditampilkan menjadi 5
-        "pagingType": "numbers", // Menggunakan angka halaman
+        "paging": false,
+        "pageLength": 5,
+        "pagingType": "numbers",
         "lengthChange": false,
         "searching": true,
         "ordering": true,
-        "info": false, // Hapus "Showing 1 to 15 of X entries"
+        "info": false,
         "autoWidth": false,
         "responsive": true
     });
 
     function validateReviewers(changedElement) {
         let valid = true;
+
         $('.reviewer1').each(function(index) {
             let reviewer1 = $(this).val();
             let reviewer2 = $('#reviewer2-stage' + index).val();
-            
+
             if (reviewer1 && reviewer2 && reviewer1 === reviewer2) {
                 alert('Reviewer 1 dan Reviewer 2 tidak boleh sama pada tahap yang sama.');
+
                 if (changedElement.hasClass('reviewer1')) {
-                    $(this).val(''); // Reset reviewer_1
-                    to default
+                    $(this).val(''); // Reset reviewer_1 to default
                 } else {
                     $('#reviewer2-stage' + index).val(''); // Reset reviewer_2 to default
                 }
@@ -165,6 +166,7 @@ $(document).ready(function () {
                 return false; // Break the loop
             }
         });
+
         return valid;
     }
 
@@ -204,10 +206,20 @@ $(document).ready(function () {
             e.preventDefault();
         } else {
             let formData = formatFormData();
-            $('input[name="reviewer_1"]').val(JSON.stringify(formData.reviewer_1));
-            $('input[name="reviewer_2"]').val(JSON.stringify(formData.reviewer_2));
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'reviewer_1',
+                value: JSON.stringify(formData.reviewer_1)
+            }).appendTo('form');
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'reviewer_2',
+                value: JSON.stringify(formData.reviewer_2)
+            }).appendTo('form');
         }
     });
 });
+
 </script>
 @endpush
