@@ -224,7 +224,50 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h5>Berkas Usulan</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Berkas</th>
+                                    <th>Lihat Berkas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Proposal</td>
+                                    <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Rencana Anggaran Biaya (RAB)</td>
+                                    <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Laporan Kemajuan</td>
+                                    <td><button class="btn btn-danger">Belum Unggah</button></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Laporan Akhir</td>
+                                    <td><button class="btn btn-danger">Belum Unggah</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                
         </div>
     </div>
