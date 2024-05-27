@@ -41,6 +41,14 @@ class UsulanPenelitianController extends Controller
             });
         }
 
+        // filter tahun
+        if ($request->has('tahun') && !empty($request->input('tahun'))) {
+            $tahun = $request->input('tahun');
+            $usulanPenelitian->whereHas('skema', function ($query) use ($tahun) {
+                $query->where('periode_tahun', $tahun);
+            });
+        }    
+
         // filter status
         if ($request->has('status_nama') && !empty($request->input('status_nama'))) {
             $status = $request->input('status_nama');
@@ -57,11 +65,14 @@ class UsulanPenelitianController extends Controller
         // Mengambil semua nama skema berdasarkan filter
         $skemas = Skema::all();
 
+        // Mengambil semua tahun berdasarkan filter
+        $years = UsulanPenelitian::with('skema')->get()->pluck('skema.periode_tahun')->unique()->sort();
+
         // Mengambil semua status berdasarkan filter
         $statuses = Status::all();
 
         // dd($usulanPenelitian);
-        return view('usulan_penelitian.index', compact('usulanPenelitian', 'skemas', 'statuses'));
+        return view('usulan_penelitian.index', compact('usulanPenelitian', 'skemas', 'years', 'statuses'));
     }
 
     public function show($usulan_id)
