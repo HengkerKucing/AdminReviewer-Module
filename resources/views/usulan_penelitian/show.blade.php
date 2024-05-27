@@ -67,12 +67,6 @@
                                                 <td>{{ $anggota->dosen->prodi->prodi_nama }}</td>
                                             </tr>
                                         @endforeach
-                                        @foreach ($usulanPenelitian->anggotaMahasiswa as $anggota)
-                                            <tr>
-                                                <td>{{ $anggota->mahasiswa->mhs_nama }}</td>
-                                                <td>{{ $anggota->mahasiswa->prodi->prodi_nama }}</td>
-                                            </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -88,7 +82,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Data for Mahasiswa -->
+                                        @foreach ($usulanPenelitian->anggotaMahasiswa as $anggota)
+                                            <tr>
+                                                <td>{{ $anggota->mahasiswa->mhs_nama }}</td>
+                                                <td>{{ $anggota->mahasiswa->prodi->prodi_nama }}</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -97,7 +96,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Repeat similar blocks for other sections -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="card card-primary card-outline">
@@ -106,16 +104,68 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-md-3 font-weight-bold">Luaran Wajib:</div>
-                                <div class="col-md-9">{{ $luaranWajib }}</div>
+                                <div class="col-md-3 font-weight-bold">Luaran Wajib</div>
+                                <div class="col-md-9">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Jenis Luaran Wajib</th>
+                                                <th>Luaran</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($usulanPenelitian->usulanLuaranWajib as $usulan)
+                                            <tr>
+                                                <td>{{ $usulan->luaranWajib->luaran_wajib_nama }}</td>
+                                                <td>{{ $usulan->luaranWajib->luaran_wajib_slug }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-md-3 font-weight-bold">Luaran Tambahan:</div>
-                                <div class="col-md-9">{{ $luaranTambahan }}</div>
+                                <div class="col-md-3 font-weight-bold">Luaran Tambahan</div>
+                                <div class="col-md-9">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Jenis Luaran Tambahan</th>
+                                                <th>Luaran</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($usulanPenelitian->usulanLuaranTambahan as $usulan)
+                                            <tr>
+                                                <td>{{ $usulan->luaranTambahan->luaran_tambahan_nama }}</td>
+                                                <td>{{ $usulan->luaranTambahan->luaran_tambahan_slug }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-md-3 font-weight-bold">IKU:</div>
-                                <div class="col-md-9">{{ $iku }}</div>
+                                <div class="col-md-3 font-weight-bold">Luaran Tambahan</div>
+                                <div class="col-md-9">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>IKU</th>
+                                                <th>Target Pengusul</th>
+                                                <th>Bukti</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($usulanPenelitian->usulanIKU as $usulan)
+                                            <tr>
+                                                <td>{{ $usulan->iku->iku_nama }}</td>
+                                                <td>{{ $usulan->iku->iku_target }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -146,7 +196,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Berkas Usulan section -->
             <div class="row">
             <div class="col-md-6">
                     <div class="card card-primary card-outline">
@@ -159,24 +208,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // JavaScript untuk menghitung total nilai
-        document.addEventListener('DOMContentLoaded', function () {
-            var selects = document.querySelectorAll('.nilai-select');
-            var totalNilai = document.getElementById('total-nilai');
-
-            selects.forEach(function (select) {
-                select.addEventListener('change', function () {
-                    var total = 0;
-                    selects.forEach(function (select) {
-                        total += parseInt(select.value);
-                    });
-                    totalNilai.textContent = total;
-                });
-            });
-        });
-    </script>
 
     <!-- Styling -->
     @push('styles')
