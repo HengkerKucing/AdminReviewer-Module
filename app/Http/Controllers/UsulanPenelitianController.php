@@ -94,7 +94,16 @@ class UsulanPenelitianController extends Controller
         $skemaNama = $usulanPenelitian->skema->trx_skema_nama;
         $usulanJudul = $usulanPenelitian->usulan_judul;
         $usulanAbstrak = $usulanPenelitian->usulan_abstrak;
+<<<<<<< HEAD
+
+        // Mengambil data yang diperlukan untuk Capaian
+        $luaranWajib = $usulanPenelitian->luaranWajib->pluck('luaran_wajib_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
+        $luaranTambahan = $usulanPenelitian->luaranTambahan->pluck('luaran_tambahan_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
+        $iku = $usulanPenelitian->iku->iku_nama;
+
+=======
     
+>>>>>>> fd67a12f314e58447555b53e6ae2b8459cba0a5c
         // Mengambil data yang diperlukan untuk Anggota
         $anggotaDosen = $usulanPenelitian->anggotaDosen->pluck('dosen.dosen_nama')->implode(', ');
         $prodiDosen = $usulanPenelitian->anggotaDosen->pluck('dosen.prodi.prodi_nama')->implode(', ');
@@ -131,5 +140,5 @@ class UsulanPenelitianController extends Controller
             'file', 
         ));
     }
-    
+
 }

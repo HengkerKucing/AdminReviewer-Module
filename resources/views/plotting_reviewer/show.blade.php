@@ -8,56 +8,46 @@
 @endpush
 
 @section('content')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">Plotting-Reviewer</h4>
-                </div>
-                <div class="col-sm-6">
-                </div>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 text-uppercase">
+                <h4 class="m-0">Plotting-Reviewer</h4>
+            </div>
+            <div class="col-sm-6">
+                <!-- <ol class="breadcrumb float-sm-right">
+                        {{-- Tambahkan breadcrumb jika diperlukan --}}
+                    </ol> -->
             </div>
         </div>
     </div>
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5 class="m-0"></h5>
-                            <div class="card-tools">
-                            </div>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h5 class="m-0"></h5>
+                        <div class="card-tools">
                         </div>
-                        <form id="plotting-form" action="{{ route('plotting-reviewer.update', $show_plotting_reviewer[0]->usulan_id) }}" method="POST">
-                            <div class="card-body">
-                                @csrf
-                                @method('PUT')
-                                <table id="datatable-plotting" class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>Judul Usulan :</th>
-                                        <td><strong>{{ $show_plotting_reviewer[0]->usulan_judul }}</strong></td>
-                                    </tr>
-                                    <tr>  
-                                        <th>Anggota :</th>
-                                        <td>
-                                            @forelse ($show_plotting_reviewer[0]->usulananggotamhs as $mhs) 
-                                                {{ "- " . $mhs->mahasiswa->mhs_nama }}<br>
-                                            @empty
-                                                <p>Data anggota tidak tersedia</p>
-                                            @endforelse
-                                        </td>
-                                    </tr>
-                                </table>
-                                <br>
-                                <table id="datatable-plotting2" class="table table-bordered table-striped">
+                    </div>
+                    <div class="card-body">
+                        <table id="datatable-plotting" class="table table-bordered table-striped ">
+                            <tr>
+                                <th>Judul Usulan :</th>
+                                <td><strong>{{$show_plotting_reviewer[0]->usulan->usulan_judul ?? ''}}</strong></td>
+                            </tr>
+                            <tr>
+                                <th>Anggota :</th>
+                                <td>
                                     @php
-                                        $data = [
-                                            'Review Tahap Proposal',
-                                            'Review Tahap Laporan Kemajuan',
-                                            'Review Tahap Laporan Akhir'
-                                        ];
+                                        $data = $show_plotting_reviewer[0]->usulananggotamhs ?? [];
                                     @endphp
+<<<<<<< HEAD
+                                    @foreach ($data as $mhs) 
+                                        {{"- " . $mhs->mahasiswa->mhs_nama}}<br>
+=======
                                     @foreach ($data as $index => $stage)
                                         <tr>
                                             <th colspan="2">{{ $stage }}</th>
@@ -94,35 +84,74 @@
                                             </select>
                                             </td>
                                         </tr>
+>>>>>>> fd67a12f314e58447555b53e6ae2b8459cba0a5c
                                     @endforeach
-                                </table>
-                                <!-- Ikon Simpan -->
-                                <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-save"></i> Simpan</button>
-                            </div>
-                        </form>
+                                </td>
+                                </td>
+                        </table>
+                        <br>
+                        <table id="datatable-plotting2" class="table table-bordered table-striped">
+                            @php
+                                $data = [
+                                    'Review Tahap Proposal',
+                                    'Review Tahap Laporan Kemajuan',
+                                    'Review Tahap Laporan Akhir'
+                                ];
+                            @endphp
+                            @foreach ($data as $i)
+                                <tr>
+                                    <th colspan="2">{{$i}}</th>
+                                </tr>
+                                <tr>
+                                    <td>Reviewer 1</td>
+                                    <td>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option disabled selected value>Pilih Dosen</option>
+                                            @foreach ($dosen as $dsn)
+                                                <option value="{{$dsn->dosen_id}}">{{$dsn->dosen_nama_lengkap}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Reviewer 2</td>
+                                    <td>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option disabled selected value>Pilih Dosen</option>
+                                            @foreach ($dosen as $dsn)
+                                                <option value="{{$dsn->dosen_id}}">{{$dsn->dosen_nama_lengkap}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <!-- Ikon Simpan -->
+                        <button type="button" class="btn btn-primary mt-3"><i class="fas fa-save"></i> Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Styling -->
-    @push('styles')
-        <style>
-            .flex {
-                display: flex;
-            }
+<!-- Styling -->
+@push('styles')
+    <style>
+        .flex {
+            display: flex;
+        }
 
-            .items-col {
-                flex-direction: column;
-            }
+        .items-col {
+            flex-direction: column;
+        }
 
-            .mb-2 {
-                margin-right: 5px;
-                /* width: auto; */
-            }
-        </style>
-    @endpush
+        .mb-2 {
+            margin-right: 5px;
+            /* width: auto; */
+        }
+    </style>
+@endpush
 @endsection
 
 @push('js')

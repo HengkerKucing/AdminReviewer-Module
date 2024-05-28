@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ReviewUsulan;
 use App\Models\UsulanPenelitian;
 use Illuminate\View\View;
+
 // use Illuminate\Http\Request;
 
 class ReviewUsulanController extends Controller
@@ -16,9 +17,9 @@ class ReviewUsulanController extends Controller
         return view('review_usulan.index', compact('reviewUsulan'));
     }
 
-    public function show()
+    public function show($id)
     {
-        $reviewUsulan = ReviewUsulan::all();
+        $reviewUsulan = ReviewUsulan::all()->where("tahap_review_id", '=', $id);
         // $usulan = Usulan::where('usulan_id', $usulan_id)->first();
         return view('review_usulan.show', compact('reviewUsulan'));
     }

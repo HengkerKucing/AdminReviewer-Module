@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-<!-- DataTables -->
+    <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -59,9 +59,9 @@
                                                 <a href="{{ route('review-usulan.show', $item->usulan_id) }}" class="btn btn-block btn-sm btn-outline-info mr-2">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                </div>
-                                            </td>
-                                            <style>
+                                            </div>
+                                        </td>
+                                        <style>
                                             .flex {
                                                 display: flex;
                                             }
@@ -69,21 +69,22 @@
                                             .flex-col {
                                                 flex-direction: column;
                                             }
+
                                             .mb-2 {
                                                 margin-right: 5px;
                                             }
-                                            </style>
-                                        </tr>
+                                        </style>
+                                    </tr>
                                 @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
+</div>
 @endsection
 @push('js')
 @endpush
