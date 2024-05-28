@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usulan;
 use App\Models\ReviewUsulan;
+use App\Models\UsulanPenelitian;
 use Illuminate\View\View;
 // use Illuminate\Http\Request;
 
@@ -11,8 +11,9 @@ class ReviewUsulanController extends Controller
 {
     public function index(): View
     {
-        $usulan = Usulan::all();
-        return view('review_usulan.index', compact('usulan'));
+        $reviewUsulan = UsulanPenelitian::with('skema', 'anggotaDosen.dosen', 'anggotaMahasiswa.mahasiswa', 'tahapReview.status')->get();
+
+        return view('review_usulan.index', compact('reviewUsulan'));
     }
 
     public function show()

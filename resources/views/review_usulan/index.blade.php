@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        // Kasih filter
+                        
                     </ol>
                 </div>
             </div>
@@ -32,20 +32,28 @@
                                     <th>Judul</th>
                                     <th>Skema</th>
                                     <th>Anggota</th>
-                                    <th>Pendanaan</th>
+                                    <th>Tahun</th>
                                     <th>Status</th>
                                     <th>Detail</th>
                                 </thead>
                                 <tbody>
-                                @foreach ($usulan as $item)
+                                @foreach ($reviewUsulan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->usulan_judul }}</td>
                                             <td>{{ $item->skema->trx_skema_nama }}</td>
-                                            <td>{{ $item->usulan_pendanaan }}</td>
-                                            <td>{{ $item->usulan_pendanaan }}</td>
-                                            <td>{{ $item->status_id }}</td>
-
+                                            {{ $output = '' }}
+                                            @foreach ($item->anggotaDosen as $dsn)
+                                                @php
+                                                    $output .= $dsn->dosen->dosen_nama . ', ';
+                                                @endphp
+                                            @endforeach
+                                            @php
+                                                $output = rtrim($output, ', ')
+                                            @endphp
+                                            <td>{{ $output }}</td>
+                                            <td>{{ $item->skema->periode_tahun }}</td>
+                                            <td>{{ $item->tahapReview->status->status_nama }}</td>
                                             <td>
                                                 <div class="flex items-col">
                                                 <a href="{{ route('review-usulan.show', $item->usulan_id) }}" class="btn btn-block btn-sm btn-outline-info mr-2">
