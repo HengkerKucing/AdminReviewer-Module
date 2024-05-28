@@ -60,17 +60,17 @@ public function store(Request $request, $trx_skema_id)
 
     public function edit($trx_skema_id, $id)
     {
-        $skemafile = SkemaSettingModel::find($id);
+        $skemasetting = SkemaSettingModel::find($id);
 
-        return view('skema_file.edit', compact('skemafile', 'trx_skema_id', 'id'));
+        return view('skema_setting.edit', compact('skemasetting', 'trx_skema_id', 'id'));
     }
 
 
     public function update(Request $request, $trx_skema_id, $id)
     {
         $validator = Validator::make($request->all(), [
-            'file_caption' => 'required|string',
-            'file_accepted_type' => 'required',
+            'setting_label' => 'required',
+            'setting_value' => 'required',
             // 'file_template' => 'required'
         ]);
 
@@ -82,13 +82,13 @@ public function store(Request $request, $trx_skema_id)
         }
 
         try {
-            $skemafile = SkemaSettingModel::findOrFail($id);
-            $skemafile->update($request->all());
+            $skemasetting = SkemaSettingModel::findOrFail($id);
+            $skemasetting->update($request->all());
             toastr()->success('Skema berhasil diperbarui');
-            return redirect()->route('skema-file.index', $trx_skema_id);
+            return redirect()->route('skema-setting.index', $trx_skema_id);
         } catch (\Throwable $th) {
             toastr()->warning('Terdapat masalah saat memperbarui skema: ' . $th->getMessage());
-            return view('skema_file.edit', compact('skemafile'));
+            return view('skema_setting.edit', compact('skemasetting'));
         }
     }
 

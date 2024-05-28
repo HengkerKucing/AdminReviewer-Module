@@ -11,6 +11,7 @@ class SkemaSettingModel extends Model
     use HasFactory;
 
     protected $table = "trx_skema_settings";
+    protected $primaryKey = 'skema_setting_id';
     protected $foregnkey = 'trx_skema_id';
 
     public function skema()
@@ -19,6 +20,7 @@ class SkemaSettingModel extends Model
     }
 
     protected $fillable = [
+        'skema_setting_id',
         'trx_skema_id',
         'setting_key',
         'setting_label',
