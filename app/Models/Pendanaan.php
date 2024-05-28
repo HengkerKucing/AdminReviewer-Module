@@ -10,7 +10,6 @@ class Pendanaan extends Model
 {
 
     protected $table = "trx_skema_pendanaan";
-
     protected $primaryKey = 'pendanaan_id';
 
     /**
@@ -27,11 +26,6 @@ class Pendanaan extends Model
         'pendanaan_persentase',
         'is_active'
     ];
-
-    // public function id()
-    // {
-    //     return $this->belongsTo(Menu::class, 'skema_file_id');
-    // }
 
     public function skema_id()
     {

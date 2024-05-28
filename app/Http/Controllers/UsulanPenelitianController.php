@@ -41,6 +41,14 @@ class UsulanPenelitianController extends Controller
             });
         }
 
+        // filter tahun
+        if ($request->has('tahun') && !empty($request->input('tahun'))) {
+            $tahun = $request->input('tahun');
+            $usulanPenelitian->whereHas('skema', function ($query) use ($tahun) {
+                $query->where('periode_tahun', $tahun);
+            });
+        }    
+
         // filter status
         if ($request->has('status_nama') && !empty($request->input('status_nama'))) {
             $status = $request->input('status_nama');
@@ -57,11 +65,14 @@ class UsulanPenelitianController extends Controller
         // Mengambil semua nama skema berdasarkan filter
         $skemas = Skema::all();
 
+        // Mengambil semua tahun berdasarkan filter
+        $years = UsulanPenelitian::with('skema')->get()->pluck('skema.periode_tahun')->unique()->sort();
+
         // Mengambil semua status berdasarkan filter
         $statuses = Status::all();
 
         // dd($usulanPenelitian);
-        return view('usulan_penelitian.index', compact('usulanPenelitian', 'skemas', 'statuses'));
+        return view('usulan_penelitian.index', compact('usulanPenelitian', 'skemas', 'years', 'statuses'));
     }
 
     public function show($usulan_id)
@@ -69,24 +80,30 @@ class UsulanPenelitianController extends Controller
         // Mengambil data usulan penelitian beserta hubungan yang terkait
         $usulanPenelitian = UsulanPenelitian::with([
             'skema', 
-            'luaranWajib', 
-            'luaranTambahan', 
-            'iku', 
+            'usulanLuaranWajib.luaranWajib', 
+            'usulanLuaranTambahan.luaranTambahan', 
+            'usulanIKU.iku', 
             'anggotaDosen.dosen', 
-            'anggotaMahasiswa.mahasiswa',
-            'anggotaDosenLuar.dosen',
+            'anggotaMahasiswa.mahasiswa', 
+            'anggotaDosenLuar.dosen', 
+            'usulanPendanaan.pendanaan', 
+            'usulanFile.skemaFile', 
         ])->findOrFail($usulan_id);
     
         // Mengambil data yang diperlukan untuk Data Penilaian
-        $skemaNama = $usulanPenelitian->skema->trx_skema_nama ?? 'N/A';
+        $skemaNama = $usulanPenelitian->skema->trx_skema_nama;
         $usulanJudul = $usulanPenelitian->usulan_judul;
         $usulanAbstrak = $usulanPenelitian->usulan_abstrak;
+<<<<<<< HEAD
 
         // Mengambil data yang diperlukan untuk Capaian
         $luaranWajib = $usulanPenelitian->luaranWajib->pluck('luaran_wajib_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
         $luaranTambahan = $usulanPenelitian->luaranTambahan->pluck('luaran_tambahan_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
         $iku = $usulanPenelitian->iku->iku_nama;
 
+=======
+    
+>>>>>>> fd67a12f314e58447555b53e6ae2b8459cba0a5c
         // Mengambil data yang diperlukan untuk Anggota
         $anggotaDosen = $usulanPenelitian->anggotaDosen->pluck('dosen.dosen_nama')->implode(', ');
         $prodiDosen = $usulanPenelitian->anggotaDosen->pluck('dosen.prodi.prodi_nama')->implode(', ');
@@ -94,20 +111,33 @@ class UsulanPenelitianController extends Controller
         $anggotaMahasiswa = $usulanPenelitian->anggotaMahasiswa->pluck('mahasiswa.mhs_nama')->implode(', ');
         $prodiMahasiswa = $usulanPenelitian->anggotaMahasiswa->pluck('mahasiswa.prodi.prodi_nama')->implode(', ');
     
+        // Mengambil data yang diperlukan untuk Capaian
+        $luaranWajib = $usulanPenelitian->usulanLuaranWajib->pluck('luaranWajib.luaran_wajib_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
+        $luaranTambahan = $usulanPenelitian->usulanLuaranTambahan->pluck('luaranTambahan.luaran_tambahan_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak luaran
+        $iku = $usulanPenelitian->usulanIKU->pluck('iku.iku_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak iku
+        
+        // Mengambil data yang diperlukan untuk Komponen Pendanaan
+        $pendanaan = $usulanPenelitian->usulanPendanaan->pluck('pendanaan.pendanaan_nama')->implode(', ');
+
+        // Mengambil data yang diperlukan untuk Berkas Usulan
+        $file = $usulanPenelitian->usulanFile->pluck('skemaFile.file_template')->implode(', ');
+            
         // Meneruskan data ke view
         return view('usulan_penelitian.show', compact(
             'usulanPenelitian',
             'skemaNama', 
             'usulanJudul', 
             'usulanAbstrak', 
-            'luaranWajib', 
-            'luaranTambahan',   
-            'iku', 
             'anggotaDosen', 
             'anggotaDosenLuar', 
             'anggotaMahasiswa',
             'prodiDosen',
-            'prodiMahasiswa'
+            'prodiMahasiswa',
+            'luaranWajib', 
+            'luaranTambahan',   
+            'iku', 
+            'pendanaan', 
+            'file', 
         ));
     }
 

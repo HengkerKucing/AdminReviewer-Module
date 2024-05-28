@@ -40,17 +40,17 @@ class UsulanPenelitian extends Model
     }
 
     // Menghubungkan dengan Luaran (Wajib + Tambahan) + Iku
-    public function luaranWajib()
+    public function usulanLuaranWajib()
     {
-        return $this->belongsTo(RefLuaranWajib::class, 'usulan_id', 'luaran_id');
+        return $this->hasMany(UsulanLuaranWajib::class, 'usulan_id');
     }
-    public function luaranTambahan()
+    public function usulanLuaranTambahan()
     {
-        return $this->belongsTo(RefLuaranTambahan::class, 'usulan_id', 'luaran_tambahan_id');
+        return $this->hasMany(UsulanLuaranTambahan::class, 'usulan_id');
     }
-    public function iku()
+    public function usulanIKU()
     {
-        return $this->belongsTo(Iku::class, 'usulan_id', 'iku_id');
+        return $this->hasMany(UsulanIKU::class, 'usulan_id');
     }
 
     // Menghubungkan dengan Program Studi (Dosen + Mahasiswa)
@@ -61,5 +61,17 @@ class UsulanPenelitian extends Model
     public function prodiMahasiswa()
     {
         return $this->belongsTo(RefProdi::class, 'usulan_id', 'mhs_id', 'prodi_id');
+    }
+
+    // Menghubungkan dengan Skema Pendanaan
+    public function usulanPendanaan()
+    {
+        return $this->hasMany(UsulanPendanaan::class, 'usulan_id');
+    }
+
+    // Menghubungkan dengan Skema File
+    public function usulanFile()
+    {
+        return $this->hasMany(UsulanFile::class, 'usulan_id');
     }
 }

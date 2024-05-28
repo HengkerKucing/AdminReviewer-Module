@@ -80,6 +80,15 @@
                                 <input type="search" name="anggota" class="form-control form-control-sm" placeholder="Ketua/Anggota Pengusul" aria-controls="datatable-main">
                             </div>
                             <div class="form-group">
+                                <label for="filter-year">Tahun:</label>
+                                <select class="form-control" id="filter-year" name="tahun">
+                                    <option value="">-- Pilih Tahun --</option>
+                                    @foreach($years as $year)
+                                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="filter-status">Status:</label>
                                 <select class="form-control" id="filter-status" name="status_nama">
                                     <option value="">-- Pilih Status --</option>
@@ -87,13 +96,6 @@
                                     @foreach($statuses as $status)
                                         <option value="{{ $status->status_nama }}">{{ $status->status_nama }}</option>
                                     @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="filter-title">Tahun:</label>
-                                <select class="form-control" id="filter-title">
-                                    <option value="">-- Pilih tahun --</option>
-                                    <!-- isi dengan data judul -->
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Filter</button>
@@ -107,14 +109,14 @@
                         <h3 class="card-title font-weight-bold">Usulan Penelitian</h3>
                     </div>
                     <div class="card-body">
-                        <table id="datatable-main" class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Judul</th>
                                     <th>Skema</th>
                                     <th>Anggota</th>
-                                    <th>Pendanaan</th>
+                                    <th>Tahun</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -135,7 +137,7 @@
                                             $output = rtrim($output, ', ')
                                         @endphp
                                         <td>{{ $output }}</td>
-                                        <td>{{ $item->usulan_pendanaan }}</td>
+                                        <td>{{ $item->skema->periode_tahun }}</td>
                                         <td>{{ $item->tahapReview->status->status_nama }}</td>
                                         <td>
                                             <div class="flex items-col">
