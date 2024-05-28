@@ -8,122 +8,131 @@
 @endpush
 
 @section('content')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">Review Usulan</h4>
-                </div>
-                <div class="col-sm-6">
-                    <!-- <ol class="breadcrumb float-sm-right">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 text-uppercase">
+                <h4 class="m-0">Review Usulan</h4>
+            </div>
+            <div class="col-sm-6">
+                <!-- <ol class="breadcrumb float-sm-right">
                         {{-- Tambahkan breadcrumb jika diperlukan --}}
                     </ol> -->
-                </div>
             </div>
         </div>
     </div>
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5>hohoho</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <th>No</th>
-                                    <th>Kriteria</th>
-                                    <th>Bobot</th>
-                                    <th>Nilai</th>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $criteria = [
-                                            'Rekam Jejak PTM',
-                                            'Mutu Penelitian',
-                                            'Kelayakan Penelitian',
-                                            'Kesesuaian keahlian pengusul dengan program',
-                                            'Pentingnya kerjasama penelitian'
-                                        ];
-                                    @endphp
-                                    @foreach ($reviewUsulan as $item)
-                                        @if (in_array($item->kriteria_nama, $criteria))
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->kriteria_nama }}</td>
-                                                <td>{{ $item->kriteria_bobot }}</td>
-                                                
-                                                <td>
-                                                    <select name="cars" class="nilai-select">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h5>Penilaian Usulan</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <th>No</th>
+                                <th>Kriteria</th>
+                                <th>Bobot</th>
+                                <th>Nilai</th>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $criteria = [
+                                        'Rekam Jejak PTM',
+                                        'Mutu Penelitian',
+                                        'Kelayakan Penelitian',
+                                        'Kesesuaian keahlian pengusul dengan program',
+                                        'Pentingnya kerjasama penelitian'
+                                    ];
+                                @endphp
+                                @foreach ($reviewUsulan as $item)
+
                                     <tr>
-                                        <th colspan="3">Total Penilaian:</th>
-                                        <td id="total-nilai">0</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->kriteria_nama }}</td>
+                                        <td class="kriteria-bobot">{{ $item->kriteria_bobot }}</td>
+                                        <td>
+                                            <select name="nilai" class="nilai-select">
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </td>
                                     </tr>
-                                </tfoot>
-                            </table>
-                            <!-- Komentar -->
-                            <div class="mt-3 mb-3">
-                                <textarea class="form-control" rows="3" placeholder="Tambahkan komentar"></textarea>
-                            </div>
-                            <!-- Ikon Simpan -->
+
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Total Penilaian:</th>
+                                    <td id="total-nilai">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <!-- Komentar -->
+                        <div class="mt-3 mb-3">
+                            <textarea class="form-control" rows="3" placeholder="Tambahkan komentar"></textarea>
+                        </div>
+                        <!-- Tombol Simpan dan Kembali -->
+                        <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                            <button type="button" class="btn btn-secondary" onclick="window.history.back();"><i
+                                    class="fas fa-arrow-left"></i> Kembali</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // JavaScript untuk menghitung total nilai
-        document.addEventListener('DOMContentLoaded', function () {
-            var selects = document.querySelectorAll('.nilai-select');
-            var totalNilai = document.getElementById('total-nilai');
+<script>
+    // JavaScript untuk menghitung total nilai dengan bobot
+    document.addEventListener('DOMContentLoaded', function () {
+        var selects = document.querySelectorAll('.nilai-select');
+        var totalNilai = document.getElementById('total-nilai');
 
+        function calculateTotal() {
+            var total = 0;
             selects.forEach(function (select) {
-                select.addEventListener('change', function () {
-                    var total = 0;
-                    selects.forEach(function (select) {
-                        total += parseInt(select.value);
-                    });
-                    totalNilai.textContent = total;
-                });
+                var nilai = parseInt(select.value);
+                var bobot = parseFloat(select.closest('tr').querySelector('.kriteria-bobot').textContent);
+                total += nilai * bobot;
             });
+            totalNilai.textContent = total;
+        }
+
+        selects.forEach(function (select) {
+            select.addEventListener('change', calculateTotal);
         });
-    </script>
 
-    <!-- Styling -->
-    @push('styles')
-        <style>
-            .flex {
-                display: flex;
-            }
+        calculateTotal();
+    });
+</script>
 
-            .items-col {
-                flex-direction: column;
-            }
+<!-- Styling -->
+@push('styles')
+    <style>
+        .flex {
+            display: flex;
+        }
 
-            .mb-2 {
-                margin-right: 5px;
-                /* width: auto; */
-            }
+        .items-col {
+            flex-direction: column;
+        }
 
-        </style>
-    @endpush
+        .mb-2 {
+            margin-right: 5px;
+            /* width: auto; */
+        }
+    </style>
+@endpush
 @endsection
 
 @push('js')
