@@ -216,71 +216,48 @@
                     </div>
                 </div>
             </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h5>Berkas Usulan</h5>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Berkas</th>
-                                            <th>Lihat Berkas</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Proposal</td>
-                                            <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Rencana Anggaran Biaya (RAB)</td>
-                                            <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Laporan Kemajuan</td>
-                                            <td><button class="btn btn-danger">Belum Unggah</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Laporan Akhir</td>
-                                            <td><button class="btn btn-danger">Belum Unggah</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5>Berkas Usulan</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Berkas</th>
+                                        <th>Lihat Berkas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($usulanPenelitian->usulanFile as $usulan)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $usulan->skemaFile->file_caption }}</td>
+                                        <td>
+                                            @if ($usulan->file_path) <!-- Asumsikan file_path adalah atribut yang menunjukkan apakah file telah diunggah -->
+                                                <a href="{{ asset('storage/' . $usulan->file_path) }}" target="_blank" class="btn btn-primary">
+                                                    <i class="fas fa-eye"></i> Lihat File
+                                                </a>
+                                            @else
+                                                <!-- <span class="text-danger">Belum diunggah</span> -->
+                                                <button class="btn btn-danger" disabled>Belum diunggah</button>
+                                            @endif
+                                        </td>
+                                        <!-- <td>{{ $usulan->skemaFile->file_template }}</td> -->
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // JavaScript untuk menghitung total nilai
-        document.addEventListener('DOMContentLoaded', function () {
-            var selects = document.querySelectorAll('.nilai-select');
-            var totalNilai = document.getElementById('total-nilai');
-
-            selects.forEach(function (select) {
-                select.addEventListener('change', function () {
-                    var total = 0;
-                    selects.forEach(function (select) {
-                        total += parseInt(select.value);
-                    });
-                    totalNilai.textContent = total;
-                });
-            });
-        });
-    </script>
-
+    
     <!-- Styling -->
     @push('styles')
         <style>

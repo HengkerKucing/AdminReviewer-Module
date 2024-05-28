@@ -63,9 +63,15 @@ class UsulanPenelitian extends Model
         return $this->belongsTo(RefProdi::class, 'usulan_id', 'mhs_id', 'prodi_id');
     }
 
-    // Menghubungkan dengan Pendanaan
+    // Menghubungkan dengan Skema Pendanaan
     public function usulanPendanaan()
     {
         return $this->hasMany(UsulanPendanaan::class, 'usulan_id');
+    }
+
+    // Menghubungkan dengan Skema File
+    public function usulanFile()
+    {
+        return $this->hasMany(UsulanFile::class, 'usulan_id');
     }
 }

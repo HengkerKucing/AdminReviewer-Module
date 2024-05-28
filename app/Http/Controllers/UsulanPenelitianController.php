@@ -87,6 +87,7 @@ class UsulanPenelitianController extends Controller
             'anggotaMahasiswa.mahasiswa', 
             'anggotaDosenLuar.dosen', 
             'usulanPendanaan.pendanaan', 
+            'usulanFile.skemaFile', 
         ])->findOrFail($usulan_id);
     
         // Mengambil data yang diperlukan untuk Data Penilaian
@@ -108,10 +109,10 @@ class UsulanPenelitianController extends Controller
         
         // Mengambil data yang diperlukan untuk Komponen Pendanaan
         $pendanaan = $usulanPenelitian->usulanPendanaan->pluck('pendanaan.pendanaan_nama')->implode(', ');
-        // dd($pendanaan);
 
         // Mengambil data yang diperlukan untuk Berkas Usulan
-
+        $file = $usulanPenelitian->usulanFile->pluck('skemaFile.file_template')->implode(', ');
+            
         // Meneruskan data ke view
         return view('usulan_penelitian.show', compact(
             'usulanPenelitian',
@@ -127,6 +128,7 @@ class UsulanPenelitianController extends Controller
             'luaranTambahan',   
             'iku', 
             'pendanaan', 
+            'file', 
         ));
     }
     
