@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefSkemaController;
 use App\Http\Controllers\SkemaFileController;
 use App\Http\Controllers\RefPendanaanController;
-use App\Http\Controllers\RefSkemaSettingController;
+use App\Http\Controllers\SkemaSettingController;
 use App\Http\Controllers\UsulanController;
 use App\Http\Controllers\UsulanPenelitianController;
 use App\Http\Controllers\ReviewUsulanController;
@@ -46,7 +46,7 @@ Route::resource('manage-menu', MenuController::class);
 Route::resource('ref-skema', RefSkemaController::class);
 Route::resource('ref-skema/{trx_skema_id}/skema-file', SkemaFileController::class);
 Route::resource('ref-skema/{trx_skema_id}/skema-pendanaan', RefPendanaanController::class);
-Route::resource('ref-skema-setting', RefSkemaSettingController::class);
+Route::resource('ref-skema/{trx_skema_id}/skema-setting', SkemaSettingController::class);
 
 Route::resource('usulan', UsulanController::class);
 Route::resource('usulan-penelitian', UsulanPenelitianController::class);
