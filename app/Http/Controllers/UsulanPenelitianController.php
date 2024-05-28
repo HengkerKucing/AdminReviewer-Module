@@ -86,6 +86,7 @@ class UsulanPenelitianController extends Controller
             'anggotaDosen.dosen', 
             'anggotaMahasiswa.mahasiswa', 
             'anggotaDosenLuar.dosen', 
+            'usulanPendanaan.pendanaan', 
         ])->findOrFail($usulan_id);
     
         // Mengambil data yang diperlukan untuk Data Penilaian
@@ -106,6 +107,8 @@ class UsulanPenelitianController extends Controller
         $iku = $usulanPenelitian->usulanIKU->pluck('iku.iku_nama')->implode(', '); // Ubah menjadi string karena dapat memiliki banyak iku
         
         // Mengambil data yang diperlukan untuk Komponen Pendanaan
+        $pendanaan = $usulanPenelitian->usulanPendanaan->pluck('pendanaan.pendanaan_nama')->implode(', ');
+        // dd($pendanaan);
 
         // Mengambil data yang diperlukan untuk Berkas Usulan
 
@@ -123,6 +126,7 @@ class UsulanPenelitianController extends Controller
             'luaranWajib', 
             'luaranTambahan',   
             'iku', 
+            'pendanaan', 
         ));
     }
     

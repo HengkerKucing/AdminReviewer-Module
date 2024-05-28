@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-uppercase">
-                    <h4 class="m-0">Review Usulan</h4>
+                    <h4 class="m-0">Usulan Penelitian</h4>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <h6>Dosen</h6>
+                                <div class="font-weight-bold">Dosen</div>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <h6>Mahasiswa</h6>
+                                    <div class="font-weight-bold">Mahasiswa</div>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -164,6 +164,7 @@
                                             <tr>
                                                 <td>{{ $usulan->iku->iku_nama }}</td>
                                                 <td>{{ $usulan->iku->iku_target }}</td>
+                                                <td>{{ $usulan->iku_bukti }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -182,7 +183,6 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <h6>Komponen Pendanaan</h6>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -191,21 +191,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $totalPendanaan = 0;
+                                            @endphp
                                             <tr>
-                                                <td>Bahan habis pakai dan peralatan (Maks. 60%)</td>
-                                                <td>Rp 6.500.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Perjalanan (Maks. 30%)</td>
-                                                <td>Rp 1.000.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Lain-lain (Maks. 40%)</td>
-                                                <td>Rp 4.500.000</td>
-                                            </tr>
+                                            @foreach ($usulanPenelitian->usulanPendanaan as $pendanaan)
+                                                <tr>
+                                                    <td>{{ $pendanaan->pendanaan->pendanaan_nama . ' (Maks. ' . $pendanaan->pendanaan->pendanaan_persentase . '%)' }}</td>
+                                                    <td>{{ 'Rp '. number_format($pendanaan->pendanaan_value, 0, ',', '.') }}</td>
+                                                </tr>
+                                            @php
+                                                $totalPendanaan += $pendanaan->pendanaan_value;
+                                            @endphp
+                                            @endforeach
                                             <tr>
                                                 <td>Total Pendanaan</td>
-                                                <td>Rp 12.000.000</td>
+                                                <td>{{ 'Rp '. number_format($totalPendanaan, 0, ',', '.') }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -216,50 +217,49 @@
                 </div>
             </div>
             <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h5>Berkas Usulan</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Berkas</th>
-                                    <th>Lihat Berkas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Proposal</td>
-                                    <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Rencana Anggaran Biaya (RAB)</td>
-                                    <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Laporan Kemajuan</td>
-                                    <td><button class="btn btn-danger">Belum Unggah</button></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Laporan Akhir</td>
-                                    <td><button class="btn btn-danger">Belum Unggah</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5>Berkas Usulan</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Berkas</th>
+                                            <th>Lihat Berkas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Proposal</td>
+                                            <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Rencana Anggaran Biaya (RAB)</td>
+                                            <td><button class="btn btn-success"> <i class="fa fa-eye"></i> </button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Laporan Kemajuan</td>
+                                            <td><button class="btn btn-danger">Belum Unggah</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Laporan Akhir</td>
+                                            <td><button class="btn btn-danger">Belum Unggah</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-               
         </div>
     </div>
 

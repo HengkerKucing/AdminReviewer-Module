@@ -62,4 +62,10 @@ class UsulanPenelitian extends Model
     {
         return $this->belongsTo(RefProdi::class, 'usulan_id', 'mhs_id', 'prodi_id');
     }
+
+    // Menghubungkan dengan Pendanaan
+    public function usulanPendanaan()
+    {
+        return $this->hasMany(UsulanPendanaan::class, 'usulan_id');
+    }
 }
