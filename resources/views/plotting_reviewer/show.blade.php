@@ -44,47 +44,8 @@
                                     @php
                                         $data = $show_plotting_reviewer[0]->usulananggotamhs ?? [];
                                     @endphp
-<<<<<<< HEAD
                                     @foreach ($data as $mhs) 
                                         {{"- " . $mhs->mahasiswa->mhs_nama}}<br>
-=======
-                                    @foreach ($data as $index => $stage)
-                                        <tr>
-                                            <th colspan="2">{{ $stage }}</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Reviewer 1</td>
-                                            <td>
-                                            <select id="reviewer1-stage{{$index}}" class="form-control select-input placeholder-active active focused reviewer1" name="reviewer_1[{{$index}}][{{$stage}}]" >
-                                                <option disabled selected value>-- Pilih Dosen --</option>
-                                                @foreach ($dosen as $dsn)
-                                                    <option value="{{ $dsn->dosen_id }}" 
-                                                        @if(isset($existingReviewers['reviewer_1'][$stage]) && $existingReviewers['reviewer_1'][$stage] == $dsn->dosen_id)
-                                                            selected
-                                                        @endif>
-                                                        {{ $dsn->dosen_nama_lengkap }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Reviewer 2</td>
-                                            <td>
-                                                <select id="reviewer2-stage{{$index}}" class="form-control select-input placeholder-active active focused reviewer2" name="reviewer_2[{{$index}}][{{$stage}}]" aria-label="Default select example">
-                                                <option disabled selected value>-- Pilih Dosen --</option>
-                                                @foreach ($dosen as $dsn)
-                                                    <option value="{{ $dsn->dosen_id }}" 
-                                                        @if(isset($existingReviewers['reviewer_2'][$stage]) && $existingReviewers['reviewer_2'][$stage] == $dsn->dosen_id)
-                                                            selected
-                                                        @endif>
-                                                        {{ $dsn->dosen_nama_lengkap }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            </td>
-                                        </tr>
->>>>>>> fd67a12f314e58447555b53e6ae2b8459cba0a5c
                                     @endforeach
                                 </td>
                                 </td>
