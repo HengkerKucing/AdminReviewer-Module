@@ -15,28 +15,21 @@ class SkemaFileController extends Controller
     {
         $skemafile = SkemaFileModel::where('trx_skema_id', $id)->get();
         $skema = Skema::where('trx_skema_id', $id)->get();
-
-        // Logika untuk mengubah tipe file
         $types = [
             "application/pdf" => "PDF",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "XLSX",
             "text/csv" => "CSV",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "DOCX",
         ];
-
-        // Loop untuk menambahkan tipe file yang bisa dibaca
         foreach ($skemafile as $file) {
             $file->file_type_readable = $types[$file->file_accepted_type] ?? 'Unknown';
         }
-
         return view('skema_file.index', [
             'skemafile' => $skemafile,
             'trx_skema_id' => $id,
             'skema' => $skema
         ]);
     }
-
-    // Metode lainnya tetap sama
     public function create($trx_skema_id)
     {
         return view('skema_file.create', compact('trx_skema_id'));
