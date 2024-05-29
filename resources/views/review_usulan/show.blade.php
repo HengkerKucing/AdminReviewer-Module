@@ -48,25 +48,27 @@
                                         'Pentingnya kerjasama penelitian'
                                     ];
                                 @endphp
-                                @foreach ($reviewUsulan as $item)
-
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kriteria_nama }}</td>
-                                        <td class="kriteria-bobot">{{ $item->kriteria_bobot }}</td>
-                                        <td>
-                                            <select name="nilai" class="nilai-select">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-
-                                @endforeach
+                                <form action="{{ route('review-usulan.update', $reviewUsulan[0]->tahap_review_id) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    @foreach ($reviewUsulan as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->kriteria_nama }}</td>
+                                            <td class="kriteria-bobot">{{ $item->kriteria_bobot }}</td>
+                                            <td>
+                                                <select name="nilai[]" class="nilai-select">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -77,14 +79,19 @@
                         </table>
                         <!-- Komentar -->
                         <div class="mt-3 mb-3">
-                            <textarea class="form-control" rows="3" placeholder="Tambahkan komentar"></textarea>
+                            <input type="hidden" name="total_nilai" id="total_nilai" value="0">
+                            <textarea name="komentar" class="form-control" rows="3"
+                                placeholder="Tambahkan komentar"></textarea>
                         </div>
-                        <!-- Tombol Simpan dan Kembali -->
                         <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
+                                Simpan</button>
                             <button type="button" class="btn btn-secondary" onclick="window.history.back();"><i
-                                    class="fas fa-arrow-left"></i> Kembali</button>
+                                    class="fas fa-arrow-left"></i>
+                                Kembali</button>
                         </div>
+                        </form>
+                        <!-- Tombol Simpan dan Kembali -->
                     </div>
                 </div>
             </div>
@@ -93,6 +100,27 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selects = document.querySelectorAll('.nilai-select');
+        var totalNilaiInput = document.getElementById('total_nilai');
+
+        function calculateTotal() {
+            var total = 0;
+            selects.forEach(function (select) {
+                var nilai = parseInt(select.value);
+                var bobot = parseFloat(select.closest('tr').querySelector('.kriteria-bobot').textContent);
+                total += nilai * bobot;
+            });
+            totalNilaiInput.value = total;
+        }
+
+        selects.forEach(function (select) {
+            select.addEventListener('change', calculateTotal);
+        });
+
+        calculateTotal();
+    });
+
     // JavaScript untuk menghitung total nilai dengan bobot
     document.addEventListener('DOMContentLoaded', function () {
         var selects = document.querySelectorAll('.nilai-select');
