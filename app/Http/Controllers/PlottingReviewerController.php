@@ -124,6 +124,7 @@ class PlottingReviewerController extends Controller
                 toastr()->success('Plotting berhasil disimpan');
                 return redirect()->route('plotting-reviewer.show', ['plotting_reviewer' => $id]);
             } catch (\Throwable $th) {
+                dd($th);
                 toastr()->warning('Terdapat masalah di server');
                 return redirect()->route('plotting-reviewer.show', ['plotting_reviewer' => $id]);
             }        
