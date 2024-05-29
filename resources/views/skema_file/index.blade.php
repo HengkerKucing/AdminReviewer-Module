@@ -52,10 +52,19 @@
                                             <td>{{ $item->file_caption}}</td>
                                             <td>{{ $item->file_type_readable }}</td>
                                             <td>
-                                                <div class="flex items-center">
+                                                <!-- <div class="flex items-center">
                                                 <a href="{{ route('skema-file.edit', ["trx_skema_id"=>$trx_skema_id, "skema_file"=> $item -> skema_file_id]) }}" class="btn btn-block btn-sm btn-outline-info mb-2">
                                                     <i class="fas fa-edit"></i>
-                                                </a>
+                                                </a> -->
+                                                <div class="flex items-center">
+                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" data-toggle="dropdown"><i 
+                                                            class="fas fa-cog"></i></button>
+                                                    <form class="dropdown-menu" role="menu" action="{{ route('skema-file.destroy', ['trx_skema_id' => $trx_skema_id, 'skema_file' => $item->skema_file_id]) }}" method="POST">
+                                                        <a class="dropdown-item" href="{{ route('skema-file.edit', ['trx_skema_id' => $trx_skema_id, 'skema_file' => $item->skema_file_id]) }}">Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda Yakin ?')">Hapus</button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
