@@ -50,7 +50,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->file_caption}}</td>
-                                            <td>{{ $item->file_accepted_type}}</td>
+                                            <td>{{ $item->file_type_readable }}</td>
                                             <td>
                                                 <div class="flex items-center">
                                                 <a href="{{ route('skema-file.edit', ["trx_skema_id"=>$trx_skema_id, "skema_file"=> $item -> skema_file_id]) }}" class="btn btn-block btn-sm btn-outline-info mb-2">
