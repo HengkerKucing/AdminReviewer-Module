@@ -16,9 +16,11 @@ class RefPendanaanController extends Controller
      *
      * @return View
      */
-    public function index($trx_skema_id)
+    public function index($trx_skema_id): View
     {
-        $pendanaan = Pendanaan::where('trx_skema_id', $trx_skema_id)->get();
+        $pendanaan = Pendanaan::where('trx_skema_id', $trx_skema_id)
+                              ->where('is_active', 1)
+                              ->get();
         $skema = Skema::where('trx_skema_id', $trx_skema_id)->first();
 
         return view('skema_pendanaan.index', compact('pendanaan', 'trx_skema_id', 'skema'));
@@ -29,7 +31,7 @@ class RefPendanaanController extends Controller
      *
      * @return View
      */
-    public function create($trx_skema_id)
+    public function create($trx_skema_id): View
     {
         return view('skema_pendanaan.create', compact('trx_skema_id'));
     }
@@ -41,14 +43,13 @@ class RefPendanaanController extends Controller
      * @param  mixed $trx_skema_id
      * @return RedirectResponse
      */
-    public function store(Request $request, $trx_skema_id)
+    public function store(Request $request, $trx_skema_id): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'pendanaan_key' => 'required',
             'pendanaan_nama' => 'required',
             'pendanaan_keterangan' => 'required',
             'pendanaan_persentase' => 'required',
-            'is_active'
         ]);
 
         if ($validator->fails()) {
@@ -61,6 +62,7 @@ class RefPendanaanController extends Controller
         try {
             $save_data = $request->all();
             $save_data['trx_skema_id'] = $trx_skema_id;
+            $save_data['is_active'] = 1;
             $data = Pendanaan::create($save_data);
             toastr()->success('Pendanaan berhasil ditambahkan');
             return redirect()->route('skema-pendanaan.index', $trx_skema_id);
@@ -78,10 +80,7 @@ class RefPendanaanController extends Controller
      */
     public function edit($trx_skema_id, $pendanaan_id): View
     {
-        //get pendanaan by ID
         $pendanaan = Pendanaan::find($pendanaan_id);
-
-        //render view 
         return view('skema_pendanaan.edit', compact('pendanaan', 'trx_skema_id', 'pendanaan_id'));
     }
 
@@ -92,14 +91,13 @@ class RefPendanaanController extends Controller
      * @param  mixed $id
      * @return RedirectResponse
      */
-    public function update(Request $request, $trx_skema_id, $pendanaan_id)
+    public function update(Request $request, $trx_skema_id, $pendanaan_id): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
-            'pendanaan_key',
-            'pendanaan_nama',
-            'pendanaan_keterangan',
-            'pendanaan_persentase',
-            'is_active'
+            'pendanaan_key' => 'required',
+            'pendanaan_nama' => 'required',
+            'pendanaan_keterangan' => 'required',
+            'pendanaan_persentase' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -127,15 +125,16 @@ class RefPendanaanController extends Controller
      * @param  mixed $pendanaan_id
      * @return RedirectResponse
      */
-    public function destroy($trx_skema_id, $pendanaan_id)
+    public function destroy($trx_skema_id, $pendanaan_id): RedirectResponse
     {
         try {
             $pendanaan = Pendanaan::findOrFail($pendanaan_id);
-            $pendanaan->delete();
+            $pendanaan->is_active = 0;
+            $pendanaan->save();
             toastr()->success('Pendanaan berhasil dihapus');
             return redirect()->route('skema-pendanaan.index', $trx_skema_id);
         } catch (\Throwable $th) {
-            toastr()->warning('Terdapat masalah saat menghapus skema: ' . $th->getMessage());
+            toastr()->warning('Terdapat masalah saat menghapus pendanaan: ' . $th->getMessage());
             return redirect()->route('skema-pendanaan.index', $trx_skema_id);
         }
     }

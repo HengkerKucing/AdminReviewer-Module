@@ -37,7 +37,7 @@ class Skema extends Model
     }
     public function skemaSettings()
     {
-        return $this->hasMany(SkemaSetting::class, 'trx_skema_id');
+        return $this->hasMany(SkemaSettingModel::class, 'trx_skema_id');
     }
     public function Pendanaans()
     {

@@ -11,7 +11,7 @@ class RefSkemaController extends Controller
 {
     public function index(): View
     {
-        $skemas = Skema::all();
+        $skemas = Skema::where('is_active', 1)->get();
         return view('ref_skema.index', compact('skemas'));
     }
 
@@ -82,7 +82,8 @@ class RefSkemaController extends Controller
     {
         try {
             $skema = Skema::findOrFail($id);
-            $skema->delete();
+            $skema->is_active = 0;
+            $skema->save();
             toastr()->success('Skema berhasil dihapus');
             return redirect()->route('ref-skema.index');
         } catch (\Throwable $th) {
