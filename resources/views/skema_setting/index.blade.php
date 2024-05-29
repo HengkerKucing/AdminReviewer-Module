@@ -47,10 +47,15 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->setting_label}}</td>
                                             <td>
-                                            <div class="flex items-center">
-                                                <a href="{{ route('skema-setting.edit', ["trx_skema_id"=>$trx_skema_id, "skema_setting"=> $item -> skema_setting_id]) }}" class="btn btn-block btn-sm btn-outline-info mb-2">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
+                                                <div class="flex items-center">
+                                                    <button type="button" class="btn btn-block btn-sm btn-outline-info mb-2" data-toggle="dropdown"><i 
+                                                            class="fas fa-cog"></i></button>
+                                                    <form class="dropdown-menu" role="menu" action="{{ route('skema-setting.destroy', ['trx_skema_id' => $trx_skema_id, 'skema_setting' => $item->skema_setting_id]) }}" method="POST">
+                                                        <a class="dropdown-item" href="{{ route('skema-setting.edit', ['trx_skema_id' => $trx_skema_id, 'skema_setting' => $item->skema_setting_id]) }}">Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda Yakin ?')">Hapus</button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
