@@ -23,25 +23,4 @@ class ReviewUsulan extends Model
             'kriteria_keterangan',
             'kriteria_bobot'
         ];
-
-    // Menghubungkan dengan Skema
-    // public function skema()
-    // {
-    //     return $this->belongsTo(ReviewUsulan::class, 'ref_kriteria_penilaian');
-    // }
-// Menghubungkan dengan Skema
-    // public function review() 
-    // {
-    //     return $this->belongsTo(ReviewUsulan::class, 'tahap_review_id');
-
-
-    // public function reviewPerUsulan($review_usulan_id) {
-    //     return $this->join('ref_tahap_review', 'ref_kriteria_penilaian.tahap_review_id', '=', 'ref_tahap_review.tahap_review_id')
-    //     ->where('ref_kriteria_penilaian.tahap_review_id','=',$review_usulan_id)->get();
-    // }
-    // // Menghubungkan dengan Status
-    // public function statuses()
-    // {
-    //     return $this->hasMany(Status::class, 'usulan_status_id');
-    // }
 }

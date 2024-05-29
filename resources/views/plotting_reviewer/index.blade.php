@@ -41,7 +41,7 @@
                                     <td>{{$plotting->usulan_judul}}</td>
                                     <td>{{$plotting->skema->trx_skema_nama}}</td>
                                     {{$output = ''}}
-                                    @foreach ($plotting->usulananggotamhs as $mhs)
+                                    @foreach ($plotting->anggotaMahasiswa as $mhs)
                                         @php
                                             $output .= $mhs->mahasiswa->mhs_nama . ', ';
                                         @endphp

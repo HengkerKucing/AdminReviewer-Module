@@ -74,4 +74,10 @@ class UsulanPenelitian extends Model
     {
         return $this->hasMany(UsulanFile::class, 'usulan_id');
     }
+
+    // Menghubungkan dengan Usulan Reviewer
+    public function usulanReviewer()
+    {
+        return $this->hasMany(UsulanReviewer::class, 'usulan_id', 'usulan_id');
+    }
 }

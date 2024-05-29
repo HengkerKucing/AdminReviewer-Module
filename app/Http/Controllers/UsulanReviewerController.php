@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PlottingReviewer;
+use App\Models\UsulanPenelitian;
+use App\Models\UsulanReviewer;
 use App\Models\Dosen;
-use App\Models\Usulan;
 use Illuminate\Http\Request;
 
-class PlottingReviewerController extends Controller
+class UsulanReviewerController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,13 +26,13 @@ class PlottingReviewerController extends Controller
      */
     public function index()
     {
-        $plotting_reviewer = Usulan::with("skema",'tahapreview.status','usulananggotamhs.mahasiswa')->get();
+        $plotting_reviewer = UsulanPenelitian::with("skema",'tahapReview.status','anggotaMahasiswa.mahasiswa')->get();
         return view('plotting_reviewer.index', compact("plotting_reviewer"));
     }
 
     public function show($id)
     {
-        $show_plotting_reviewer = Usulan::with("skema",'tahapreview.status','usulananggotamhs.mahasiswa','plottingreviewer')
+        $show_plotting_reviewer = UsulanPenelitian::with("skema",'tahapReview.status','anggotaMahasiswa.mahasiswa','usulanReviewer')
         ->where("usulan_id", "=", $id)->get();
         
         $dosen = Dosen::all();
@@ -50,7 +50,7 @@ class PlottingReviewerController extends Controller
         ];
         
         // Populate existing reviewers arrays
-        foreach ($show_plotting_reviewer[0]->plottingreviewer as $reviewer) {
+        foreach ($show_plotting_reviewer[0]->usulanReviewer as $reviewer) {
             $stageName = array_search($reviewer->tahap_review_id, $stages);
             if ($stageName !== false) {
                 if ($reviewer->reviewer_urutan == 1) {
@@ -85,7 +85,7 @@ class PlottingReviewerController extends Controller
                 if (!empty($reviewer1Data)) {
                     foreach ($reviewer1Data as $index => $reviewer) {
                         foreach ($reviewer as $stage => $dosenId) {
-                            PlottingReviewer::updateOrCreate(
+                            UsulanReviewer::updateOrCreate(
                                 [
                                     'tahap_review_id' => $stages[$stage],
                                     'usulan_id' => $id,
@@ -102,7 +102,7 @@ class PlottingReviewerController extends Controller
                 if (!empty($reviewer2Data)) {
                     foreach ($reviewer2Data as $index => $reviewer) {
                         foreach ($reviewer as $stage => $dosenId) {
-                            PlottingReviewer::updateOrCreate(
+                            UsulanReviewer::updateOrCreate(
                                 [
                                     'tahap_review_id' => $stages[$stage],
                                     'usulan_id' => $id,
@@ -117,7 +117,7 @@ class PlottingReviewerController extends Controller
                     }
                 }
             
-                PlottingReviewer::where('usulan_id', $id)
+                UsulanReviewer::where('usulan_id', $id)
                     ->whereNotIn('tahap_review_id', array_values($stages))
                     ->delete();
             

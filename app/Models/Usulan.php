@@ -44,7 +44,7 @@ class Usulan extends Model
 
     public function plottingreviewer()
     {
-        return $this->hasMany(PlottingReviewer::class,'usulan_id');
+        return $this->hasMany(UsulanReviewer::class,'usulan_id');
     }
     // // Menghubungkan dengan Anggota Dosen
 

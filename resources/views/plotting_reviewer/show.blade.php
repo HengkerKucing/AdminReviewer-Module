@@ -41,7 +41,7 @@
                                     <tr>  
                                         <th>Anggota :</th>
                                         <td>
-                                            @forelse ($show_plotting_reviewer[0]->usulananggotamhs as $mhs) 
+                                            @forelse ($show_plotting_reviewer[0]->anggotaMahasiswa as $mhs) 
                                                 {{ "- " . $mhs->mahasiswa->mhs_nama }}<br>
                                             @empty
                                                 <p>Data anggota tidak tersedia</p>

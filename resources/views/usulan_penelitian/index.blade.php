@@ -83,31 +83,29 @@
                 <div class="row">
                     @php
                         $smallBoxData = [
-                            ['color' => 'info', 'value' => 150, 'text' => 'PTP', 'icon' => 'ion-bag'],
-                            ['color' => 'success', 'value' => '53%', 'text' => 'PTK', 'icon' => 'ion-stats-bars'],
-                            ['color' => 'warning', 'value' => 44, 'text' => 'PTUP', 'icon' => 'ion-person-add'],
-                            ['color' => 'danger', 'value' => 65, 'text' => 'PMP', 'icon' => 'ion-pie-graph'],
-                            ['color' => 'primary', 'value' => 23, 'text' => 'PMK', 'icon' => 'ion-android-contacts'],
-                            ['color' => 'secondary', 'value' => 47, 'text' => 'PMUP', 'icon' => 'ion-android-globe'],
-                            ['color' => 'dark', 'value' => 88, 'text' => 'PTUD', 'icon' => 'ion-android-home'],
+                            ['color' => 'info', 'value' => 150, 'text' => 'PTP', 'icon' => 'fas fa-graduation-cap'],
+                            ['color' => 'info', 'value' => 53, 'text' => 'PMK', 'icon' => 'fas fa-graduation-cap'],
+                            ['color' => 'info', 'value' => 44, 'text' => 'PTUP', 'icon' => 'fas fa-graduation-cap'],
+                            ['color' => 'success', 'value' => 65, 'text' => 'PMP', 'icon' => 'fas fa-hand-holding-heart'],
+                            ['color' => 'success', 'value' => 23, 'text' => 'PMK', 'icon' => 'fas fa-hand-holding-heart'],
+                            ['color' => 'success', 'value' => 47, 'text' => 'PMUP', 'icon' => 'fas fa-hand-holding-heart'],
+                            ['color' => 'info', 'value' => 88, 'text' => 'PTUD', 'icon' => 'fas fa-graduation-cap'],
                         ];
                     @endphp
-
                     @foreach($smallBoxData as $index => $box)
-                        <div class="col-lg-3 col-6 mb-3">
-                            <div class="small-box bg-{{ $box['color'] }}" style="height: 100px;">
-                                <div class="inner" style="padding: 10px;">
-                                    <h3 style="font-size: 1.5rem;">{{ $box['value'] }}</h3>
-                                    <p style="font-size: 0.9rem;">{{ $box['text'] }}</p>
-                                </div>
-                                <div class="icon" style="top: 10px; font-size: 1.5rem;">
-                                    <i class="ion {{ $box['icon'] }}"></i>
-                                </div>
-                                <a href="#" class="small-box-footer" style="padding: 5px;">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                    @endforeach
+                    <div class="col-lg-3 col-6 mb-3">
+                        <div class="small-box bg-{{ $box['color'] }}" style="height: 100px;">
+                        <div class="inner" style="padding: 10px;">
+                        <h3 style="font-size: 1.5rem;">{{ $box['value'] }}</h3>
+                        <p style="font-size: 0.9rem;">{{ $box['text'] }}</p>
+                    </div>
+                    <div class="icon" style="top: 10px; font-size: 1.5rem;">
+                    <i class="{{ $box['icon'] }}"></i>
+                </div>
+            </div>
+        </div>
+        @endforeach
+
                 </div>
 
                 <div class="card card-primary card-outline">
@@ -136,11 +134,11 @@
                                                                     {{ $output = '' }}
                                                                     @foreach ($item->anggotaDosen as $dsn)
                                                                                                     @php
-                                                                                                        $output .= $dsn->dosen->dosen_nama . ', ';
+        $output .= $dsn->dosen->dosen_nama . ', ';
                                                                                                     @endphp
                                                                     @endforeach
                                                                     @php
-                                                                        $output = rtrim($output, ', ')
+    $output = rtrim($output, ', ')
                                                                     @endphp
                                                                     <td>{{ $output }}</td>
                                                                     <td>{{ $item->skema->periode_tahun }}</td>

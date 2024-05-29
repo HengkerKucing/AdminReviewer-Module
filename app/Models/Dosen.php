@@ -32,4 +32,14 @@ class Dosen extends Model
     {
         return $this->belongsTo(RefProdi::class, 'prodi_id');
     }
+
+    public function usulanReviewer()
+    {
+        return $this->belongsTo(UsulanReviewer::class, 'dosen_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'dosen_email_polines', 'email');
+    }
 }

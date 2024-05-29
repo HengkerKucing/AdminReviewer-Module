@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlottingReviewer extends Model
+class UsulanReviewer extends Model
 {
     use HasFactory;
     public $timestamps = false; 
@@ -20,7 +20,7 @@ class PlottingReviewer extends Model
     ];
     public function usulan()
     {
-        return $this->belongsTo(Usulan::class, 'usulan_id');
+        return $this->belongsTo(UsulanPenelitian::class, 'usulan_id');
     }
 
     public function skema()
@@ -28,13 +28,18 @@ class PlottingReviewer extends Model
         return $this->belongsTo(Skema::class, 'usulan_id');
     }
 
-    public function usulananggotamhs()
+    public function anggotaMahasiswa()
     {
         return $this->hasMany(UsulanAnggotaMhs::class, 'usulan_id', 'usulan_id');
     }
 
-    public function tahapreview()
+    public function tahapReview()
     {
         return $this->belongsTo (RefTahapReview::class,'tahap_review_id');
+    }
+
+    public function dosen()
+    {
+        return $this->hasMany(Dosen::class, 'dosen_id', 'dosen_id');
     }
 }

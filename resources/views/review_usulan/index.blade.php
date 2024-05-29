@@ -33,30 +33,35 @@
                                     <th>Skema</th>
                                     <th>Anggota</th>
                                     <th>Tahun</th>
-                                    <th>Status</th>
+                                    <th>Tahap</th>
                                     <th>Detail</th>
                                 </thead>
                                 <tbody>
-                                @foreach ($reviewUsulan as $item)
+                                @foreach ($reviewUsulan as $review)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->usulan_judul }}</td>
-                                            <td>{{ $item->skema->trx_skema_nama }}</td>
+                                            <td>{{ $review->usulan_judul }}</td>
+                                            <td>{{ $review->skema->trx_skema_nama }}</td>
                                             {{ $output = '' }}
-                                            @foreach ($item->anggotaDosen as $dsn)
+                                            @foreach ($review->anggotaDosen as $dsn)
                                                 @php
                                                     $output .= $dsn->dosen->dosen_nama . ', ';
+                                                @endphp
+                                            @endforeach
+                                            @foreach ($review->anggotaMahasiswa as $mhs)
+                                                @php
+                                                    $output .= $mhs->mahasiswa->mhs_nama . ', ';
                                                 @endphp
                                             @endforeach
                                             @php
                                                 $output = rtrim($output, ', ')
                                             @endphp
                                             <td>{{ $output }}</td>
-                                            <td>{{ $item->skema->periode_tahun }}</td>
-                                            <td>{{ $item->tahapReview->status->status_nama }}</td>
+                                            <td>{{ $review->skema->periode_tahun }}</td>
+                                            <td>{{ $review->tahapReview->tahap_review_nama }}</td>
                                             <td>
-                                                <div class="flex items-col">
-                                                <a href="{{ route('review-usulan.show', $item->usulan_id) }}" class="btn btn-block btn-sm btn-outline-info mr-2">
+                                                <div class="flex itemyyys-col">
+                                                <a href="{{ route('review-usulan.show', $review->usulan_id) }}" class="btn btn-block btn-sm btn-outline-info mr-2">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </div>

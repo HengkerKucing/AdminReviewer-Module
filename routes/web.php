@@ -3,7 +3,7 @@
 use App\Http\Controllers\DBBackupController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\PlottingReviewerController;
+use App\Http\Controllers\UsulanReviewerController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -50,9 +50,9 @@ Route::resource('ref-skema/{trx_skema_id}/skema-setting', SkemaSettingController
 
 Route::resource('usulan', UsulanController::class);
 Route::resource('usulan-penelitian', UsulanPenelitianController::class);
-Route::resource('plotting-reviewer', PlottingReviewerController::class);
+Route::resource('plotting-reviewer', UsulanReviewerController::class);
 Route::resource('review-usulan', ReviewUsulanController::class);
-Route::resource('plotting-reviewer', PlottingReviewerController::class);
+Route::resource('plotting-reviewer', UsulanReviewerController::class);
 
 Route::resource('manage-permission', PermissionController::class)->only('store', 'destroy');
 
