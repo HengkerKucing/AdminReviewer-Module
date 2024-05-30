@@ -43,11 +43,6 @@
                                             <td>{{ $review->usulan_judul }}</td>
                                             <td>{{ $review->skema->trx_skema_nama }}</td>
                                             {{ $output = '' }}
-                                            @foreach ($review->anggotaDosen as $dsn)
-                                                @php
-                                                    $output .= $dsn->dosen->dosen_nama . ', ';
-                                                @endphp
-                                            @endforeach
                                             @foreach ($review->anggotaMahasiswa as $mhs)
                                                 @php
                                                     $output .= $mhs->mahasiswa->mhs_nama . ', ';

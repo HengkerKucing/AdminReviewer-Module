@@ -16,9 +16,8 @@ class UsulanReviewerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:update_menu')->only('edit', 'update');
+        
     }
-
     /**
      * Show the application dashboard.
      *
