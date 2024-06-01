@@ -16,7 +16,7 @@ class ReviewUsulanNilai extends Model
     protected $fillable = [
         'usulan_reviewer_id',
         'kriteria_id',
-        'nilai',
+        'nilai_id',
     ];
 
     // Relasi ke model UsulanReviewer (jika diperlukan)

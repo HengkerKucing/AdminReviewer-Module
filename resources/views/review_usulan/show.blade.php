@@ -31,67 +31,87 @@
                         <h5>Penilaian Usulan</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <th>No</th>
-                                <th>Kriteria</th>
-                                <th>Bobot</th>
-                                <th>Nilai</th>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $criteria = [
-                                        'Rekam Jejak PTM',
-                                        'Mutu Penelitian',
-                                        'Kelayakan Penelitian',
-                                        'Kesesuaian keahlian pengusul dengan program',
-                                        'Pentingnya kerjasama penelitian'
-                                    ];
-                                @endphp
-                                <form action="{{ route('review-usulan.update', $reviewUsulan[0]->tahap_review_id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    @foreach ($reviewUsulan as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->kriteria_nama }}</td>
-                                            <td class="kriteria-bobot">{{ $item->kriteria_bobot }}</td>
-                                            <td>
-                                                <select name="nilai[]" class="nilai-select">
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="3">Total Penilaian:</th>
-                                    <td id="total-nilai">0</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        <!-- Komentar -->
-                        <div class="mt-3 mb-3">
-                            <input type="hidden" name="total_nilai" id="total_nilai" value="0">
-                            <textarea name="komentar" class="form-control" rows="3"
-                                placeholder="Tambahkan komentar"></textarea>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
-                                Simpan</button>
-                            <button type="button" class="btn btn-secondary" onclick="window.history.back();"><i
-                                    class="fas fa-arrow-left"></i>
-                                Kembali</button>
-                        </div>
-                        </form>
-                        <!-- Tombol Simpan dan Kembali -->
+
+        <!-- Form Start -->
+    <form action="{{ route('review-usulan.update', $reviewUsulan[0]->tahap_review_id) }}" method="POST">
+    @csrf
+    @method('put')
+    <input type="hidden" value="{{auth()->user()->id}}" name="usulan_reviewer_id">
+    @if ($errors->any())
+        @foreach ($errors->all() as $item)
+            <div class="alert alert-danger">
+            {{$item}}
+            </div>
+        @endforeach
+    @endif
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th>No</th>
+            <th>Kriteria</th>
+            <th>Bobot</th>
+            <th>Nilai</th>
+        </thead>
+        <tbody>
+            @foreach ($reviewUsulan as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->kriteria_nama }}</td>
+                    <td class="kriteria-bobot">{{ $item->kriteria_bobot }}</td>
+                    <td>
+                        <input type="hidden" name="kriteria_id[]" value="{{$item->kriteria_id}}">
+                       @if ($item->nilai)
+                           
+                       <select name="nilai_id[]" class="form-control nilai-select">
+                            <option value="0" @if ($item->nilai->nilai_id == 0) selected  @endif>0</option>
+                            <option value="1" @if ($item->nilai->nilai_id == 1) selected  @endif>1</option>
+                            <option value="2" @if ($item->nilai->nilai_id == 2) selected  @endif>2</option>
+                            <option value="3" @if ($item->nilai->nilai_id == 3) selected  @endif>3</option>
+                            <option value="4" @if ($item->nilai->nilai_id == 4) selected  @endif>4</option>
+                            <option value="5" @if ($item->nilai->nilai_id == 5) selected  @endif>5</option>
+                          
+                       </select>
+                       @else
+                       <select name="nilai_id[]" class="form-control nilai-select">
+                            <option value="0" >0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          
+                       </select>
+                           
+                       @endif
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">Total Penilaian:</th>
+                <td id="total-nilai">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Komentar start -->
+    <div class="form-group">
+        <textarea name="komentar" class="form-control @error('reviewer_komentar')is-invalid @enderror" 
+        rows="3" placeholder="Tambahkan komentar"></textarea>
+    @error('komentar')
+        <div class="invalid-feedback" role="alert">
+            <span>{{ $message }}</span>
+        </div>
+    @enderror
+    </div>
+    <div class="d-flex justify-content-between">
+
+    <!-- Komentar end -->
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();"><i class="fas fa-arrow-left"></i> Kembali</button>
+    </div>
+</form>
+
                     </div>
                 </div>
             </div>
@@ -99,52 +119,31 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selects = document.querySelectorAll('.nilai-select');
-        var totalNilaiInput = document.getElementById('total_nilai');
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var selects = document.querySelectorAll('.nilai-select');
+            var totalNilaiInput = document.getElementById('total-nilai');
 
-        function calculateTotal() {
-            var total = 0;
+            function calculateTotal() {
+                var total = 0;
+                selects.forEach(function (select) {
+                    var nilai = parseInt(select.value);
+                    var bobot = parseFloat(select.closest('tr').querySelector('.kriteria-bobot').textContent);
+                    total += nilai * bobot;
+                });
+                totalNilaiInput.textContent = total;
+            }
+
             selects.forEach(function (select) {
-                var nilai = parseInt(select.value);
-                var bobot = parseFloat(select.closest('tr').querySelector('.kriteria-bobot').textContent);
-                total += nilai * bobot;
+                select.addEventListener('change', calculateTotal);
             });
-            totalNilaiInput.value = total;
-        }
 
-        selects.forEach(function (select) {
-            select.addEventListener('change', calculateTotal);
+            calculateTotal();
         });
+    </script>
+@endpush
 
-        calculateTotal();
-    });
-
-    // JavaScript untuk menghitung total nilai dengan bobot
-    document.addEventListener('DOMContentLoaded', function () {
-        var selects = document.querySelectorAll('.nilai-select');
-        var totalNilai = document.getElementById('total-nilai');
-
-        function calculateTotal() {
-            var total = 0;
-            selects.forEach(function (select) {
-                var nilai = parseInt(select.value);
-                var bobot = parseFloat(select.closest('tr').querySelector('.kriteria-bobot').textContent);
-                total += nilai * bobot;
-            });
-            totalNilai.textContent = total;
-        }
-
-        selects.forEach(function (select) {
-            select.addEventListener('change', calculateTotal);
-        });
-
-        calculateTotal();
-    });
-</script>
-
-<!-- Styling -->
 @push('styles')
     <style>
         .flex {
@@ -162,28 +161,3 @@
     </style>
 @endpush
 @endsection
-
-@push('js')
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <!-- Tambahkan script JavaScript jika diperlukan -->
-    <script>
-        $(document).ready(function () {
-            $('#datatable-main').DataTable({
-                "paging": false, // Nonaktifkan paging
-                "pageLength": 5, // Batasi jumlah baris yang ditampilkan menjadi 5
-                "pagingType": "numbers", // Menggunakan angka halaman
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": false, // Hapus "Showing 1 to 15 of X entries"
-                "autoWidth": false,
-                "responsive": true
-            });
-        });
-    </script>
-@endpush

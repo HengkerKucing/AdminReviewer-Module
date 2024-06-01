@@ -23,4 +23,14 @@ class ReviewUsulan extends Model
             'kriteria_keterangan',
             'kriteria_bobot'
         ];
+
+    public function nilai()
+    {
+        return $this->hasOne(ReviewUsulanNilai::class, 'kriteria_id');
+    }
+
+    // public function komentar()
+    // {
+    //     return $this->hasOne()
+    // }
 }
