@@ -326,7 +326,13 @@
                                 </table>
                                 <!-- Komentar start -->
                                 <div class="form-group">
-                                    <textarea name="komentar" class="form-control @error('reviewer_komentar')is-invalid @enderror" rows="3" placeholder="Tambahkan komentar"></textarea>
+                                    @if (!empty($usulanReviewer->reviewer_komentar))
+                                        <textarea name="komentar" class="form-control @error('komentar') is-invalid @enderror" 
+                                        rows="3" placeholder="Tambahkan komentar">{{ $usulanReviewer->reviewer_komentar }}</textarea>
+                                    @else
+                                        <textarea name="komentar" class="form-control @error('komentar') is-invalid @enderror" 
+                                        rows="3" placeholder="Tambahkan komentar">{{ old('komentar') }}</textarea>
+                                    @endif
                                     @error('komentar')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
@@ -334,7 +340,7 @@
                                     @enderror
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <!-- Komentar end -->
+                                <!-- Komentar end -->
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                                     <button type="button" class="btn btn-secondary" onclick="window.history.back();"><i class="fas fa-arrow-left"></i> Kembali</button>
                                 </div>
