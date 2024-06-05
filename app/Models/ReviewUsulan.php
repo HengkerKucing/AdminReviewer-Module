@@ -29,6 +29,16 @@ class ReviewUsulan extends Model
         return $this->hasOne(ReviewUsulanNilai::class, 'kriteria_id');
     }
 
+    public function usulan()
+    {
+        return $this->belongsTo(UsulanPenelitian::class, 'usulan_id', 'usulan_id');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'dosen_id', 'dosen_id');
+    }
+
     // public function komentar()
     // {
     //     return $this->hasOne()

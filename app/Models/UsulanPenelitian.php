@@ -80,4 +80,9 @@ class UsulanPenelitian extends Model
     {
         return $this->hasMany(UsulanReviewer::class, 'usulan_id', 'usulan_id');
     }
+
+    public function reviews()
+    {
+        return $this->belongsTo(ReviewUsulan::class, 'usulan_id', 'tahap_review_id', 'tahap_review_id');
+    }
 }
