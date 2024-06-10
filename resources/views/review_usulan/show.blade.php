@@ -324,6 +324,7 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+
                                 <!-- Komentar start -->
                                 <div class="form-group">
                                     @if (!empty($usulanReviewer->reviewer_komentar))

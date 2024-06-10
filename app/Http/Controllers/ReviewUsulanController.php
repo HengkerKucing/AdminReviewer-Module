@@ -39,6 +39,8 @@ class ReviewUsulanController extends Controller
             'usulanFile.skemaFile',
             'reviews.nilai',
         ])->findOrFail($id);
+
+        $usulanReviewer = UsulanReviewer::where('usulan_id', $id)->first();
     
         // Mengambil data yang diperlukan untuk Data Penilaian
         $skemaNama = $usulanPenelitian->skema->trx_skema_nama;
@@ -88,7 +90,8 @@ class ReviewUsulanController extends Controller
             'iku', 
             'pendanaan', 
             'file', 
-            'reviewUsulan'
+            'reviewUsulan',
+            'usulanReviewer'
         ));
     }
 
