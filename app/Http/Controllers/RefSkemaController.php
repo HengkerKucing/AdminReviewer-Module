@@ -22,29 +22,32 @@ class RefSkemaController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'trx_skema_nama' => 'required|string',
-            'trx_skema_kode' => 'required',
-            'periode_tahun' => 'required',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'trx_skema_nama' => 'required|string',
+        'trx_skema_kode' => 'required',
+        'periode_tahun' => 'required',
+    ]);
 
-        if ($validator->fails()) {
-            toastr()->error('Skema gagal ditambah: ' . $validator->errors()->first());
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        try {
-            $data = Skema::create($request->all());
-            toastr()->success('Skema berhasil ditambahkan');
-            return redirect()->route('ref-skema.index');
-        } catch (\Throwable $th) {
-            toastr()->warning('Terdapat masalah saat menambahkan skema: ' . $th->getMessage());
-            return redirect()->route('ref-skema.index');
-        }
+    if ($validator->fails()) {
+        toastr()->error('Skema gagal ditambah: ' . $validator->errors()->first());
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    try {
+        $data = $request->all();
+        $data['is_active'] = 1;
+        Skema::create($data);
+        toastr()->success('Skema berhasil ditambahkan');
+        return redirect()->route('ref-skema.index');
+    } catch (\Throwable $th) {
+        toastr()->warning('Terdapat masalah saat menambahkan skema: ' . $th->getMessage());
+        return redirect()->route('ref-skema.index');
+    }
+}
+
 
     public function edit($id)
     {

@@ -377,7 +377,7 @@
             calculateTotal();
         });
     </script>
-@endpush
+{{-- @endpush --}}
 
 @push('styles')
     <style>

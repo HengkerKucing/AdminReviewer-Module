@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @push('css')
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
+
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -53,15 +58,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Jenis Skema</label>
-                                    <input type="text" name="jenis_skema_id"
-                                        class="form-control @error('jenis_skema_id')is-invalid @enderror "
-                                        placeholder="Jenis Skema">
+                                    <select name="jenis_skema_id" class="form-control @error('jenis_skema_id') is-invalid @enderror">
+                                        <option value="">Pilih Jenis Skema</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                     @error('jenis_skema_id')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
                                         </div>
                                     @enderror
-                                </div>
+                                </div>                                
                                 <div class="form-group">
                                     <label>Periode Tahun</label>
                                     <input type="text" name="periode_tahun"
