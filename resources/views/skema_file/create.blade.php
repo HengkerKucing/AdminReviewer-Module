@@ -47,9 +47,12 @@
 
                                 <div class="form-group">
                                     <label>Tipe File</label>
-                                    <input type="text" name="file_accepted_type"
-                                        class="form-control @error('file_accepted_type')is-invalid @enderror "
-                                        placeholder="Kode Skema">
+                                    <select name="file_accepted_type" class="form-control @error('file_accepted_type') is-invalid @enderror">
+                                        <option disabled selected value>-- Pilih Tipe File --</option>
+                                        @foreach ($tipefile as $tipefiles)
+                                            <option value="{{ $tipefiles->file_accepted_type }}">{{ $tipefiles->file_accepted_type }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('file_accepted_type')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
@@ -59,9 +62,12 @@
 
                                 <div class="form-group">
                                     <label>File Key</label>
-                                    <input type="text" name="file_key"
-                                        class="form-control @error('file_key')is-invalid @enderror "
-                                        placeholder="Kode Skema">
+                                    <select name="file_key" class="form-control @error('file_key') is-invalid @enderror">
+                                        <option disabled selected value>-- Pilih File key --</option>
+                                        @foreach ($filekey as $filekeys)
+                                            <option value="{{ $filekeys->file_key }}">{{ $filekeys->file_key }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('file_key')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>

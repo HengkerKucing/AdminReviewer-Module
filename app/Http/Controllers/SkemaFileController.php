@@ -35,7 +35,9 @@ class SkemaFileController extends Controller
 
     public function create($trx_skema_id)
     {
-        return view('skema_file.create', compact('trx_skema_id'));
+        $tipefile = SkemaFileModel::distinct()->get(['file_accepted_type']);
+        $filekey = SkemaFileModel::distinct()->get(['file_key']);
+        return view('skema_file.create', compact('filekey','tipefile','trx_skema_id'));
     }
 
     public function store(Request $request, $trx_skema_id)
@@ -72,8 +74,9 @@ class SkemaFileController extends Controller
     public function edit($trx_skema_id, $id)
     {
         $skemafile = SkemaFileModel::find($id);
-
-        return view('skema_file.edit', compact('skemafile', 'trx_skema_id', 'id'));
+        $tipefile = SkemaFileModel::distinct()->get(['file_accepted_type']);
+        $filekey = SkemaFileModel::distinct()->get(['file_key']);
+        return view('skema_file.edit', compact('tipefile','filekey','skemafile', 'trx_skema_id', 'id'));
     }
 
     public function update(Request $request, $trx_skema_id, $id)

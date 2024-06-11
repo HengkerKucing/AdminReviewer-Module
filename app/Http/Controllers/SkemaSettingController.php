@@ -63,8 +63,8 @@ class SkemaSettingController extends Controller
     public function edit($trx_skema_id, $id)
     {
         $skemasetting = SkemaSettingModel::find($id);
-
-        return view('skema_setting.edit', compact('skemasetting', 'trx_skema_id', 'id'));
+        $settings = SkemaSettingModel::distinct()->get(['setting_key']);
+        return view('skema_setting.edit', compact('settings','skemasetting', 'trx_skema_id', 'id'));
     }
 
     public function update(Request $request, $trx_skema_id, $id)

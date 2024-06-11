@@ -48,6 +48,23 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
+
+                            <div class="form-group">
+                                <label>Setting Key</label>
+                                <select name="setting_key" class="form-control @error('setting_key') is-invalid @enderror">
+                                    <option disabled value>-- Pilih Setting key --</option>
+                                    @foreach ($settings as $setting)
+                                        <option value="{{ $setting->setting_key }}" {{ $skemasetting->setting_key == $setting->setting_key ? 'selected' : '' }}>
+                                            {{ $setting->setting_key }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('file_key')
+                                    <div class="invalid-feedback" role="alert">
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
                             
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>

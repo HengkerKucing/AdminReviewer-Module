@@ -39,15 +39,42 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label for="file_accepted_type">Kode Skema</label>
-                                <input type="text" name="file_accepted_type" id="file_accepted_type"
-                                    class="form-control @error('file_accepted_type') is-invalid @enderror"
-                                    value="{{ $skemafile->file_accepted_type }}">
-                                @error('file_accepted_type')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
+    <label>Tipe File</label>
+    <select name="file_accepted_type" class="form-control @error('file_accepted_type') is-invalid @enderror">
+        <option disabled value>-- Pilih Tipe File --</option>
+        @foreach ($tipefile as $tipefiles)
+            <option value="{{ $tipefiles->file_accepted_type }}" {{ $skemafile->file_accepted_type == $tipefiles->file_accepted_type ? 'selected' : '' }}>
+                {{ $tipefiles->file_accepted_type }}
+            </option>
+        @endforeach
+    </select>
+    @error('file_accepted_type')
+        <div class="invalid-feedback" role="alert">
+            <span>{{ $message }}</span>
+        </div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <label>File Key</label>
+    <select name="file_key" class="form-control @error('file_key') is-invalid @enderror">
+        <option disabled value>-- Pilih File key --</option>
+        @foreach ($filekey as $filekeys)
+            <option value="{{ $filekeys->file_key }}" {{ $skemafile->file_key == $filekeys->file_key ? 'selected' : '' }}>
+                {{ $filekeys->file_key }}
+            </option>
+        @endforeach
+    </select>
+    @error('file_key')
+        <div class="invalid-feedback" role="alert">
+            <span>{{ $message }}</span>
+        </div>
+    @enderror
+</div>
+
+
                             <div class="form-group">
                                 <label for="file_template">Upload File</label>
                                 <input type="file" name="file_template" id="file_template"
