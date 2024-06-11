@@ -101,17 +101,6 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label for="is_active">Aktif?</label>
-                                <select name="is_active" id="is_active"
-                                    class="form-control @error('is_active') is-invalid @enderror">
-                                    <option value="1" {{ $skema->is_active ? 'selected' : '' }}>Ya</option>
-                                    <option value="0" {{ !$skema->is_active ? 'selected' : '' }}>Tidak</option>
-                                </select>
-                                @error('is_active')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>
                     </div>
