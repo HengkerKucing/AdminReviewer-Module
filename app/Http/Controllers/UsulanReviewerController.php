@@ -121,7 +121,7 @@ class UsulanReviewerController extends Controller
                     ->delete();
             
                 toastr()->success('Plotting berhasil disimpan');
-                return redirect()->route('plotting-reviewer.show', ['plotting_reviewer' => $id]);
+                return redirect()->route('plotting-reviewer.index', ['plotting_reviewer' => $id]);
             } catch (\Throwable $th) {
                 toastr()->warning('Terdapat masalah di server');
                 return redirect()->route('plotting-reviewer.show', ['plotting_reviewer' => $id]);
