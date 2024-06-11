@@ -26,7 +26,8 @@ class SkemaSettingController extends Controller
 
     public function create($trx_skema_id)
     {
-        return view('skema_setting.create', compact('trx_skema_id'));
+        $settings = SkemaSettingModel::distinct()->get(['setting_key']);
+        return view('skema_setting.create', compact('settings','trx_skema_id'));
     }
 
     public function store(Request $request, $trx_skema_id)

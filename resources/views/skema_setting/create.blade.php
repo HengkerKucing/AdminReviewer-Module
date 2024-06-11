@@ -24,11 +24,10 @@
                             <h5 class="card-title m-0"></h5>
                             <div class="card-tools">
                             @if (!empty($trx_skema_id))
-    <a href="{{ route('skema-setting.index', ['trx_skema_id' => $trx_skema_id]) }}" class="btn btn-tool">
-        <i class="fas fa-arrow-alt-circle-left"></i>
-    </a>
-@endif
-
+                                <a href="{{ route('skema-setting.index', ['trx_skema_id' => $trx_skema_id]) }}" class="btn btn-tool">
+                                    <i class="fas fa-arrow-alt-circle-left"></i>
+                                </a>
+                            @endif
                             </div>
                         </div>
                         <form action="{{ route('skema-setting.store', $trx_skema_id) }}" method="post" enctype="multipart/form-data">
@@ -38,7 +37,7 @@
                                     <label>Nama Skema Setting</label>
                                     <input type="text" name="setting_label"
                                         class="form-control @error('setting_label')is-invalid @enderror" placeholder="Nama Skema Setting">
-                                    @error('file_caption')
+                                    @error('setting_label')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
                                         </div>
@@ -48,9 +47,24 @@
                                 <div class="form-group">
                                     <label>Setting Value</label>
                                     <input type="text" name="setting_value"
-                                        class="form-control @error('setting_value')is-invalid @enderror "
+                                        class="form-control @error('setting_value')is-invalid @enderror"
                                         placeholder="Setting Value">
-                                    @error('file_accepted_type')
+                                    @error('setting_value')
+                                        <div class="invalid-feedback" role="alert">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Setting Key</label>
+                                    <select name="setting_key" class="form-control @error('setting_key') is-invalid @enderror">
+                                        <option disabled selected value>-- Pilih Setting Key --</option>
+                                        @foreach ($settings as $setting)
+                                            <option value="{{ $setting->setting_key }}">{{ $setting->setting_key }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('setting_key')
                                         <div class="invalid-feedback" role="alert">
                                             <span>{{ $message }}</span>
                                         </div>
