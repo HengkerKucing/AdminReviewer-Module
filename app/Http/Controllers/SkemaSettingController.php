@@ -13,7 +13,7 @@ class SkemaSettingController extends Controller
     public function index($id): View
     {
         $skemasetting = SkemaSettingModel::where('trx_skema_id', $id)
-                                         ->where('is_visible', 1)
+                                         ->where('is_active', 1)
                                          ->get();
         $skema = Skema::where('trx_skema_id', $id)->get();
 
@@ -95,7 +95,7 @@ class SkemaSettingController extends Controller
     {
         try {
             $skemasetting = SkemaSettingModel::findOrFail($skema_setting_id);
-            $skemasetting->is_visible = 0;
+            $skemasetting->is_active = 0;
             $skemasetting->save();
             toastr()->success('Skema berhasil dihapus');
             return redirect()->route('skema-setting.index', $trx_skema_id);
