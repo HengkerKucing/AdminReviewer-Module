@@ -353,6 +353,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 @push('js')
     <script>
@@ -395,4 +396,4 @@
         }
     </style>
 @endpush
-@endsection
+
