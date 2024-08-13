@@ -1,1 +1,1 @@
-# Admin-Reviewer-SIPMAS
+# Admin-Reviewer-Module
